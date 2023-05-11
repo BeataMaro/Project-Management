@@ -8,14 +8,14 @@ import { AuthService } from 'src/app/user-login/service/auth.service';
   styleUrls: ['./navigation.component.scss'],
 })
 export class NavigationComponent implements OnChanges {
-  isLoggedin = '';
+  isLoggedin = false;
 
   constructor(private authService: AuthService, private router: Router) {
-    this.isLoggedin = JSON.parse(localStorage.getItem('is_loggedin') || '');
+    this.isLoggedin = JSON.parse(localStorage.getItem('is_loggedin')!) || false;
   }
 
   ngOnChanges() {
-    this.isLoggedin = JSON.parse(localStorage.getItem('is_loggedin') || '');
+    this.isLoggedin = JSON.parse(localStorage.getItem('is_loggedin')!) || false;
   }
 
   logOut() {

@@ -10,7 +10,7 @@ export class WelcomePageComponent implements OnInit {
   isLoggedin = false;
 
   constructor(private router: Router) {
-    this.isLoggedin = JSON.parse(localStorage.getItem('is_loggedin')!);
+    this.isLoggedin = JSON.parse(localStorage.getItem('is_loggedin')!) || false;
   }
 
   ngOnInit() {

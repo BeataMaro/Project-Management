@@ -35,10 +35,10 @@ export class UserEditPageComponent implements OnInit {
     private store: Store<fromRoot.BoardsStateInterface>,
     private dialog: MatDialog
   ) {
-    this.isLoggedin = JSON.parse(localStorage.getItem('is_loggedin')!);
-    this.userName = localStorage.getItem('user_name')!;
-    this.userLogin = localStorage.getItem('user_login')!;
-    this.userId = localStorage.getItem('user_id')!;
+    this.isLoggedin = JSON.parse(localStorage.getItem('is_loggedin')!) || false;
+    this.userName = localStorage.getItem('user_name') || '';
+    this.userLogin = localStorage.getItem('user_login') || '';
+    this.userId = localStorage.getItem('user_id') || '';
   }
 
   ngOnInit() {
