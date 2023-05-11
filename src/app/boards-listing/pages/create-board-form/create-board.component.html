@@ -1,0 +1,24 @@
+<div style="max-width: 400px; margin: auto">
+  <h2>Create new board</h2>
+  <form
+    id="create-board-form"
+    name="create-board-form"
+    [formGroup]="createBoardForm"
+    (submit)="onCreateNewBoard()"
+  >
+    <mat-form-field class="example-full-width">
+      <mat-label>Title</mat-label>
+      <input
+        matInput
+        type="text"
+        class="board-title"
+        name="board-title"
+        placeholder="Title"
+        formControlName="title"
+      />
+    </mat-form-field>
+    <button mat-flat-button color="primary" type="submit" class="submit-button">
+      Create Board
+    </button>
+  </form>
+</div>

@@ -1,0 +1,61 @@
+<nav>
+  <button mat-raised-button routerLink="/login-form" routerLinkActive="active">
+    Log in
+  </button>
+  <button mat-raised-button routerLink="/signup-form" routerLinkActive="active">
+    Sign up
+  </button>
+</nav>
+
+<button mat-button [matMenuTriggerFor]="menu">Menu</button>
+<mat-menu #menu="matMenu">
+  <button mat-menu-item routerLink="/login-form" routerLinkActive="active">
+    Log in
+  </button>
+
+  <button routerLink="/signup-form" routerLinkActive="active" mat-menu-item>
+    Sign up
+  </button>
+</mat-menu>
+
+<mat-grid-list cols="2" rowHeight="2:1">
+  <mat-grid-tile
+    ><mat-grid-tile-header>About project</mat-grid-tile-header>
+    <p>
+      Project management application that helps an individual in a team or group
+      of developers to successfully achieve their goals and plan.
+    </p>
+  </mat-grid-tile>
+  <mat-grid-tile
+    ><mat-grid-tile-header>Quick start</mat-grid-tile-header></mat-grid-tile
+  >
+  <mat-grid-tile
+    ><mat-grid-tile-header>RS School Angular course</mat-grid-tile-header>RS
+    School is an online education platform that offers a range of courses for
+    developers to improve their skills and learn new technologies. RS School
+    courses cover various topics such as front-end web development, back-end web
+    development, full-stack web development, mobile development and more.
+    Courses are available in English and Russian and are taught by experienced
+    industry instructors. One of the unique features of RS School's courses is
+    that they are project-based, meaning that students learn by working on
+    real-world projects and building practical applications. In addition, RS
+    School provides students with access to mentors who can offer guidance and
+    support throughout the course. RS School is an excellent resource for
+    developers looking to improve their skills and gain practical experience in
+    a collaborative learning environment.</mat-grid-tile
+  >
+  <mat-grid-tile
+    ><mat-grid-tile-header>About author</mat-grid-tile-header>
+    The author has a Master's degree in Cultural Studies and previously worked
+    as a marketing specialist in a cultural institution. However, an interest in
+    website management led her to take a graphics course and secure an
+    internship at an advertising agency. She then completed a postgraduate
+    course in front-end web application development and successfully developed a
+    commercial website using React. This experience helped her secure a position
+    at Tom&Co, a Magento e-commerce agency. There she worked for 5 months as a
+    junior front-end developer, gaining experience in Angular, TypeScript,
+    Magento and Git workflow. As a member of the SCRUM team, she was responsible
+    for the maintenance and development of e-commerce websites. She is currently
+    enrolled in the Frontend course at RS School to further develop her skills.
+  </mat-grid-tile>
+</mat-grid-list>

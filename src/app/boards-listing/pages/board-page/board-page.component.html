@@ -1,0 +1,44 @@
+<!-- <app-create-task-form (addTask)="onAddTask($event)"></app-create-task-form> -->
+<!-- <app-tasks-list [tasksList]="tasks" (toggleComplete)="onToggleComplete($event)"></app-tasks-list> -->
+<a routerLink="/boards" routerLinkActive="active">Back to boards list</a>
+<app-create-column-form></app-create-column-form>
+
+<mat-card>
+  <mat-card-header>{{ boardItem?.title }}</mat-card-header>
+  <mat-card-content>
+    <button type="button" (click)="openDialog()">Delete</button>
+    <div class="board-container">
+      <h2>Column Title</h2>
+      <div
+        cdkDropList
+        #todoList="cdkDropList"
+        [cdkDropListData]="todo"
+        [cdkDropListConnectedTo]="[doneList]"
+        class="example-list"
+        (cdkDropListDropped)="drop($event)"
+      >
+        <div class="example-box" *ngFor="let item of todo" cdkDrag>
+          {{ item }}
+        </div>
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>
+<mat-card>
+  <h2>Done</h2>
+
+  <mat-card-content>
+    <div
+      cdkDropList
+      #doneList="cdkDropList"
+      [cdkDropListData]="done"
+      [cdkDropListConnectedTo]="[todoList]"
+      class="example-list"
+      (cdkDropListDropped)="drop($event)"
+    >
+      <div class="example-box" *ngFor="let item of done" cdkDrag>
+        {{ item }}
+      </div>
+    </div>
+  </mat-card-content>
+</mat-card>

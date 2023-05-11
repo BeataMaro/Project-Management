@@ -1,0 +1,42 @@
+
+<h2>Sign up</h2>
+<form
+  id="signup-form"
+  name="signup-form"
+  [formGroup]="signupForm"
+  (submit)="onSignUp()"
+>
+  <mat-form-field>
+    <input
+      matInput
+      type="text"
+      class="name"
+      name="name"
+      placeholder="Your name"
+      formControlName="name"
+    />
+  </mat-form-field>
+  <mat-form-field>
+    <input
+      matInput
+      type="text"
+      class="login"
+      name="login"
+      placeholder="Set login"
+      formControlName="login"
+    />
+  </mat-form-field>
+  <mat-form-field>
+    <input
+      matInput
+      type="text"
+      class="password"
+      name="password"
+      placeholder="Set password"
+      formControlName="password"
+    />
+  </mat-form-field>
+  <button mat-flat-button color="primary" type="submit" class="submit-button">Sign up</button>
+</form>
+
+<p>Already have an account? <a routerLink="/login-form" routerLinkActive="active">Log in here.</a></p>
