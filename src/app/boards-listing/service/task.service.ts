@@ -28,13 +28,13 @@ export class TaskService {
   }
   deleteTask(taskId: string, boardId: string, columnId: string): Observable<Itask> {
 
-    const token = localStorage.getItem('auth_token');
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${token}`,
-    });
+    // const token = localStorage.getItem('auth_token');
+    // const headers = new HttpHeaders({
+    //   'Content-Type': 'application/json',
+    //   Authorization: `Bearer ${token}`,
+    // });
 
-    return this.httpClient.delete<Itask>(`boards/${boardId}/columns/${columnId}/tasks/${taskId}`, {headers})
+    return this.httpClient.delete<Itask>(`boards/${boardId}/columns/${columnId}/tasks/${taskId}`)
   }
 
 }

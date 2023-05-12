@@ -10,57 +10,31 @@ import { Iboard } from '../../shared/models/board.model';
 })
 export class BoardsService {
   constructor(private httpClient: HttpClient, private route: ActivatedRoute) {}
-  // private token = localStorage.getItem('auth_token');
 
   getAllBoards(): Observable<Iboard[]> {
-    const token = localStorage.getItem('auth_token');
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${token}`,
-    });
-    return this.httpClient.get<Iboard[]>('boards', { headers });
+
+    return this.httpClient.get<Iboard[]>('boards', {});
   }
 
   createBoard({ title, owner, users }: Iboard): Observable<Iboard> {
-    const token = localStorage.getItem('auth_token');
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${token}`,
-    });
+
     return this.httpClient.post<Iboard>(
       'boards',
-      { title, owner, users },
-      { headers }
+      { title, owner, users }
     );
   }
 
   getBoards(): Observable<Iboard[]> {
     const userId = localStorage.getItem('user_id');
-    const token = localStorage.getItem('auth_token');
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${token}`,
-    });
-    return this.httpClient.get<Iboard[]>(`boardsSet/${userId}`, { headers });
+    return this.httpClient.get<Iboard[]>(`boardsSet/${userId}`);
   }
 
   deleteBoard(boardId: string): Observable<Iboard> {
-    const token = localStorage.getItem('auth_token');
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${token}`,
-    });
-    return this.httpClient.delete<Iboard>(`boards/${boardId}`, { headers });
+    return this.httpClient.delete<Iboard>(`boards/${boardId}`);
   }
 
   getAllColumns(boardId: string): Observable<Icolumn[]> {
-    const token = localStorage.getItem('auth_token');
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${token}`,
-    });
-    return this.httpClient.get<Icolumn[]>(`boards/${boardId}/columns`, {
-      headers,
-    });
+
+    return this.httpClient.get<Icolumn[]>(`boards/${boardId}/columns`);
   }
 }

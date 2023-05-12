@@ -10,19 +10,18 @@ import { Ilogin, Isignup, Itoken, Iuser } from '../../shared/models/user.model';
 export class AuthService {
   // interceptor - just endpoint
   users: Iuser[] = [];
-  private token = localStorage.getItem('auth_token');
-  isLoggedIn: Boolean = false;
+  private token = '';
+  isLoggedIn: boolean = false;
   loggedUserId = '';
 
   constructor(private httpClient: HttpClient, private router: Router) {}
 
   signUp({ name, login, password }: Isignup): Observable<Iuser> {
- 
     return this.httpClient.post<Iuser>('auth/signup', {
       name,
       login,
       password,
-    })
+    });
   }
 
   logIn({ login, password }: Ilogin): Observable<Itoken> {
@@ -32,18 +31,18 @@ export class AuthService {
     });
   }
 
+  getToken() {
+    this.token = localStorage.getItem('auth_token') || '';
+    return this.token;
+  }
+
   getLoggedUserId() {
     this.loggedUserId = localStorage.getItem('user_id') || '';
     return this.loggedUserId;
   }
 
   getUsers(): Observable<Iuser[]> {
-    const token = localStorage.getItem('auth_token');
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${token}`,
-    });
-    return this.httpClient.get<Iuser[]>('users', { headers });
+    return this.httpClient.get<Iuser[]>('users');
   }
 
   getUser(user: Iuser): Observable<Iuser> {
@@ -51,10 +50,7 @@ export class AuthService {
   }
 
   deleteUser(userId: string): Observable<Iuser> {
-    const token = localStorage.getItem('auth_token');
     const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${token}`,
       _id: userId,
     });
     return this.httpClient.delete<Iuser>(`users/${userId}`, {
@@ -62,19 +58,18 @@ export class AuthService {
     });
   }
 
-  updateUser({name, login, password}: Isignup): Observable<Iuser> {
-    const token = localStorage.getItem('auth_token');
+  updateUser({ name, login, password }: Isignup): Observable<Iuser> {
     const userId = localStorage.getItem('user_id') || '';
 
     const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${token}`,
       _id: userId,
     });
     return this.httpClient.put<Iuser>(
       `users/${userId}`,
       {
-        name, login, password
+        name,
+        login,
+        password,
       },
       {
         headers,

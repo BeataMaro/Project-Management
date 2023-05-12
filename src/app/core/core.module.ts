@@ -3,14 +3,15 @@ import { CommonModule } from '@angular/common';
 import { HeaderComponent } from './components/header/header.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { ErrorPageComponent } from './pages/error-page/error-page.component';
-import { ApiInterceptor } from './interceptors/api.interceptor'; //??
-import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http'; //!!
-import { MaterialModule } from './material/material/material.module'; //!!
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { MaterialModule } from './material/material/material.module';
 import { CreateBoardComponent } from '../boards-listing/pages/create-board-form/create-board.component'; // !!
 import { ReactiveFormsModule } from '@angular/forms';
 import { NavigationComponent } from './components/navigation/navigation.component';
 import { RouterModule } from '@angular/router';
 import { ConfirmationDialog } from './components/confirmation-dialog/confirmation-dialog.component';
+import { ApiInterceptor } from './interceptors/api.interceptor';
+import { AuthInterceptor } from './interceptors/auth.interceptor';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,7 @@ import { ConfirmationDialog } from './components/confirmation-dialog/confirmatio
     ErrorPageComponent,
     CreateBoardComponent,
     NavigationComponent,
-    ConfirmationDialog
+    ConfirmationDialog,
   ],
   exports: [
     HeaderComponent,
@@ -34,14 +35,19 @@ import { ConfirmationDialog } from './components/confirmation-dialog/confirmatio
     HttpClientModule,
     MaterialModule,
     ReactiveFormsModule,
-    RouterModule
-  ], 
+    RouterModule,
+  ],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
       useClass: ApiInterceptor,
       multi: true,
     },
-  ], 
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true,
+    },
+  ],
 })
 export class CoreModule {}
