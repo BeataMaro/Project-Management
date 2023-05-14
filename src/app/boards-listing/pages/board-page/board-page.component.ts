@@ -1,5 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { BoardsService } from 'src/app/boards-listing/service/boards.service';
 
@@ -22,6 +22,8 @@ import { TaskService } from '../../service/task.service';
   selector: 'app-board-page',
   templateUrl: './board-page.component.html',
   styleUrls: ['./board-page.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+
 })
 export class BoardPageComponent implements OnInit {
   boards: Iboard[] = [];

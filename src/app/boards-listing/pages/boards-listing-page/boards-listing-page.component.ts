@@ -1,4 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  OnInit,
+} from '@angular/core';
 import { Iboard } from '../../../shared/models/board.model';
 import { select, Store } from '@ngrx/store';
 import * as BoardsActions from '../../store/board/board-actions';
@@ -17,6 +21,7 @@ import { MatDialog } from '@angular/material/dialog';
   selector: 'app-board',
   templateUrl: './boards-listing-page.component.html',
   styleUrls: ['./boards-listing-page.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class BoardsListingPageComponent implements OnInit {
   allBoards2: Iboard[] = [];
@@ -34,29 +39,27 @@ export class BoardsListingPageComponent implements OnInit {
   }
 
   ngOnInit() {
+    console.log('this', this);
     this.store.dispatch(BoardsActions.getBoards());
   }
 
   deleteBoard(board: { boardId: string }) {
-  
     this.store.dispatch(BoardsActions.deleteBoard(board));
     this.store.dispatch(BoardsActions.getBoards());
     this.allBoards$ = this.store.select(BoardsSelector);
-   
   }
-    openDialog(board: { boardId: string }) {
-      const dialogRef = this.dialog.open(ConfirmationDialog, {
-        data: {
-          message: 'Do you want to delete the board and the associated tasks?',
-          cancelButtonText: 'Cancel'
-        },
-      });
-  
-      dialogRef.afterClosed().subscribe((confirmed: boolean) => {
-        if (confirmed) {
-          this.deleteBoard(board);
-        }
-      });
-    }
-  }
+  openDialog(board: { boardId: string }) {
+    const dialogRef = this.dialog.open(ConfirmationDialog, {
+      data: {
+        message: 'Do you want to delete the board and the associated tasks?',
+        cancelButtonText: 'Cancel',
+      },
+    });
 
+    dialogRef.afterClosed().subscribe((confirmed: boolean) => {
+      if (confirmed) {
+        this.deleteBoard(board);
+      }
+    });
+  }
+}
