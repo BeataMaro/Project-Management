@@ -1,6 +1,6 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { Ilogin, Isignup, Itoken, Iuser } from '../../shared/models/user.model';
 
@@ -11,7 +11,7 @@ export class AuthService {
   // interceptor - just endpoint
   users: Iuser[] = [];
   private token = '';
-  isLoggedIn: boolean = false;
+  isLoggedIn = false;
   loggedUserId = '';
 
   constructor(private httpClient: HttpClient, private router: Router) {}
@@ -36,6 +36,10 @@ export class AuthService {
     return this.token;
   }
 
+  // getLoggedUser(user_id): Observable<IUser> {
+  //  return this.httpClient.get<Iuser>(`users/${user_id}`)
+  // }
+
   getLoggedUserId() {
     this.loggedUserId = localStorage.getItem('user_id') || '';
     return this.loggedUserId;
@@ -45,40 +49,31 @@ export class AuthService {
     return this.httpClient.get<Iuser[]>('users');
   }
 
-  getUser(user: Iuser): Observable<Iuser> {
-    return this.httpClient.get<Iuser>(`users/${user._id}`);
+  getUser(): Observable<Iuser> {
+    // const userName = localStorage.getItem('user_name') || '';
+    // const userLogin = localStorage.getItem('user_login') || '';
+    const userId = localStorage.getItem('user_id') || '';
+    return this.httpClient.get<Iuser>(`users/${userId}`);
   }
 
   deleteUser(userId: string): Observable<Iuser> {
-    const headers = new HttpHeaders({
-      _id: userId,
-    });
-    return this.httpClient.delete<Iuser>(`users/${userId}`, {
-      headers,
-    });
+    return this.httpClient.delete<Iuser>(`users/${userId}`);
   }
 
-  updateUser({ name, login, password }: Isignup): Observable<Iuser> {
+  updateUser(
+    { name, login, password }: Isignup
+  ): Observable<Iuser> {
     const userId = localStorage.getItem('user_id') || '';
-
-    const headers = new HttpHeaders({
-      _id: userId,
+    return this.httpClient.put<Iuser>(`users/${userId}`, {
+      name,
+      login,
+      password,
     });
-    return this.httpClient.put<Iuser>(
-      `users/${userId}`,
-      {
-        name,
-        login,
-        password,
-      },
-      {
-        headers,
-      }
-    );
   }
 
   logOut() {
-    this.router.navigateByUrl('/home');
     localStorage.clear();
+    localStorage.setItem('is_loggedin', 'false');
+    this.router.navigateByUrl('/home');
   }
 }

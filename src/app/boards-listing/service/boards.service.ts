@@ -1,6 +1,5 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Icolumn } from 'src/app/shared/models/column.model';
 import { Iboard } from '../../shared/models/board.model';
@@ -9,19 +8,19 @@ import { Iboard } from '../../shared/models/board.model';
   providedIn: 'root',
 })
 export class BoardsService {
-  constructor(private httpClient: HttpClient, private route: ActivatedRoute) {}
+  constructor(
+    private httpClient: HttpClient,
+    // private router: Router,
+    // private route: ActivatedRoute
+  ) {}
 
   getAllBoards(): Observable<Iboard[]> {
-
-    return this.httpClient.get<Iboard[]>('boards', {});
+    return this.httpClient.get<Iboard[]>('boards');
   }
 
   createBoard({ title, owner, users }: Iboard): Observable<Iboard> {
-
-    return this.httpClient.post<Iboard>(
-      'boards',
-      { title, owner, users }
-    );
+    // this.router.navigateByUrl('/boards');
+    return this.httpClient.post<Iboard>('boards', { title, owner, users });
   }
 
   getBoards(): Observable<Iboard[]> {
@@ -34,7 +33,6 @@ export class BoardsService {
   }
 
   getAllColumns(boardId: string): Observable<Icolumn[]> {
-
     return this.httpClient.get<Icolumn[]>(`boards/${boardId}/columns`);
   }
 }

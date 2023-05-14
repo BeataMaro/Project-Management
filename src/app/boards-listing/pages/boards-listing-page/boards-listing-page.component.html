@@ -5,7 +5,7 @@
   <!-- <app-board-page *ngFor="let item of allBoards$ | async" key="item._id" [boardItem]="item"></app-board-page> -->
   <mat-grid-tile
     >
-    <mat-card *ngFor="let item of allBoards$ | async">
+    <mat-card *ngFor="let item of allBoards$ | async" key="item._id">
       <a
         [routerLink]="['/boards', item._id, 'columns']"
         routerLinkActive="active"

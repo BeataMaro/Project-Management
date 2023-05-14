@@ -11,16 +11,14 @@ export class NavigationComponent implements OnChanges {
   isLoggedin = false;
 
   constructor(private authService: AuthService, private router: Router) {
-    this.isLoggedin = JSON.parse(localStorage.getItem('is_loggedin')!) || false;
+    this.isLoggedin = JSON.parse(localStorage.getItem('is_loggedin')!);
   }
 
   ngOnChanges() {
-    this.isLoggedin = JSON.parse(localStorage.getItem('is_loggedin')!) || false;
+    this.isLoggedin = JSON.parse(localStorage.getItem('is_loggedin')!);
   }
 
   logOut() {
     this.authService.logOut();
-    localStorage.setItem('is_loggedin', 'false');
-    this.router.navigateByUrl('home');
   }
 }

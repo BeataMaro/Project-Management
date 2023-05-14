@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from '../../service/auth.service';
 
 import { MatDialog } from '@angular/material/dialog';
@@ -9,7 +9,7 @@ import { Store } from '@ngrx/store';
 import * as fromRoot from '../../../boards-listing/store/board/board-reducers';
 import * as UsersActions from '../../store/users-actions';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-
+import { Iuser } from 'src/app/shared/models/user.model';
 
 @Component({
   selector: 'app-user-edit-page',
@@ -19,26 +19,24 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 export class UserEditPageComponent implements OnInit {
   passwordVisible = false;
   isLoggedin = false;
-  userName = '';
-  userLogin = '';
-  userId = '';
+  loggedUser: Iuser = { _id: '', name: '', login: '', password: '' };
+
 
   editProfileForm = new FormGroup({
-    name: new FormControl(this.userName, [Validators.required]),
-    login: new FormControl(this.userLogin, [Validators.required]),
+    name: new FormControl(this.loggedUser.name, [Validators.required]),
+    login: new FormControl(this.loggedUser.login, [Validators.required]),
     password: new FormControl('', [Validators.required]),
   });
 
   constructor(
     private authService: AuthService,
     private router: Router,
+    private route: ActivatedRoute,
     private store: Store<fromRoot.BoardsStateInterface>,
     private dialog: MatDialog
   ) {
     this.isLoggedin = JSON.parse(localStorage.getItem('is_loggedin')!) || false;
-    this.userName = localStorage.getItem('user_name') || '';
-    this.userLogin = localStorage.getItem('user_login') || '';
-    this.userId = localStorage.getItem('user_id') || '';
+    this.authService.getUser().subscribe((user) => (this.loggedUser = user));
   }
 
   ngOnInit() {
@@ -55,7 +53,9 @@ export class UserEditPageComponent implements OnInit {
       .subscribe((res) => console.log(res));
   }
   deleteUser() {
-    this.store.dispatch(UsersActions.deleteUser({ userId: this.userId }));
+    this.store.dispatch(
+      UsersActions.deleteUser({ userId: this.loggedUser._id })
+    );
     localStorage.clear();
     localStorage.setItem('is_loggedin', 'false');
     this.router.navigateByUrl('home');
@@ -65,6 +65,7 @@ export class UserEditPageComponent implements OnInit {
     const dialogRef = this.dialog.open(ConfirmationDialog, {
       data: {
         message: 'Do you want to delete your account?',
+        cancelButtonText: 'Cancel',
       },
     });
 
@@ -73,5 +74,10 @@ export class UserEditPageComponent implements OnInit {
         this.deleteUser();
       }
     });
+  }
+
+  getAllUsers(): void {
+    this.authService.getUsers().subscribe((res) => console.log(res));
+    console.log(this.route.snapshot.data);
   }
 }

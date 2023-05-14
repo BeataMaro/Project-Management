@@ -11,8 +11,19 @@ html {
   scroll-behavior: smooth;
 }
 
-img {
+body {
+  font-size: 1.125rem;
+  line-height: 1.5;
+}
+
+main {
+  width: min(85ch, 100% - 4rem);
+  margin-inline: auto;
+}
+
+img, svg {
   max-width: 100%;
+  display: block;
 }
 
 a {

@@ -1,5 +1,5 @@
 import { createFeatureSelector, createReducer, createSelector, on } from '@ngrx/store';
-import { Ilogin, Iuser } from '../../shared/models/user.model';
+import { Ilogin } from '../../shared/models/user.model';
 import * as usersActions from './users-actions';
 
 export interface UsersState {
@@ -22,17 +22,13 @@ export const usersReducer = createReducer(initialState,
     ...state,
     users
   })),
-    on(usersActions.updateUser, (state, action) => ({
+    on(usersActions.updateUser, (state, { user }) => ({
       ...state,
-      // userId: action.userId,
-      // name: action.name,
-      // login: action.login,
-      // password: action.password
-      user: action.user
+      user
     })),
-    on(usersActions.deleteUser, (state, action) => ({
+    on(usersActions.deleteUser, (state, { userId }) => ({
       ...state,
-      userId: action.userId
+      userId
     }))
   );
 

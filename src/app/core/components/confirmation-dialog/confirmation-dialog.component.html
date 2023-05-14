@@ -1,8 +1,19 @@
-<h5>Are You Sure?</h5>
-<mat-dialog-content>
-<p>{{message}}</p>
-</mat-dialog-content>
-<mat-dialog-actions>
-<button mat-raised-button color="primary" (click)="onConfirmClick()" tabindex="1">{{confirmButtonText}}</button>
-<button mat-raised-button mat-dialog-close tabindex="-1">{{cancelButtonText}}</button>
-</mat-dialog-actions>
+<div class="mat-typography">
+  <h5 *ngIf="question">{{ question }}</h5>
+  <mat-dialog-content>
+    <p>{{ message }}</p>
+  </mat-dialog-content>
+  <mat-dialog-actions>
+    <button
+      mat-raised-button
+      color="primary"
+      (click)="onConfirmClick()"
+      tabindex="1"
+    >
+      {{ confirmButtonText }}
+    </button>
+    <button mat-raised-button mat-dialog-close tabindex="-1" *ngIf="cancelButtonText">
+      {{ cancelButtonText }}
+    </button>
+  </mat-dialog-actions>
+</div>

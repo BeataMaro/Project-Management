@@ -48,6 +48,7 @@ export class BoardsListingPageComponent implements OnInit {
       const dialogRef = this.dialog.open(ConfirmationDialog, {
         data: {
           message: 'Do you want to delete the board and the associated tasks?',
+          cancelButtonText: 'Cancel'
         },
       });
   

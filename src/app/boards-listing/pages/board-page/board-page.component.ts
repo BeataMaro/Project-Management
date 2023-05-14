@@ -1,5 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { BoardsService } from 'src/app/boards-listing/service/boards.service';
 
@@ -8,7 +8,11 @@ import { Itask } from 'src/app/shared/models/task.model';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmationDialog } from '../../../core/components/confirmation-dialog/confirmation-dialog.component';
 
-import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
+import {
+  CdkDragDrop,
+  moveItemInArray,
+  transferArrayItem,
+} from '@angular/cdk/drag-drop';
 import { Store } from '@ngrx/store';
 
 import * as fromReducer from '../../store/column/column-reducers';
@@ -19,7 +23,7 @@ import { TaskService } from '../../service/task.service';
   templateUrl: './board-page.component.html',
   styleUrls: ['./board-page.component.scss'],
 })
-export class BoardPageComponent {
+export class BoardPageComponent implements OnInit {
   boards: Iboard[] = [];
   username = '';
   // allColumns$: Observable<ColumnsStateInterface>;
@@ -33,12 +37,16 @@ export class BoardPageComponent {
     private dialog: MatDialog,
     private store: Store<fromReducer.ColumnsStateInterface>
   ) {
-    this.route.params.subscribe(({id}) => this.currrentBoardId = id);
+    this.currrentBoardId = this.route.snapshot.params['id'];
+    // this.route.params.subscribe(({ id }) => (this.currrentBoardId = id));
     localStorage.setItem('boardId', this.currrentBoardId);
   }
 
   @Input() boardItem: Iboard | null = null;
 
+  ngOnInit(): void {
+    this.getBoards();
+  }
 
   onAddTask(item: Itask) {
     this.taskService.addTask(item).subscribe(
@@ -71,6 +79,7 @@ export class BoardPageComponent {
       data: {
         message:
           'Do you want to delete the board and all the associated tasks?',
+        cancelButtonText: 'Cancel',
       },
     });
 
@@ -87,13 +96,17 @@ export class BoardPageComponent {
 
   drop(event: CdkDragDrop<string[]>) {
     if (event.previousContainer === event.container) {
-      moveItemInArray(event.container.data, event.previousIndex, event.currentIndex);
+      moveItemInArray(
+        event.container.data,
+        event.previousIndex,
+        event.currentIndex
+      );
     } else {
       transferArrayItem(
         event.previousContainer.data,
         event.container.data,
         event.previousIndex,
-        event.currentIndex,
+        event.currentIndex
       );
     }
   }

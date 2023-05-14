@@ -1,9 +1,9 @@
 import { Component, OnChanges, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { AuthService } from 'src/app/user-login/service/auth.service';
-import { Ilogin, Isignup, Iuser } from 'src/app/shared/models/user.model';
+import { Iuser } from 'src/app/shared/models/user.model';
 
 import * as UsersActions from '../../store/users-actions';
 
@@ -24,7 +24,6 @@ export class UserLoginPageComponent implements OnChanges, OnInit {
 
   constructor(
     private authService: AuthService,
-    private route: ActivatedRoute,
     private router: Router,
     private store: Store<fromUsers.UsersState>
   ) {}
@@ -58,10 +57,6 @@ export class UserLoginPageComponent implements OnChanges, OnInit {
     );
   }
 
-  getAllUsers(): void {
-    this.authService.getUsers().subscribe((res) => console.log(res));
-    console.log(this.route.snapshot.data);
-  }
   getUserId(): string | void {
   
     let loggedUser: Iuser | undefined;

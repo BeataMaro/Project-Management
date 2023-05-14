@@ -65,7 +65,7 @@ export class UsersEffects {
         this.authService.updateUser(user).pipe(
           map(({ login, name, password }) =>
             UsersActions.updateUser({
-              user: { name: name, login: login, password: password },
+              user: { name, login, password },
             })
           ),
           catchError(() => of(UsersActions.loadUsersFailed()))

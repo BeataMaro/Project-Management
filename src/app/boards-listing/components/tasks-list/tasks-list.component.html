@@ -7,7 +7,7 @@
         [taskItem]="task"
       ></app-task>
     </div>
-    <div class="uncompleted-tasks-list" *ngIf="toBeCompletedTasks.length > 0">
+    <div class="uncompleted-tasks-list mat-typography *ngIf="toBeCompletedTasks.length > 0">
       <h3>Tasks to do</h3>
       <app-task
         *ngFor="let task of toBeCompletedTasks"
