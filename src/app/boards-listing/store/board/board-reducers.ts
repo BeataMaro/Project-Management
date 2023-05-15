@@ -35,5 +35,10 @@ export const boardsReducers = createReducer(
     ...state,
     isLoading: false,
     boardId: action.boardId,
+  })),
+  on(BoardsActions.addBoard, (state, action) => ({
+    ...state,
+    isLoading: false,
+    board: action.board,
   }))
 );

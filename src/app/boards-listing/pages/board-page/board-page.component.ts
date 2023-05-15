@@ -1,5 +1,10 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnChanges,
+  OnInit,
+} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { BoardsService } from 'src/app/boards-listing/service/boards.service';
 
@@ -22,11 +27,9 @@ import { TaskService } from '../../service/task.service';
   selector: 'app-board-page',
   templateUrl: './board-page.component.html',
   styleUrls: ['./board-page.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
-
 })
-export class BoardPageComponent implements OnInit {
-  boards: Iboard[] = [];
+export class BoardPageComponent implements OnInit, OnChanges {
+  boards$: Iboard[] = [];
   username = '';
   // allColumns$: Observable<ColumnsStateInterface>;
   // boardId = Observable<string | undefined>;
@@ -37,7 +40,7 @@ export class BoardPageComponent implements OnInit {
     private boardsService: BoardsService,
     public route: ActivatedRoute,
     private dialog: MatDialog,
-    private store: Store<fromReducer.ColumnsStateInterface>
+    private store: Store<fromReducer.ColumnsStateInterface>,
   ) {
     this.currrentBoardId = this.route.snapshot.params['id'];
     // this.route.params.subscribe(({ id }) => (this.currrentBoardId = id));
@@ -47,6 +50,10 @@ export class BoardPageComponent implements OnInit {
   @Input() boardItem: Iboard | null = null;
 
   ngOnInit(): void {
+    this.getBoards();
+  }
+
+  ngOnChanges(): void {
     this.getBoards();
   }
 
@@ -66,7 +73,7 @@ export class BoardPageComponent implements OnInit {
   private getBoards() {
     this.boardsService
       .getBoards()
-      .subscribe((boards) => (this.boards = boards));
+      .subscribe((boards) => (this.boards$ = boards));
   }
 
   // deleteTask(taskId: string, boardId: string, columnId: string) {

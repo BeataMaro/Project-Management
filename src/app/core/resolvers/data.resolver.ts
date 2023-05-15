@@ -1,17 +1,12 @@
 import { Injectable } from '@angular/core';
-import {
-  Router,
-  Resolve,
-  RouterStateSnapshot,
-  ActivatedRouteSnapshot,
-} from '@angular/router';
+import { Router, RouterStateSnapshot, ActivatedRouteSnapshot } from '@angular/router';
 import { Observable, timer } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root',
 })
-export class DataResolver implements Resolve<boolean> {
+export class DataResolver  {
   resolve(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot

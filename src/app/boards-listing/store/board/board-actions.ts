@@ -11,6 +11,12 @@ export const getBoardsFailure = createAction(
   props<{ error: string }>()
 );
 
-export const deleteBoard = createAction('[Board] Delete Board',
-props<{ boardId: string }>()
+export const deleteBoard = createAction(
+  '[Board] Delete Board',
+  props<{ boardId: string }>()
+);
+
+export const addBoard = createAction(
+  '[Board] Add Board',
+  props<{ board: Iboard }>()
 );

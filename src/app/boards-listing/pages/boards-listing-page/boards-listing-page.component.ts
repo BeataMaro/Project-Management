@@ -31,7 +31,8 @@ export class BoardsListingPageComponent implements OnInit {
 
   constructor(
     private store: Store<fromReducer.BoardsStateInterface>,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    changeDetection: ChangeDetectionStrategy.OnPush,
   ) {
     this.isLoading$ = this.store.pipe(select(isLoadingSelector));
     this.isError$ = this.store.pipe(select(ErrorSelector));

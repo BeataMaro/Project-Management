@@ -1,17 +1,20 @@
-<div *ngIf="isLoading$ | async" class="spinner"><mat-spinner></mat-spinner></div>
+<div *ngIf="isLoading$ | async" class="spinner">
+  <mat-spinner></mat-spinner>
+</div>
 <div *ngIf="isError$ | async as error">{{ error }}</div>
 
-<mat-grid-list cols="2" rowHeight="2:1">
+<mat-grid-list cols="1" rowHeight="2:1">
   <!-- <app-board-page *ngFor="let item of allBoards$ | async" key="item._id" [boardItem]="item"></app-board-page> -->
-  <mat-grid-tile
+  <mat-grid-tile>
+    <mat-card
+      *ngFor="let item of allBoards$ | async"
+      key="item._id"
+      tabindex="0"
     >
-    <mat-card *ngFor="let item of allBoards$ | async" key="item._id" tabindex="0">
       <a
         [routerLink]="['/boards', item._id, 'columns']"
         routerLinkActive="active"
       >
-    
-
         <mat-card-header>{{ item.title }}</mat-card-header>
       </a>
       <mat-card-footer>
@@ -28,5 +31,3 @@
     </mat-card>
   </mat-grid-tile>
 </mat-grid-list>
-
-
