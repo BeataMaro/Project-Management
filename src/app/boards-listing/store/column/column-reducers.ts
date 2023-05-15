@@ -1,41 +1,54 @@
 import { createReducer, on } from '@ngrx/store';
-import { Icolumn } from 'src/app/shared/models/column.model';
-import * as ColumnsActions from './column-actions';
- 
+import { IColumn } from '../../../../app/shared/models/column.model';
+import {
+  getColumnsSuccess,
+  getColumnsFailure,
+  getColumns,
+  addColumn,
+  deleteColumn,
+} from './column-actions';
 
 export interface ColumnsStateInterface {
   isLoading: boolean;
-  columns: Icolumn[];
+  columns: IColumn[];
   error: string | null;
-  columnId?: string,
-  boardId: string
+  columnId?: string;
+  boardId: string;
 }
 
 const initialState: ColumnsStateInterface = {
   isLoading: false,
   columns: [],
   error: null,
-  boardId: ''
+  boardId: '',
 };
 
-export const columnsReducers = createReducer(initialState, on(ColumnsActions.getColumns, (state) => ({
+export const columnsReducers = createReducer(
+  initialState,
+  on(getColumns, (state) => ({
     ...state,
-    isLoading: true
-}) ),
-on(ColumnsActions.getColumnsSuccess, (state, action) => ({
-  ...state,
-  isLoading: false,
-  columns: action.columns,
-  boardId: action.boardId,
-}) ),
-on(ColumnsActions.getColumnsFailure, (state, action) => ({
-  ...state,
-  isLoading: false,
-  error: action.error
-}) ),
-on(ColumnsActions.deleteColumn, (state) => ({
-  ...state,
-  isLoading: false,
-  // columnId: action.string
-}) ),
+    isLoading: true,
+  })),
+  on(getColumnsSuccess, (state, action) => ({
+    ...state,
+    isLoading: false,
+    columns: action.columns,
+    boardId: action.boardId,
+  })),
+  on(getColumnsFailure, (state, action) => ({
+    ...state,
+    isLoading: false,
+    error: action.error,
+  })),
+  on(deleteColumn, (state, action) => ({
+    ...state,
+    isLoading: false,
+    columnId: action.columnId,
+    boardId: action.boardId,
+  })),
+  on(addColumn, (state, action) => ({
+    ...state,
+    isLoading: false,
+    column: { title: action.title, order: action.order },
+  }))
 );

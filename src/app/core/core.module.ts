@@ -10,6 +10,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { NavigationComponent } from './components/navigation/navigation.component';
 import { RouterModule } from '@angular/router';
 import { ConfirmationDialog } from './components/confirmation-dialog/confirmation-dialog.component';
+import { FormDialog } from './components/form-dialog/form-dialog.component';
 import { ApiInterceptor } from './interceptors/api.interceptor';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
 
@@ -21,6 +22,7 @@ import { AuthInterceptor } from './interceptors/auth.interceptor';
     CreateBoardComponent,
     NavigationComponent,
     ConfirmationDialog,
+    FormDialog
   ],
   exports: [
     HeaderComponent,

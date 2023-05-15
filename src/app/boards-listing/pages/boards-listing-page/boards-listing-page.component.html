@@ -3,6 +3,9 @@
 </div>
 <div *ngIf="isError$ | async as error">{{ error }}</div>
 
+<button (click)="createColumnForm()">New Column</button>
+<button (click)="getAllColumns()">Get all columns</button>
+
 <mat-grid-list cols="1" rowHeight="2:1">
   <!-- <app-board-page *ngFor="let item of allBoards$ | async" key="item._id" [boardItem]="item"></app-board-page> -->
   <mat-grid-tile>
@@ -16,6 +19,7 @@
         routerLinkActive="active"
       >
         <mat-card-header>{{ item.title }}</mat-card-header>
+        <mat-card-content></mat-card-content>
       </a>
       <mat-card-footer>
         <button

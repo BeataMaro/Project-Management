@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { Component } from '@angular/core';
 import { BoardsService } from '../../service/boards.service';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
@@ -9,13 +9,11 @@ import { ConfirmationDialog } from 'src/app/core/components/confirmation-dialog/
 import { Iboard } from 'src/app/shared/models/board.model';
 import { Store } from '@ngrx/store';
 import * as BoardsActions from '../../store/board/board-actions';
-import { BoardIdSelector } from '../../store/board/board-selectors';
 
 @Component({
   selector: 'app-create-board',
   templateUrl: './create-board.component.html',
   styleUrls: ['./create-board.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CreateBoardComponent {
   createBoardForm = new FormGroup({
@@ -37,7 +35,7 @@ export class CreateBoardComponent {
     this.store.dispatch(BoardsActions.getBoards());
   }
 
-  onCreateNewBoard() {
+  async onCreateNewBoard() {
     this.boardsService
       .createBoard({
         title: this.createBoardForm.value.title,
@@ -46,17 +44,17 @@ export class CreateBoardComponent {
       })
       .subscribe(
         (res) => {
-          localStorage.setItem(`board_${res.title}`, res._id!);
+          localStorage.setItem('board_id', res._id!);
           this.board$ = res;
           console.log(this.board$);
         },
         (e) => this.router.navigateByUrl('/boards'),
         () => this.createBoardForm.setValue({ title: '' })
       );
-    this.store.dispatch(BoardsActions.addBoard({ board: this.board$ }));
-    this.store.dispatch(BoardsActions.getBoards());
-
-    // this.openDialog();
+    const newBoard = await this.store.dispatch(
+      BoardsActions.addBoard({ board: this.board$ })
+    );
+    const updateBoards = await this.store.dispatch(BoardsActions.getBoards());
   }
 
   openDialog() {

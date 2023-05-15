@@ -10,7 +10,6 @@ import { EffectsModule } from '@ngrx/effects';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
-
 @NgModule({
   declarations: [AppComponent],
   imports: [
@@ -19,6 +18,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
     CoreModule,
     BrowserAnimationsModule,
     WelcomeModule,
+
     StoreModule.forRoot({}),
     EffectsModule.forRoot(),
     StoreRouterConnectingModule.forRoot(),

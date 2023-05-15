@@ -1,10 +1,10 @@
 import { createAction, props } from '@ngrx/store';
-import { Icolumn } from 'src/app/shared/models/column.model';
+import { ICol, IColumn } from 'src/app/shared/models/column.model';
 
 export const getColumns = createAction('[Column] Get Columns');
 export const getColumnsSuccess = createAction(
   '[Column] Get Columns Success',
-  props<{ boardId: string, columns: Icolumn[] }>()
+  props<{ boardId: string, columns: IColumn[] }>()
 );
 export const getColumnsFailure = createAction(
   '[Column] Get Columns Failure',
@@ -13,5 +13,10 @@ export const getColumnsFailure = createAction(
 
 export const deleteColumn = createAction(
   '[Column] Delete Column',
-  props<{ columnId: string }>()
+  props<{ columnId: string, boardId: string }>()
+);
+
+export const addColumn = createAction(
+  '[Column] Add Column',
+  props<{ title: string, order: number }>()
 );

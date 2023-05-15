@@ -24,7 +24,7 @@ export const ColumnsSelector = createSelector(
     selectFeature,
     (state: ColumnsStateInterface) => state.error
   );
-  export const BoardIdSelector = createSelector(
+  export const ColumnIdSelector = createSelector(
     selectFeature,
-    (state: ColumnsStateInterface) => state.boardId
+    (state: ColumnsStateInterface) => state.columnId
   );

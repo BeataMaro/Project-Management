@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Icolumn } from 'src/app/shared/models/column.model';
+import { IColumn } from 'src/app/shared/models/column.model';
 import { Iboard } from '../../shared/models/board.model';
 
 @Injectable({
@@ -32,7 +32,7 @@ export class BoardsService {
     return this.httpClient.delete<Iboard>(`boards/${boardId}`);
   }
 
-  getAllColumns(boardId: string): Observable<Icolumn[]> {
-    return this.httpClient.get<Icolumn[]>(`boards/${boardId}/columns`);
+  getAllColumns(boardId: string): Observable<IColumn[]> {
+    return this.httpClient.get<IColumn[]>(`boards/${boardId}/columns`);
   }
 }
