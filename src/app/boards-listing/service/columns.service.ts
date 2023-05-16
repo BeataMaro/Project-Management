@@ -23,7 +23,6 @@ export class ColumnsService {
   }
 
   deleteColumn(columnId: string, boardId: string): Observable<IColumn> {
-    // const boardId = localStorage.getItem('board_id');
 
     return this.httpClient.delete<IColumn>(
       `boards/${boardId}/columns/${columnId}`

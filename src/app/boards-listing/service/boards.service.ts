@@ -18,8 +18,7 @@ export class BoardsService {
     return this.httpClient.get<Iboard[]>('boards');
   }
 
-  createBoard({ title, owner, users }: Iboard): Observable<Iboard> {
-    // this.router.navigateByUrl('/boards');
+  createBoard({ title, owner, users = [] }: Iboard): Observable<Iboard> {
     return this.httpClient.post<Iboard>('boards', { title, owner, users });
   }
 

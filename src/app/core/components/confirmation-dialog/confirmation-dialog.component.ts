@@ -1,5 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Store } from '@ngrx/store';
+import { getBoards } from 'src/app/boards-listing/store/board/board-actions';
 
 interface dialogData {
   question: string | boolean;
@@ -16,7 +18,8 @@ export class ConfirmationDialog {
   cancelButtonText: string | boolean = false;
   constructor(
     @Inject(MAT_DIALOG_DATA) private data: dialogData,
-    private dialogRef: MatDialogRef<ConfirmationDialog>
+    private dialogRef: MatDialogRef<ConfirmationDialog>,
+    private store: Store
   ) {
     if (data) {
       this.message = data.message || this.message;
@@ -31,6 +34,7 @@ export class ConfirmationDialog {
   }
 
   onConfirmClick(): void {
+    this.store.dispatch(getBoards());
     this.dialogRef.close(true);
   }
 }

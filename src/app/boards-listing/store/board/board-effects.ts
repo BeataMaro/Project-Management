@@ -74,12 +74,14 @@ export class BoardsEffects {
     { dispatch: false }
   );
 
-  removeBoard$ = createEffect(
+  deleteBoard$ = createEffect(
     () =>
       this.actions$.pipe(
         ofType(deleteBoard),
         withLatestFrom(this.store.select(BoardIdSelector)),
-        switchMap(([action, boards]) => from(this.boardsService.deleteBoard(action.boardId)))
+        switchMap(([action, boards]) =>
+          from(this.boardsService.deleteBoard(action.boardId))
+        ),
       ),
     { dispatch: false }
   );

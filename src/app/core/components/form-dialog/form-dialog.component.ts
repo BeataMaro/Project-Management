@@ -39,7 +39,6 @@ export class FormDialog {
   }
 
   create(): void {
-    console.log(this.createForm.value.title);
     this.ColumnsService.createColumn(
       this.createForm.value.title!,
       this.createForm.value.order!,

@@ -10,7 +10,7 @@ import {
   ErrorSelector,
   isLoadingSelector,
 } from '../../store/board/board-selectors';
-import { Observable } from 'rxjs';
+import { Observable, shareReplay } from 'rxjs';
 
 import { ConfirmationDialog } from 'src/app/core/components/confirmation-dialog/confirmation-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
@@ -20,6 +20,7 @@ import {
   ColumnIdSelector,
   ColumnsSelector,
 } from '../../store/column/column-selector';
+import { BoardsService } from '../../service/boards.service';
 
 @Component({
   selector: 'app-board',
@@ -37,6 +38,7 @@ export class BoardsListingPageComponent implements OnInit {
   constructor(
     private store: Store<fromReducer.BoardsStateInterface>,
     private dialog: MatDialog,
+    private BoardsService: BoardsService,
     private ColumnsService: ColumnsService
   ) {
     this.isLoading$ = this.store.pipe(select(isLoadingSelector));
@@ -47,7 +49,8 @@ export class BoardsListingPageComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log('this', this);
+    this.allBoards$ = this.store.select(BoardsSelector);
+    this.BoardsService.getAllBoards().pipe(shareReplay()).subscribe();
     this.store.dispatch(BoardsActions.getBoards());
   }
 
@@ -58,16 +61,12 @@ export class BoardsListingPageComponent implements OnInit {
         cancelButtonText: 'Cancel',
       },
     });
-    // dialogRef.afterClosed().subscribe((confirmed: boolean) => {
-    //   if (confirmed) {
-    //   }
-    // });
   }
 
   deleteBoard(board: { boardId: string }) {
     this.store.dispatch(BoardsActions.deleteBoard(board));
-    this.store.dispatch(BoardsActions.getBoards());
-    this.store.select(BoardsSelector);
+    this.BoardsService.deleteBoard(board.boardId).subscribe();
+    this.ngOnInit();
   }
 
   getAllColumns() {
@@ -76,9 +75,10 @@ export class BoardsListingPageComponent implements OnInit {
         console.log(`Column: ${column.title}, ${column.order}`)
       )
     );
+
     //przenies do serwisu
     this.store.dispatch(ColumnsActions.getColumns());
-    // this.store.select(ColumnsSelector);
+    this.store.select(ColumnsSelector);
   }
 
   deleteColumn(board: { boardId: string; columnId: string }) {

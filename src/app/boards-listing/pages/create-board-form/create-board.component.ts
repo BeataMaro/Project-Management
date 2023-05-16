@@ -31,11 +31,10 @@ export class CreateBoardComponent {
   }
 
   ngOnInit() {
-    console.log('this', this);
     this.store.dispatch(BoardsActions.getBoards());
   }
 
-  async onCreateNewBoard() {
+ onCreateNewBoard() {
     this.boardsService
       .createBoard({
         title: this.createBoardForm.value.title,
@@ -46,15 +45,14 @@ export class CreateBoardComponent {
         (res) => {
           localStorage.setItem('board_id', res._id!);
           this.board$ = res;
-          console.log(this.board$);
         },
-        (e) => this.router.navigateByUrl('/boards'),
+        () => this.router.navigateByUrl('/boards'),
         () => this.createBoardForm.setValue({ title: '' })
       );
-    const newBoard = await this.store.dispatch(
+    this.store.dispatch(
       BoardsActions.addBoard({ board: this.board$ })
     );
-    const updateBoards = await this.store.dispatch(BoardsActions.getBoards());
+    this.ngOnInit();
   }
 
   openDialog() {
