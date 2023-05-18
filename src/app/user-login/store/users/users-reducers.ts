@@ -1,6 +1,6 @@
 import { createFeatureSelector, createReducer, createSelector, on } from '@ngrx/store';
-import { Ilogin } from '../../shared/models/user.model';
 import * as usersActions from './users-actions';
+import { Ilogin } from 'src/app/shared/models/user.model';
 
 export interface UsersState {
   users?: Ilogin[];

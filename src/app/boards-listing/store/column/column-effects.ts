@@ -59,7 +59,7 @@ export class ColumnsEffects {
         ofType(addColumn),
         withLatestFrom(this.store.select(ColumnsSelector)),
         switchMap(([action]) =>
-          from(this.ColumnsService.createColumn(action.title, action.order))
+          from(this.ColumnsService.createColumn(action.title, action.order, action.boardId))
         )
       ),
     { dispatch: false }

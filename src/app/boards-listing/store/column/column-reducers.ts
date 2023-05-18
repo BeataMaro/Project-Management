@@ -10,7 +10,7 @@ import {
 
 export interface ColumnsStateInterface {
   isLoading: boolean;
-  columns: IColumn[];
+  column: IColumn;
   error: string | null;
   columnId?: string;
   boardId: string;
@@ -18,7 +18,7 @@ export interface ColumnsStateInterface {
 
 const initialState: ColumnsStateInterface = {
   isLoading: false,
-  columns: [],
+  column: { title: '', order: 1, boardId: '', _id: ''},
   error: null,
   boardId: '',
 };
@@ -49,6 +49,7 @@ export const columnsReducers = createReducer(
   on(addColumn, (state, action) => ({
     ...state,
     isLoading: false,
-    column: { title: action.title, order: action.order },
+    column: { title: action.title, order: action.order, boardId: action.boardId, _id: action._id },
+    boardId: action.boardId
   }))
 );

@@ -7,7 +7,7 @@ import { ConfirmationDialog } from '../../../core/components/confirmation-dialog
 import { Store } from '@ngrx/store';
 
 import * as fromRoot from '../../../boards-listing/store/board/board-reducers';
-import * as UsersActions from '../../store/users-actions';
+import * as UsersActions from '../../store/users/users-actions';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Iuser } from 'src/app/shared/models/user.model';
 

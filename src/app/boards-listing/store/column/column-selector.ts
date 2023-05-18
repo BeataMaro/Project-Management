@@ -1,7 +1,7 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
-import { UsersState } from 'src/app/user-login/store/users-reducers';
 import { BoardsStateInterface } from '../board/board-reducers';
 import { ColumnsStateInterface } from './column-reducers';
+import { UsersState } from 'src/app/user-login/store/users/users-reducers';
 
 export interface AppStateInterface {
     boards: BoardsStateInterface,
@@ -17,7 +17,7 @@ export const isLoadingSelector = createSelector(
 
 export const ColumnsSelector = createSelector(
     selectFeature,
-    (state: ColumnsStateInterface) => state.columns
+    (state: ColumnsStateInterface) => state.column
   );
 
   export const ErrorSelector = createSelector(

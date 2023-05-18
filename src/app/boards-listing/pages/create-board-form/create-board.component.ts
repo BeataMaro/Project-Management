@@ -34,7 +34,7 @@ export class CreateBoardComponent {
     this.store.dispatch(BoardsActions.getBoards());
   }
 
- onCreateNewBoard() {
+  onCreateNewBoard() {
     this.boardsService
       .createBoard({
         title: this.createBoardForm.value.title,
@@ -49,14 +49,13 @@ export class CreateBoardComponent {
         () => this.router.navigateByUrl('/boards'),
         () => this.createBoardForm.setValue({ title: '' })
       );
-    this.store.dispatch(
-      BoardsActions.addBoard({ board: this.board$ })
-    );
+    this.store.dispatch(BoardsActions.addBoard({ board: this.board$ }));
     this.ngOnInit();
   }
 
   openDialog() {
     const dialogRef = this.dialog.open(ConfirmationDialog, {
+      panelClass: 'my-outlined-dialog',
       data: {
         question: 'Success!',
         message: 'Your board has been created!',

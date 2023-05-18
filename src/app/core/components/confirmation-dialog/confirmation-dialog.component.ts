@@ -8,6 +8,7 @@ interface dialogData {
   message: string;
   confirmButtonText: string;
   cancelButtonText: string | boolean;
+  buttonId: string;
 }
 
 @Component({ templateUrl: 'confirmation-dialog.component.html' })

@@ -19,6 +19,7 @@ export class BoardsService {
   }
 
   createBoard({ title, owner, users = [] }: Iboard): Observable<Iboard> {
+    users = [...users, owner];
     return this.httpClient.post<Iboard>('boards', { title, owner, users });
   }
 

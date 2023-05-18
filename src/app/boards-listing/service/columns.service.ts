@@ -14,8 +14,8 @@ export class ColumnsService {
     return this.httpClient.get<IColumn[]>(`boards/${boardId}/columns`);
   }
 
-  createColumn(title: string, order: number): Observable<IColumn> {
-    const boardId = localStorage.getItem('board_id');
+  createColumn(title: string, order: number, boardId: string): Observable<IColumn> {
+    // const boardId = localStorage.getItem('board_id');
     return this.httpClient.post<IColumn>(`boards/${boardId}/columns`, {
       title,
       order,

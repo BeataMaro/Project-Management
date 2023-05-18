@@ -1,7 +1,9 @@
 <!-- <app-create-task-form (addTask)="onAddTask($event)"></app-create-task-form> -->
 <!-- <app-tasks-list [tasksList]="tasks" (toggleComplete)="onToggleComplete($event)"></app-tasks-list> -->
 <a routerLink="/boards" routerLinkActive="active">Back to boards list</a>
-<app-create-column-form></app-create-column-form>
+
+<button (click)="createColumnForm()">New Column</button>
+<button (click)="getAllColumns()">Get all columns</button>
 
 <mat-card>
   <mat-card-header>{{ boardItem?.title }}</mat-card-header>

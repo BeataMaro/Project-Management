@@ -5,9 +5,9 @@ import { Store } from '@ngrx/store';
 import { AuthService } from 'src/app/user-login/service/auth.service';
 import { Iuser } from 'src/app/shared/models/user.model';
 
-import * as UsersActions from '../../store/users-actions';
+import * as UsersActions from '../../store/users/users-actions';
 
-import * as fromUsers from '../../store/users-reducers';
+import * as fromUsers from '../../store/users/users-reducers';
 
 @Component({
   selector: 'app-user-login',
@@ -58,7 +58,6 @@ export class UserLoginPageComponent implements OnChanges, OnInit {
   }
 
   getUserId(): string | void {
-  
     let loggedUser: Iuser | undefined;
     const userLogin = localStorage.getItem('user_login');
     this.authService.getUsers().subscribe((res) => {

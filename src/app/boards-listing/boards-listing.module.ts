@@ -11,7 +11,7 @@ import { BoardsEffects } from './store/board/board-effects';
 
 import { BoardsListingPageComponent } from './pages/boards-listing-page/boards-listing-page.component';
 import { BoardPageComponent } from './pages/board-page/board-page.component';
-import { CreateColumnFormComponent } from './components/create-column-form/create-column-form.component';
+// import { CreateColumnFormComponent } from './components/create-column-form/create-column-form.component';
 import { TasksListComponent } from './components/tasks-list/tasks-list.component';
 import { CreateTaskFormComponent } from './components/create-task-form/create-task-form.component';
 import { TaskComponent } from './components/task/task.component';
@@ -20,7 +20,7 @@ import { TaskComponent } from './components/task/task.component';
   declarations: [
     BoardsListingPageComponent,
     BoardPageComponent,
-    CreateColumnFormComponent,
+    // CreateColumnFormComponent,
     TasksListComponent,
     CreateTaskFormComponent,
     TaskComponent,

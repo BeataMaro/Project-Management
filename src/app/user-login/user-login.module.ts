@@ -11,9 +11,9 @@ import { UserLoginPageComponent } from './pages/user-login-page/user-login-page.
 import { UserSignupPageComponent } from './pages/user-signup-page/user-signup-page.component';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
-import { UsersEffects } from './store/users-effects';
-import { usersReducer } from './store/users-reducers';
 import { UserEditPageComponent } from './pages/user-edit-page/user-edit-page.component';
+import { usersReducer } from './store/users/users-reducers';
+import { UsersEffects } from './store/users/users-effects';
 
 // const routes: Routes = [
 //   { path: '/login-form', component: UserLoginPageComponent },
@@ -21,7 +21,11 @@ import { UserEditPageComponent } from './pages/user-edit-page/user-edit-page.com
 // ];
 
 @NgModule({
-  declarations: [UserLoginPageComponent, UserSignupPageComponent, UserEditPageComponent],
+  declarations: [
+    UserLoginPageComponent,
+    UserSignupPageComponent,
+    UserEditPageComponent,
+  ],
   imports: [
     // RouterModule.forChild(routes),
     CommonModule,

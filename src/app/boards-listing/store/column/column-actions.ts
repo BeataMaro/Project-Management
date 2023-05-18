@@ -18,5 +18,5 @@ export const deleteColumn = createAction(
 
 export const addColumn = createAction(
   '[Column] Add Column',
-  props<{ title: string, order: number }>()
+  props<{ title: string, order: number, boardId: string, _id: string }>()
 );
