@@ -14,7 +14,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { UserEditPageComponent } from './pages/user-edit-page/user-edit-page.component';
 import { usersReducer } from './store/users/users-reducers';
 import { UsersEffects } from './store/users/users-effects';
-
+import { CoreModule } from '../core/core.module';
 // const routes: Routes = [
 //   { path: '/login-form', component: UserLoginPageComponent },
 //   { path: '/signup-form', component: UserSignupPageComponent },
@@ -28,6 +28,7 @@ import { UsersEffects } from './store/users/users-effects';
   ],
   imports: [
     // RouterModule.forChild(routes),
+    CoreModule,
     CommonModule,
     MaterialModule,
     ReactiveFormsModule,
@@ -36,6 +37,7 @@ import { UsersEffects } from './store/users/users-effects';
     RouterModule,
     StoreModule.forFeature('users', usersReducer),
     EffectsModule.forFeature([UsersEffects]),
+    
   ],
 })
 export class UserLoginModule {}

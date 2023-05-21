@@ -17,6 +17,8 @@ import { ColumnIdSelector } from '../../store/column/column-selector';
 import { BoardsService } from '../../service/boards.service';
 import { Router } from '@angular/router';
 
+import { windowInnerWidth, handleSize } from 'src/app/shared/helpers/window-size';
+
 @Component({
   selector: 'app-board',
   templateUrl: './boards-listing-page.component.html',
@@ -30,10 +32,11 @@ export class BoardsListingPageComponent implements OnInit {
   boardId: Observable<string | undefined>;
   columnId: Observable<string | undefined>;
   isLoggedIn: false;
+  mybreakpoint: number = 1;
 
   constructor(
     private store: Store,
-    private dialog: MatDialog,
+    // private dialog: MatDialog,
     private BoardsService: BoardsService,
     private router: Router,
    
@@ -47,34 +50,40 @@ export class BoardsListingPageComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.mybreakpoint = windowInnerWidth();
+    // this.isLoading$ = this.store.pipe(select(isLoadingSelector));
     if (!this.isLoggedIn) this.router.navigateByUrl('/home');
-    this.allBoards$ = this.store.select(BoardsSelector);
-    this.BoardsService.getAllBoards().pipe(shareReplay()).subscribe();
+    this.allBoards$ = this.store.select(BoardsSelector) || [];
+    this.BoardsService.getAllBoards().pipe(shareReplay()).subscribe().unsubscribe();
     this.store.dispatch(getBoards());
   }
 
-  deleteBoard(board: { boardId: string }) {
-    this.store.dispatch(deleteBoard(board));
-    this.BoardsService.deleteBoard(board.boardId).subscribe();
-    this.ngOnInit();
+  handleSize(event: any) {
+    this.mybreakpoint = handleSize(event)
   }
+
+  // deleteBoard(board: { boardId: string }) {
+  //   this.store.dispatch(deleteBoard(board));
+  //   this.BoardsService.deleteBoard(board.boardId).subscribe();
+  //   this.ngOnInit();
+  // }
 
   deleteColumn(board: { boardId: string; columnId: string }) {
     this.store.dispatch(deleteColumn(board));
   }
 
-  openDialog(board: { boardId: string }) {
-    const dialogRef = this.dialog.open(ConfirmationDialog, {
-      data: {
-        message: 'Do you want to delete the board and the associated tasks?',
-        cancelButtonText: 'Cancel',
-      },
-    });
+  // openDialog(board: { boardId: string }) {
+  //   const dialogRef = this.dialog.open(ConfirmationDialog, {
+  //     data: {
+  //       message: 'Do you want to delete the board and the associated tasks?',
+  //       cancelButtonText: 'Cancel',
+  //     },
+  //   });
 
-    dialogRef.afterClosed().subscribe((confirmed: boolean) => {
-      if (confirmed) {
-        this.deleteBoard(board);
-      }
-    });
-  }
+  //   dialogRef.afterClosed().subscribe((confirmed: boolean) => {
+  //     if (confirmed) {
+  //       this.deleteBoard(board);
+  //     }
+  //   });
+  // }
 }

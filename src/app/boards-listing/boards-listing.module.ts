@@ -15,6 +15,7 @@ import { BoardPageComponent } from './pages/board-page/board-page.component';
 import { TasksListComponent } from './components/tasks-list/tasks-list.component';
 import { CreateTaskFormComponent } from './components/create-task-form/create-task-form.component';
 import { TaskComponent } from './components/task/task.component';
+import { BoardTileComponent } from './components/board-tile/board-tile.component';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { TaskComponent } from './components/task/task.component';
     TasksListComponent,
     CreateTaskFormComponent,
     TaskComponent,
+    BoardTileComponent,
   
   ],
   imports: [

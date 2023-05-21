@@ -1,12 +1,16 @@
-<div *ngIf="isLoading$ | async" class="spinner">
+<!-- <div *ngIf="isLoading$ | async" class="spinner">
   <mat-spinner></mat-spinner>
-</div>
+</div> -->
 <!-- <div *ngIf="isError$ | async as error">{{ error }}</div> -->
 
-<mat-grid-list cols="2" rowHeight="2:3">
-  <!-- <app-board-page *ngFor="let item of allBoards$ | async" key={item._id} [boardItem]="item"></app-board-page> -->
+<mat-grid-list
+  [cols]="mybreakpoint"
+  rowHeight="2:4"
+  (window:resize)="handleSize($event)"
+>
   <mat-grid-tile *ngFor="let item of allBoards$ | async">
-    <mat-card key="{item._id}" tabindex="0" class="my-thumble-card">
+    <app-board-tile [board]="item" key={item._id}></app-board-tile>
+    <!-- <mat-card key="{item._id}" tabindex="0" class="my-thumble-card">
       <a
         [routerLink]="['/boards', item._id, 'columns']"
         routerLinkActive="active"
@@ -43,7 +47,7 @@
           </mat-card-actions>
         </mat-expansion-panel>
       </mat-accordion>
-    </mat-card>
+    </mat-card> -->
   </mat-grid-tile>
 
   <a routerLink="/new-board-form" routerLinkActive="active">

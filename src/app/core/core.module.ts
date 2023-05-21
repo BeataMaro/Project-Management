@@ -22,7 +22,7 @@ import { AuthInterceptor } from './interceptors/auth.interceptor';
     CreateBoardComponent,
     NavigationComponent,
     ConfirmationDialog,
-    FormDialog
+    FormDialog,
   ],
   exports: [
     HeaderComponent,
