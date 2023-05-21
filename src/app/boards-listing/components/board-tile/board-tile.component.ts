@@ -5,9 +5,7 @@ import { ConfirmationDialog } from 'src/app/core/components/confirmation-dialog/
 import { Iboard } from 'src/app/shared/models/board.model';
 import { deleteBoard, getBoards } from '../../store/board/board-actions';
 import { BoardsService } from '../../service/boards.service';
-import { Observable, shareReplay } from 'rxjs';
-import { BoardsSelector } from '../../store/board/board-selectors';
-import { Router } from '@angular/router';
+import { shareReplay } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 @Component({
@@ -16,25 +14,18 @@ import { Router } from '@angular/router';
   styleUrls: ['./board-tile.component.scss'],
 })
 export class BoardTileComponent implements OnInit {
-  // allBoards$: Observable<Iboard[]>;
   // isLoggedIn: false;
 
   constructor(
     private dialog: MatDialog,
     private store: Store,
     private BoardsService: BoardsService
-  ) // private router: Router,
-
-  {
-    // this.isLoggedIn = JSON.parse(localStorage.getItem('is_loggedin')!) || false;
-    // this.allBoards$ = this.store.select(BoardsSelector);
-  }
+  ) {}
 
   @Input() board: Iboard = { owner: '', users: [] };
 
   ngOnInit(): void {
     // if (!this.isLoggedIn) this.router.navigateByUrl('/home');
-    // this.allBoards$ = this.store.select(BoardsSelector);
     this.BoardsService.getAllBoards().pipe(shareReplay()).subscribe();
     this.store.dispatch(getBoards());
   }
