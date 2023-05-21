@@ -10,44 +10,6 @@
 >
   <mat-grid-tile *ngFor="let item of allBoards$ | async">
     <app-board-tile [board]="item" key={item._id}></app-board-tile>
-    <!-- <mat-card key="{item._id}" tabindex="0" class="my-thumble-card">
-      <a
-        [routerLink]="['/boards', item._id, 'columns']"
-        routerLinkActive="active"
-      >
-        <mat-card-header>
-          <img
-            mat-card-image
-            src="https://images.unsplash.com/photo-1603804449564-2ad32f24d17e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80"
-            alt="scrabble blocks 'plan make'"
-          />
-        </mat-card-header>
-        <mat-card-content
-          ><h3>{{ item.title }}</h3></mat-card-content
-        >
-      </a>
-      <mat-divider></mat-divider>
-
-      <mat-accordion>
-        <mat-expansion-panel>
-          <mat-expansion-panel-header>
-            <mat-panel-description> More </mat-panel-description>
-          </mat-expansion-panel-header>
-
-          <mat-card-actions>
-            <button
-              mat-raised-button
-              color="warn"
-              aria-label="Button with trash bin icon"
-              type="button"
-              (click)="openDialog({ boardId: item._id! })"
-            >
-              <mat-icon>delete</mat-icon>
-            </button>
-          </mat-card-actions>
-        </mat-expansion-panel>
-      </mat-accordion>
-    </mat-card> -->
   </mat-grid-tile>
 
   <a routerLink="/new-board-form" routerLinkActive="active">
