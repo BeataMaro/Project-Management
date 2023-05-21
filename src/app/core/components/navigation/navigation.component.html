@@ -1,9 +1,10 @@
 <nav>
   <a routerLink="/edit-form" routerLinkActive="active">Edit profile </a>
-  <a routerLink="/new-board-form" routerLinkActive="active"
+  <!-- <a routerLink="/new-board-form" routerLinkActive="active"
     >Create new board
-  </a>
+  </a> -->
   <a routerLink="/boards" routerLinkActive="active"> Your boards </a>
-    <a *ngIf="isLoggedin"
-      (click)="logOut()">Log out<mat-icon>exit_to_app </mat-icon></a>
+  <a *ngIf="isLoggedIn" (click)="logOut()"
+    >Log out<mat-icon>exit_to_app </mat-icon></a
+  >
 </nav>

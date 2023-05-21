@@ -7,15 +7,15 @@ export interface BoardsStateInterface {
   isLoading: boolean;
   boards: Iboard[];
   error: string | null;
-  columns?: IColumn[];
+  // columns?: IColumn[];
   boardId?: string;
 }
 
 const initialState: BoardsStateInterface = {
   isLoading: false,
   boards: [],
+  // columns: [],
   error: null,
-  columns: []
 };
 
 export const boardsReducers = createReducer(
@@ -24,38 +24,44 @@ export const boardsReducers = createReducer(
     ...state,
     isLoading: true,
   })),
-  on(BoardsActions.getBoardsSuccess, (state, action) => ({
+  on(BoardsActions.getBoardsSuccess, (state, { boards }) => ({
     ...state,
     isLoading: false,
-    boards: action.boards,
+    boards,
   })),
-  on(BoardsActions.getBoardsFailure, (state, action) => ({
+  on(BoardsActions.getBoardsFailure, (state, { error }) => ({
     ...state,
     isLoading: false,
-    error: action.error,
+    error,
   })),
-  on(BoardsActions.deleteBoard, (state, action) => ({
+  on(BoardsActions.deleteBoard, (state, { boardId }) => ({
     ...state,
     isLoading: false,
-    boardId: action.boardId,
+    boardId,
   })),
-  on(BoardsActions.addBoard, (state, action) => ({
+  on(BoardsActions.addBoard, (state, { board }) => ({
     ...state,
     isLoading: false,
-    board: action.board,
+    board,
   })),
   on(BoardsActions.getColumns, (state) => ({
     ...state,
     isLoading: true,
   })),
-  on(BoardsActions.getColumnsSuccess, (state, action) => ({
+  on(BoardsActions.getColumnsSuccess, (state, { columns }) => ({
     ...state,
     isLoading: false,
-    columns: action.columns,
+    columns
+
   })),
-  on(BoardsActions.getColumnsFailure, (state, action) => ({
+  on(BoardsActions.getColumnsFailure, (state, { error }) => ({
     ...state,
     isLoading: false,
-    error: action.error,
+    error,
+  })),
+  on(BoardsActions.addColumn, (state, { column }) => ({
+    ...state,
+    isLoading: false,
+    column
   })),
 );

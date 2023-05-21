@@ -1,9 +1,19 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
-import { catchError, finalize, map, mergeMap, of, switchMap, tap } from 'rxjs';
+import { catchError, map, mergeMap, of, switchMap } from 'rxjs';
 import { AuthService } from 'src/app/user-login/service/auth.service';
-import * as UsersActions from './users-actions';
+import {
+  loadUsers,
+  loadUsersSuccess,
+  loadUsersFailed,
+  addUserSuccess,
+  addUserFailure,
+  updateUser,
+  deleteUser,
+  getUsersFailure,
+  isUserLoggedIn,
+} from './users-actions';
 import * as fromRoot from './users-reducers';
 
 @Injectable()
@@ -11,16 +21,16 @@ export class UsersEffects {
   constructor(
     private actions$: Actions,
     private store: Store<fromRoot.UsersState>,
-    private authService: AuthService
+    private authService: AuthService,
   ) {}
 
   fetchUsers$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(UsersActions.loadUsers),
+      ofType(loadUsers),
       switchMap(() =>
         this.authService.getUsers().pipe(
-          map((users) => UsersActions.loadUsersSuccess({ users })),
-          catchError(() => of(UsersActions.loadUsersFailed()))
+          map((users) => loadUsersSuccess({ users })),
+          catchError(() => of(loadUsersFailed()))
         )
       )
     )
@@ -28,11 +38,11 @@ export class UsersEffects {
 
   registerUser$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(UsersActions.addUserSuccess),
+      ofType(addUserSuccess),
       switchMap(({ user }) =>
         this.authService.signUp(user).pipe(
-          map((user) => UsersActions.addUserSuccess({ user }))
-          // catchError(() => of(UsersActions.addUserSuccess)),
+          map((user) => addUserSuccess({ user })),
+          catchError((e) => of(addUserFailure({ error: e.message })))
         )
       )
     )
@@ -40,21 +50,31 @@ export class UsersEffects {
 
   deleteUser$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(UsersActions.deleteUser),
+      ofType(deleteUser),
       mergeMap(({ userId }) =>
         this.authService.deleteUser(userId).pipe(
-          map(() => UsersActions.deleteUser({ userId }))
-          // catchError((error) =>
-          //   of(UsersActions.getUsersFailure({ error: error.message }))
-          // )
+          map(() => deleteUser({ userId })),
+          catchError((error) => of(getUsersFailure({ error: error.message })))
         )
       )
     )
   );
 
+  // isUserLoggedIn$ = createEffect(() =>
+  // this.actions$.pipe(
+  //   ofType(isUserLoggedIn),
+  //   mergeMap(({ isLoggedIn }) =>
+  //     this.authService.isUserLoggedIn(userId).pipe(
+  //       map(() => deleteUser({ userId })),
+  //       catchError((error) => of(getUsersFailure({ error: error.message })))
+  //     )
+  //   )
+  // )
+// );
+
   updateUser$ = createEffect(() =>
     this.actions$.pipe(
-      ofType(UsersActions.updateUser),
+      ofType(updateUser),
       // switchMap(({ userId, name, login, password }) =>
       //   this.authService.updateUser( userId, {'name': name, 'login': login, 'password': password }).pipe(
       //     map(({ userId, name, login, password }) => UsersActions.updateUser({ 'userId' : userId, 'name': name, 'login': login, 'password': password })),
@@ -64,11 +84,10 @@ export class UsersEffects {
       switchMap(({ user }) =>
         this.authService.updateUser(user).pipe(
           map(({ login, name, password }) =>
-            UsersActions.updateUser({
+            updateUser({
               user: { name, login, password },
             })
-          ),
-          catchError(() => of(UsersActions.loadUsersFailed()))
+          )
         )
       )
     )

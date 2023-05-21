@@ -29,11 +29,11 @@ export class UserLoginPageComponent implements OnChanges, OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.store.dispatch(UsersActions.loadUsers());
+    // this.store.dispatch(UsersActions.loadUsers());
 
-    this.store
-      .select(fromUsers.getUsersState)
-      .subscribe((res) => console.log(res));
+    // this.store
+    //   .select(fromUsers.getUsersState)
+    //   .subscribe((res) => console.log(res));
     // console.log(this.route.snapshot.data);
   }
 
@@ -45,7 +45,7 @@ export class UserLoginPageComponent implements OnChanges, OnInit {
         localStorage.setItem('auth_token', res.token);
         localStorage.setItem('user_login', this.loginForm.value.login!);
       },
-      (e) => {
+      () => {
         localStorage.setItem('is_loggedin', 'false');
         this.error = true;
       },

@@ -1,4 +1,4 @@
-import { Component, OnChanges } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/user-login/service/auth.service';
 
@@ -6,19 +6,24 @@ import { AuthService } from 'src/app/user-login/service/auth.service';
   selector: 'app-navigation',
   templateUrl: './navigation.component.html',
   styleUrls: ['./navigation.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class NavigationComponent implements OnChanges {
-  isLoggedin = false;
+export class NavigationComponent implements OnInit {
+  isLoggedIn = false;
 
-  constructor(private authService: AuthService, private router: Router) {
-    this.isLoggedin = JSON.parse(localStorage.getItem('is_loggedin')!);
+  constructor(private authService: AuthService, private ref: ChangeDetectorRef) {
+    this.isLoggedIn = this.authService.isUserLoggedIn();
+    this.ref.reattach();
   }
 
-  ngOnChanges() {
-    this.isLoggedin = JSON.parse(localStorage.getItem('is_loggedin')!);
+  ngOnInit() {
+    this.isLoggedIn = this.authService.isUserLoggedIn();
+    console.log(`onInit: ${this.isLoggedIn}`);
   }
 
   logOut() {
     this.authService.logOut();
+    this.ngOnInit();
+    console.log(this.isLoggedIn);
   }
 }

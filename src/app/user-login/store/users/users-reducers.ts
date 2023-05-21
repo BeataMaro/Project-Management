@@ -1,13 +1,15 @@
 import { createFeatureSelector, createReducer, createSelector, on } from '@ngrx/store';
-import * as usersActions from './users-actions';
+import { loadUsersSuccess, loadUsersFailed, updateUser, deleteUser, isUserLoggedIn} from './users-actions';
 import { Ilogin } from 'src/app/shared/models/user.model';
 
 export interface UsersState {
   users?: Ilogin[];
+  isLoggedIn: boolean;
 }
 
 export const initialState: UsersState = {
     users: [],
+    isLoggedIn: false
   }
 
 export const getUsersState = createFeatureSelector<UsersState>('users');
@@ -18,27 +20,25 @@ export const getUsers = createSelector(
 
 
 export const usersReducer = createReducer(initialState,
-    on(usersActions.loadUsersSuccess, (state, { users }) => ({
+    on(loadUsersSuccess, (state, { users }) => ({
     ...state,
+    isLoggedIn: true,
     users
   })),
-    on(usersActions.updateUser, (state, { user }) => ({
+    on(updateUser, (state, { user }) => ({
       ...state,
+      isLoggedIn: true,
       user
     })),
-    on(usersActions.deleteUser, (state, { userId }) => ({
+    on(deleteUser, (state, { userId }) => ({
       ...state,
+      isLoggedIn: false,
       userId
+    })),
+    on(isUserLoggedIn, (state, action) => ({
+      ...state,
+      isLoggedIn: action.isLoggedIn,
     }))
   );
 
-
-
-// export const appReducer = createReducer(
-//     initialState,
-//     on(appActions.setLoadingState, (state, { isLoading }) => ({
-//       ...state,
-//       isLoading
-//     }))
-//   )
 

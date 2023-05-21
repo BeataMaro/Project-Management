@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Iboard } from '../../../shared/models/board.model';
 import { select, Store } from '@ngrx/store';
-import * as BoardsActions from '../../store/board/board-actions';
-import * as ColumnsActions from '../../store/column/column-actions';
+import { getBoards, deleteBoard } from '../../store/board/board-actions';
+import { deleteColumn } from '../../store/column/column-actions';
 import {
   BoardIdSelector,
   BoardsSelector,
@@ -13,10 +13,9 @@ import { Observable, shareReplay } from 'rxjs';
 
 import { ConfirmationDialog } from 'src/app/core/components/confirmation-dialog/confirmation-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
-import {
-  ColumnIdSelector,
-} from '../../store/column/column-selector';
+import { ColumnIdSelector } from '../../store/column/column-selector';
 import { BoardsService } from '../../service/boards.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-board',
@@ -30,35 +29,38 @@ export class BoardsListingPageComponent implements OnInit {
   allBoards$: Observable<Iboard[]>;
   boardId: Observable<string | undefined>;
   columnId: Observable<string | undefined>;
+  isLoggedIn: false;
 
   constructor(
     private store: Store,
     private dialog: MatDialog,
     private BoardsService: BoardsService,
+    private router: Router,
+   
   ) {
     this.isLoading$ = this.store.pipe(select(isLoadingSelector));
     this.isError$ = this.store.pipe(select(ErrorSelector));
     this.allBoards$ = this.store.select(BoardsSelector);
     this.boardId = this.store.select(BoardIdSelector);
     this.columnId = this.store.select(ColumnIdSelector);
+    this.isLoggedIn = JSON.parse(localStorage.getItem('is_loggedin')!) || false;
   }
 
   ngOnInit() {
+    if (!this.isLoggedIn) this.router.navigateByUrl('/home');
     this.allBoards$ = this.store.select(BoardsSelector);
     this.BoardsService.getAllBoards().pipe(shareReplay()).subscribe();
-    this.store.dispatch(BoardsActions.getBoards());
+    this.store.dispatch(getBoards());
   }
 
-
-
   deleteBoard(board: { boardId: string }) {
-    this.store.dispatch(BoardsActions.deleteBoard(board));
+    this.store.dispatch(deleteBoard(board));
     this.BoardsService.deleteBoard(board.boardId).subscribe();
     this.ngOnInit();
   }
 
   deleteColumn(board: { boardId: string; columnId: string }) {
-    this.store.dispatch(ColumnsActions.deleteColumn(board));
+    this.store.dispatch(deleteColumn(board));
   }
 
   openDialog(board: { boardId: string }) {

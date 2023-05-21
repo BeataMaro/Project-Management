@@ -35,3 +35,7 @@ export const getColumnsFailure = createAction(
   '[Board] Get Columns Failure',
   props<{ error: string }>()
 );
+export const addColumn = createAction(
+  '[Board] Add Column',
+  props<{ column: IColumn }>()
+);

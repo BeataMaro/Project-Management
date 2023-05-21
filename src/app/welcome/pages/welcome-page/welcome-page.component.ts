@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/user-login/service/auth.service';
 
 @Component({
   selector: 'app-welcome-page',
@@ -8,13 +9,16 @@ import { Router } from '@angular/router';
 })
 export class WelcomePageComponent implements OnInit {
   isLoggedin = false;
+  authToken = '';
 
-  constructor(private router: Router) {
-    this.isLoggedin = JSON.parse(localStorage.getItem('is_loggedin')!) || false;
+  constructor(private router: Router, private auth: AuthService) {
+    this.isLoggedin = this.auth.isUserLoggedIn();
+    this.authToken = this.auth.getToken();
   }
 
   ngOnInit() {
-    console.log(this.isLoggedin)
-   if (this.isLoggedin) this.router.navigateByUrl('/boards');
+    console.log(`IsloggedIn = ${this.isLoggedin}`)
+    console.log(`authToken = ${this.authToken}`)
+   if (this.authToken) this.router.navigateByUrl('/boards');
   }
 }

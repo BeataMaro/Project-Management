@@ -1,3 +1,4 @@
+@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
 @import url("https://fonts.googleapis.com/css2?family=Inconsolata:wght@200;400;600;800&display=swap");
 
 * {
@@ -77,5 +78,5 @@ body {
 }
 
 .my-outlined-dialog {
-  outline: 2px solid purple;
+  outline: 1px solid rgb(62, 0, 128);
 }

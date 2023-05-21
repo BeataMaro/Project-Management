@@ -20,6 +20,9 @@ import {
   addBoard,
   getBoardsFailure,
   getBoardsSuccess,
+  getColumns,
+  getColumnsSuccess,
+  getColumnsFailure,
 } from './board-actions';
 import { BoardIdSelector, BoardsSelector } from './board-selectors';
 
@@ -81,8 +84,15 @@ export class BoardsEffects {
         withLatestFrom(this.store.select(BoardIdSelector)),
         switchMap(([action, boards]) =>
           from(this.boardsService.deleteBoard(action.boardId))
-        ),
+        )
       ),
     { dispatch: false }
   );
+  // fetchColumns$ = createEffect(() =>
+  //   mergeMap(() =>
+  //     this.boardsService
+  //       .getAllBoards()
+  //       .pipe(map((board) => getColumns(board)))
+  //   )
+  // );
 }

@@ -25,6 +25,7 @@ export class AuthService {
   }
 
   logIn({ login, password }: Ilogin): Observable<Itoken> {
+    localStorage.setItem('is_loggedin', 'true');
     return this.httpClient.post<Itoken>('auth/signin', {
       login,
       password,
@@ -34,6 +35,11 @@ export class AuthService {
   getToken() {
     this.token = localStorage.getItem('auth_token') || '';
     return this.token;
+  }
+
+  isUserLoggedIn(): boolean {
+    this.isLoggedIn = JSON.parse(localStorage.getItem('is_loggedin')!) || false;
+    return this.isLoggedIn;
   }
 
   // getLoggedUser(user_id): Observable<IUser> {
