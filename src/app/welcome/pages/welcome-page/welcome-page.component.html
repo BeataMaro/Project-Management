@@ -1,17 +1,10 @@
-
-
-<button mat-button [matMenuTriggerFor]="menu">Menu</button>
-<mat-menu #menu="matMenu">
-  <button mat-menu-item routerLink="/login-form" routerLinkActive="active">
-    Log in
-  </button>
-
-  <button routerLink="/signup-form" routerLinkActive="active" mat-menu-item>
-    Sign up
-  </button>
-</mat-menu>
-
-<mat-grid-list cols="2" rowHeight="2:1">
+<!-- [cols]="mybreakpoint" -->
+<mat-grid-list
+  [cols]="mybreakpoint"
+  rowHeight="1000"
+  (window:resize)="handleSize($event)"
+  gutterSize="50"
+>
   <mat-grid-tile
     ><mat-grid-tile-header>About project</mat-grid-tile-header>
     <p>
@@ -19,27 +12,7 @@
       of developers to successfully achieve their goals and plan.
     </p>
   </mat-grid-tile>
-  <mat-grid-tile
-    ><mat-grid-tile-header>Quick start</mat-grid-tile-header>
-  </mat-grid-tile>
-  <mat-grid-tile>
-    <mat-grid-tile-header>RS School Angular course</mat-grid-tile-header>
-    <p>
-      RS School is an online education platform that offers a range of courses
-      for developers to improve their skills and learn new technologies. RS
-      School courses cover various topics such as front-end web development,
-      back-end web development, full-stack web development, mobile development
-      and more. Courses are available in English and Russian and are taught by
-      experienced industry instructors. One of the unique features of RS
-      School's courses is that they are project-based, meaning that students
-      learn by working on real-world projects and building practical
-      applications. In addition, RS School provides students with access to
-      mentors who can offer guidance and support throughout the course. RS
-      School is an excellent resource for developers looking to improve their
-      skills and gain practical experience in a collaborative learning
-      environment.
-    </p></mat-grid-tile
-  >
+
   <mat-grid-tile
     ><mat-grid-tile-header>About author</mat-grid-tile-header>
     <p>
@@ -57,4 +30,22 @@
       further develop her skills.
     </p>
   </mat-grid-tile>
+  <mat-grid-tile [colspan]="colspan$ | async">
+    <mat-grid-tile-header>RS School Angular course</mat-grid-tile-header>
+    <p>
+      RS School is an online education platform that offers a range of courses
+      for developers to improve their skills and learn new technologies. RS
+      School courses cover various topics such as front-end web development,
+      back-end web development, full-stack web development, mobile development
+      and more. Courses are available in English and Russian and are taught by
+      experienced industry instructors. One of the unique features of RS
+      School's courses is that they are project-based, meaning that students
+      learn by working on real-world projects and building practical
+      applications. In addition, RS School provides students with access to
+      mentors who can offer guidance and support throughout the course. RS
+      School is an excellent resource for developers looking to improve their
+      skills and gain practical experience in a collaborative learning
+      environment.
+    </p></mat-grid-tile
+  >
 </mat-grid-list>

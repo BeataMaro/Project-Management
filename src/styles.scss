@@ -53,16 +53,36 @@ body {
   .page-wrapper {
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    // padding: 2rem 4rem;
+    // align-items: center;
+    padding: 2rem;
     min-height: 90vh;
     width: min(185ch, 100% - 4rem);
     margin-inline: auto;
 
+    @media (max-width: 600px) {
+      width: 100%;
+      padding: 1rem;
+    }
+
     // main {
       // flex-grow: 1;
-      // display: grid;
-      // place-items: center;
+
+      .login-form-wrapper {
+        display: grid;
+        place-items: center;
+        padding: 6rem;
+        background-color: whitesmoke;
+        box-shadow: 1px 2px 20px rgba(0,0,0,.2);
+
+        form {
+          display: grid;
+          margin-bottom: 2rem;
+      
+          input {
+              text-align: center;
+          }
+      }
+    }
     // }
   }
 }
