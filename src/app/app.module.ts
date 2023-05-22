@@ -9,6 +9,7 @@ import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { columnsReducers } from './boards-listing/store/column/column-reducers';
 
 @NgModule({
   declarations: [AppComponent],
@@ -19,7 +20,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
     BrowserAnimationsModule,
     WelcomeModule,
 
-    StoreModule.forRoot({}),
+    StoreModule.forRoot({'columns': columnsReducers}),
     EffectsModule.forRoot(),
     StoreRouterConnectingModule.forRoot(),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),

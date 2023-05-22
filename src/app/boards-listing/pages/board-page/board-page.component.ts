@@ -47,7 +47,7 @@ export class BoardPageComponent implements OnInit {
     localStorage.setItem('boardId', this.currentBoardId);
   }
 
-  @Input() boardItem: Iboard | null = null;
+  @Input() boardItem: Iboard | null = null; refreshBoard: Iboard = {owner: '', users: []}
 
   ngOnInit(): void {
     this.getBoards();

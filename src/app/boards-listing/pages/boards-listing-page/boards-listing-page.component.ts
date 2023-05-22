@@ -1,10 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import {
+  Component,
+  OnInit,
+} from '@angular/core';
 import { Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { Observable, shareReplay } from 'rxjs';
 
 import { Iboard } from '../../../shared/models/board.model';
-import { getBoards } from '../../store/board/board-actions';
+import { deleteBoard, getBoards } from '../../store/board/board-actions';
 import { deleteColumn } from '../../store/column/column-actions';
 import {
   BoardIdSelector,
@@ -26,7 +29,6 @@ import {
   styleUrls: ['./boards-listing-page.component.scss'],
 })
 export class BoardsListingPageComponent implements OnInit {
-  allBoards2: Iboard[] = [];
   isLoading$: Observable<boolean>;
   isError$: Observable<string | null>;
   allBoards$: Observable<Iboard[]>;
@@ -50,18 +52,21 @@ export class BoardsListingPageComponent implements OnInit {
 
   ngOnInit() {
     this.mybreakpoint = windowInnerWidth();
-    // this.isLoading$ = this.store.pipe(select(isLoadingSelector));
+    this.isLoading$ = this.store.pipe(select(isLoadingSelector));
     if (!this.isLoggedIn) this.router.navigateByUrl('/home');
     this.allBoards$ = this.store.select(BoardsSelector) || [];
-    this.BoardsService.getAllBoards()
-      .pipe(shareReplay())
-      .subscribe()
-      .unsubscribe();
+    this.BoardsService.getAllBoards().pipe(shareReplay()).subscribe();
     this.store.dispatch(getBoards());
   }
 
   handleSize(event: any) {
     this.mybreakpoint = handleSize(event);
+  }
+
+  removeBoard(boardId: string) {
+    this.store.dispatch(deleteBoard({ boardId }));
+    this.BoardsService.deleteBoard(boardId);
+    this.ngOnInit();
   }
 
   deleteColumn(board: { boardId: string; columnId: string }) {

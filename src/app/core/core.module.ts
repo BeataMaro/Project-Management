@@ -31,6 +31,7 @@ import { AuthInterceptor } from './interceptors/auth.interceptor';
     CreateBoardComponent,
     NavigationComponent,
     RouterModule,
+    MaterialModule
   ],
   imports: [
     CommonModule,

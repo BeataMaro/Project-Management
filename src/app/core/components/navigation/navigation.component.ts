@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+// import { Router } from '@angular/router';
 import { AuthService } from 'src/app/user-login/service/auth.service';
 
 @Component({
@@ -18,12 +18,10 @@ export class NavigationComponent implements OnInit {
 
   ngOnInit() {
     this.isLoggedIn = this.authService.isUserLoggedIn();
-    console.log(`onInit: ${this.isLoggedIn}`);
   }
 
   logOut() {
     this.authService.logOut();
     this.ngOnInit();
-    console.log(this.isLoggedIn);
   }
 }
