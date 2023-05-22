@@ -1,8 +1,10 @@
-### [Site demo](https://project-management-app-bm.netlify.app)
+
+### Live Demo
+
+You can view a live demo by visiting [Site demo](https://project-management-app-bm.netlify.app)
 
 
-
-# ProjectManagementApp
+# Planning Wizard
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.2.3.
 
