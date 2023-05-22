@@ -1,3 +1,22 @@
 .my-thumble-card {
-    background-color: rgb(192, 255, 214);
+  background-color: #544c5463;
+  color: white;
+  box-shadow: 1px 1px 20px rgba(0, 0, 0, 0.3);
+  transition: 0.2s ease;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #716d7163;
+  }
+}
+.board-actions {
+  display: flex;
+  justify-content: flex-end;
+
+  button {
+    color: #544c54a8;;
+    &:hover {
+        color: #cf3b3b;
+    }
+  }
 }
