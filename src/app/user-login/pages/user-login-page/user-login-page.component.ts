@@ -5,7 +5,7 @@ import { Store } from '@ngrx/store';
 import { AuthService } from 'src/app/user-login/service/auth.service';
 import { Iuser } from 'src/app/shared/models/user.model';
 
-import * as UsersActions from '../../store/users/users-actions';
+import { loginUser } from '../../store/users/users-actions';
 
 import * as fromUsers from '../../store/users/users-reducers';
 
@@ -30,7 +30,6 @@ export class UserLoginPageComponent implements OnChanges, OnInit {
 
   ngOnInit(): void {
     // this.store.dispatch(UsersActions.loadUsers());
-
     // this.store
     //   .select(fromUsers.getUsersState)
     //   .subscribe((res) => console.log(res));
@@ -43,7 +42,19 @@ export class UserLoginPageComponent implements OnChanges, OnInit {
     this.authService.logIn(this.loginForm.value).subscribe(
       (res) => {
         localStorage.setItem('auth_token', res.token);
+        this.store.dispatch(
+          loginUser({
+            login: {
+              login: this.loginForm.value.login! || '',
+              password: this.loginForm.value.password! || '',
+            },
+          })
+        );
+        // console.log(this.authService.isUserLoggedIn());
         localStorage.setItem('user_login', this.loginForm.value.login!);
+        localStorage.setItem('is_loggedin', 'true');
+        // this.getUserId();
+        // this.router.navigateByUrl('/boards');
       },
       () => {
         localStorage.setItem('is_loggedin', 'false');

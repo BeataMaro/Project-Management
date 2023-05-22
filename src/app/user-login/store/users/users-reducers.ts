@@ -1,5 +1,5 @@
 import { createFeatureSelector, createReducer, createSelector, on } from '@ngrx/store';
-import { loadUsersSuccess, loadUsersFailed, updateUser, deleteUser, isUserLoggedIn} from './users-actions';
+import { loginUser, logoutUser, loadUsersSuccess, loadUsersFailed, updateUser, deleteUser} from './users-actions';
 import { Ilogin } from 'src/app/shared/models/user.model';
 
 export interface UsersState {
@@ -20,6 +20,10 @@ export const getUsers = createSelector(
 
 
 export const usersReducer = createReducer(initialState,
+  on(loginUser, (state, { token }) => ({
+    ...state,
+    isLoggedIn: token ? true : false
+  })),
     on(loadUsersSuccess, (state, { users }) => ({
     ...state,
     isLoggedIn: true,
@@ -35,10 +39,10 @@ export const usersReducer = createReducer(initialState,
       isLoggedIn: false,
       userId
     })),
-    on(isUserLoggedIn, (state, action) => ({
-      ...state,
-      isLoggedIn: action.isLoggedIn,
-    }))
+    // on(isUserLoggedIn, (state, action) => ({
+    //   ...state,
+    //   isLoggedIn: action.isLoggedIn,
+    // }))
   );
 
 

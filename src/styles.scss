@@ -1,5 +1,5 @@
-@import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
-@import url("https://fonts.googleapis.com/css2?family=Inconsolata:wght@200;400;600;800&display=swap");
+@import "~@angular/material/prebuilt-themes/deeppurple-amber.css";
+@import url("https://fonts.googleapis.com/css2?family=Inconsolata:wght@200;400;600;800&family=Pacifico&display=swap");
 
 * {
   box-sizing: border-box;
@@ -16,12 +16,8 @@ body {
   line-height: 1.5;
 }
 
-main {
-  width: min(185ch, 100% - 4rem);
-  margin-inline: auto;
-}
-
-img, svg {
+img,
+svg {
   max-width: 100%;
   display: block;
 }
@@ -29,9 +25,8 @@ img, svg {
 a {
   text-decoration: none;
   color: inherit;
-  transition: .65s ease;
+  transition: 0.65s ease;
   font-weight: 600;
- 
 }
 
 a:hover {
@@ -52,31 +47,26 @@ body {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  background-color: #e8e4ed;
   min-width: 320px;
-
-  header {
-    nav {
-      background-color: rgb(224, 232, 153);
-      padding: 1rem;
-      display: flex;
-      justify-content: space-around;
-    }
-  }
 
   .page-wrapper {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding: 2rem 4rem;
+    // padding: 2rem 4rem;
     min-height: 90vh;
+    width: min(185ch, 100% - 4rem);
+    margin-inline: auto;
 
-
-    main {
-      flex-grow: 1;
-    }
+    // main {
+      // flex-grow: 1;
+      // display: grid;
+      // place-items: center;
+    // }
   }
 }
 
 .my-outlined-dialog {
-  outline: 1px solid rgb(62, 0, 128);
+  padding: 1rem;
 }

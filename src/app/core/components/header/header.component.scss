@@ -1,0 +1,28 @@
+header {
+  background-color: #ccc0ff;
+  padding: 1rem;
+  .header-wrapper {
+    width: min(185ch, 100% - 4rem);
+    margin-inline: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .app-title {
+    font-family: 'Pacifico', cursive;
+    font-weight: 400;
+    letter-spacing: 0.15rem;
+    padding: .8rem;
+    background-color: #ccc0ff;
+    border-radius: 10px;
+  }
+
+  a.active {
+    text-decoration: none;
+  }
+
+  a:hover {
+    color: initial;
+  }
+}

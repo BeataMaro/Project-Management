@@ -12,7 +12,7 @@ import {
   updateUser,
   deleteUser,
   getUsersFailure,
-  isUserLoggedIn,
+  loginUser,
 } from './users-actions';
 import * as fromRoot from './users-reducers';
 
@@ -21,7 +21,7 @@ export class UsersEffects {
   constructor(
     private actions$: Actions,
     private store: Store<fromRoot.UsersState>,
-    private authService: AuthService,
+    private authService: AuthService
   ) {}
 
   fetchUsers$ = createEffect(() =>
@@ -60,17 +60,20 @@ export class UsersEffects {
     )
   );
 
-  // isUserLoggedIn$ = createEffect(() =>
-  // this.actions$.pipe(
-  //   ofType(isUserLoggedIn),
-  //   mergeMap(({ isLoggedIn }) =>
-  //     this.authService.isUserLoggedIn(userId).pipe(
-  //       map(() => deleteUser({ userId })),
-  //       catchError((error) => of(getUsersFailure({ error: error.message })))
-  //     )
-  //   )
-  // )
-// );
+  loginUser$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(loginUser),
+      switchMap(
+        ({login}) =>
+          this.authService
+            .logIn(login!)
+            .pipe(map(({ token }) => loginUser({ token })))
+        //   this.authService.logIn({ login, password}).pipe(
+        //   map(({ token }) =>  token ? loginUser({ isLoggedIn: true}) : loginUser({ isLoggedIn: false}) ))
+        // )
+      )
+    )
+  );
 
   updateUser$ = createEffect(() =>
     this.actions$.pipe(

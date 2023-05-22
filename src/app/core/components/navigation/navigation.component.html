@@ -1,7 +1,19 @@
 <nav>
-  <a routerLink="/edit-form" routerLinkActive="active">Edit profile </a>
-  <a routerLink="/boards" routerLinkActive="active"> Your boards </a>
-  <a *ngIf="isLoggedIn" (click)="logOut()"
-    >Log out<mat-icon>exit_to_app </mat-icon></a
-  >
+  <div *ngIf="isLoggedIn; else loginBlock" class="user-panel">
+    <a routerLink="/edit-form" routerLinkActive="active"
+      ><mat-icon>person icon</mat-icon></a
+    >
+    <a routerLink="/boards" routerLinkActive="active"> Your plans </a>
+    <a (click)="logOut()">Log out<mat-icon>exit_to_app </mat-icon></a>
+  </div>
+  <ng-template #loginBlock>
+    <div class="login-panel">
+      <button mat-stroked-button color="primary" routerLink="/login-form" routerLinkActive="active">
+        Log in
+      </button>
+      <button mat-stroked-button color="primary" routerLink="/signup-form" routerLinkActive="active">
+        Sign up
+      </button>
+    </div>
+  </ng-template>
 </nav>

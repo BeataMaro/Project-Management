@@ -1,23 +1,26 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
 // import { Router } from '@angular/router';
 import { AuthService } from 'src/app/user-login/service/auth.service';
+import { isLoggedInSelector } from 'src/app/user-login/store/users/users-selectors';
 
 @Component({
   selector: 'app-navigation',
   templateUrl: './navigation.component.html',
   styleUrls: ['./navigation.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NavigationComponent implements OnInit {
-  isLoggedIn = false;
+  // isLoggedIn = this.store.select(isLoggedInSelector);
+  isLoggedIn = JSON.parse(localStorage.getItem('is_loggedin')!);
 
-  constructor(private authService: AuthService, private ref: ChangeDetectorRef) {
-    this.isLoggedIn = this.authService.isUserLoggedIn();
-    this.ref.reattach();
+  constructor(private authService: AuthService, private store: Store) {
+   
   }
 
   ngOnInit() {
-    this.isLoggedIn = this.authService.isUserLoggedIn();
+    // this.isLoggedIn = this.store.select(isLoggedInSelector);
+    this.isLoggedIn = JSON.parse(localStorage.getItem('is_loggedin')!);
+    console.log(`ngOnInit isLoggedIn: ${this.isLoggedIn}`)
   }
 
   logOut() {

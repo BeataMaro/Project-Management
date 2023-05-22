@@ -20,9 +20,12 @@ export const getUsersFailure = createAction(
   '[App] Get Users Failure',
   props<{ error: string }>()
 );
-export const isUserLoggedIn = createAction(
-  '[Users] Is User Logged In',
-  props<{ isLoggedIn: boolean }>()
+export const loginUser = createAction(
+  '[Users] Login User',
+  props<{ login?: Ilogin, token?: string }>()
+);
+export const logoutUser = createAction(
+  '[Users] Logout User',
 );
 
 export const addUserSuccess = createAction(

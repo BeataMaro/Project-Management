@@ -1,0 +1,23 @@
+nav {
+  display: flex;
+  justify-content: space-between;
+
+  .user-panel,
+  .login-panel {
+    padding: 1.5rem 0;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+
+    a {
+      margin-left: 3rem;
+    }
+  }
+  .login-panel {
+    justify-content: flex-end;
+
+    button {
+      margin-left: 1rem;
+    }
+  }
+}

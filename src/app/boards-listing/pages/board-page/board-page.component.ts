@@ -104,11 +104,11 @@ export class BoardPageComponent implements OnInit {
   }
 
   getAllColumns() {
+    //przenies do serwisu
     this.boardsService
       .getAllColumns(this.currentBoardId)
       .subscribe((res) => res.map((column) => console.log(`Column: ${column.title}, ${column.order}, ${column._id}, ${column.boardId}`)));
 
-    //przenies do serwisu
     this.store.dispatch(getColumns());
     this.store.select(ColumnsSelector);
   }

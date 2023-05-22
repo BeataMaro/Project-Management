@@ -17,8 +17,8 @@ export class WelcomePageComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log(`IsloggedIn = ${this.isLoggedin}`)
-    console.log(`authToken = ${this.authToken}`)
+    // console.log(`IsloggedIn = ${this.isLoggedin}`)
+    // console.log(`authToken = ${this.authToken}`)
    if (this.authToken) this.router.navigateByUrl('/boards');
   }
 }

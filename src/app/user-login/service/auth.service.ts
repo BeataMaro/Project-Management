@@ -3,6 +3,9 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { Ilogin, Isignup, Itoken, Iuser } from '../../shared/models/user.model';
+import { Store } from '@ngrx/store';
+import { UsersState } from '../store/users/users-reducers';
+import { isLoggedInSelector } from '../store/users/users-selectors';
 
 @Injectable({
   providedIn: 'root',
@@ -14,7 +17,11 @@ export class AuthService {
   isLoggedIn = false;
   loggedUserId = '';
 
-  constructor(private httpClient: HttpClient, private router: Router) {}
+  constructor(
+    private httpClient: HttpClient,
+    private router: Router,
+    private store: Store<UsersState>
+  ) {}
 
   signUp({ name, login, password }: Isignup): Observable<Iuser> {
     return this.httpClient.post<Iuser>('auth/signup', {
@@ -38,7 +45,10 @@ export class AuthService {
   }
 
   isUserLoggedIn(): boolean {
-    this.isLoggedIn = JSON.parse(localStorage.getItem('is_loggedin')!) || false;
+    // this.store
+    //   .select(isLoggedInSelector)
+    //   .subscribe((res) => (this.isLoggedIn = res));
+    console.log(this.isLoggedIn); // this.isLoggedIn = JSON.parse(localStorage.getItem('is_loggedin')!) || false;
     return this.isLoggedIn;
   }
 
@@ -66,9 +76,7 @@ export class AuthService {
     return this.httpClient.delete<Iuser>(`users/${userId}`);
   }
 
-  updateUser(
-    { name, login, password }: Isignup
-  ): Observable<Iuser> {
+  updateUser({ name, login, password }: Isignup): Observable<Iuser> {
     const userId = localStorage.getItem('user_id') || '';
     return this.httpClient.put<Iuser>(`users/${userId}`, {
       name,
