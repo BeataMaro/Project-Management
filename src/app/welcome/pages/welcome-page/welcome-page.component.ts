@@ -22,7 +22,7 @@ export class WelcomePageComponent implements OnInit {
   constructor(private router: Router, private auth: AuthService, private breakpointObserver: BreakpointObserver) {
     this.isLoggedin = this.auth.isUserLoggedIn();
     this.authToken = this.auth.getToken();
-    this.colspan$ = breakpointObserver.observe('(max-width: 599.99px)')
+    this.colspan$ = breakpointObserver.observe('(max-width: 599px)')
     .pipe(map(state => state.matches ? 1 : 2));
   }
 
