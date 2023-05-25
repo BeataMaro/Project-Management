@@ -8,7 +8,7 @@ import { Itask } from 'src/app/shared/models/task.model';
 import { MatDialog } from '@angular/material/dialog';
 import { FormDialog } from 'src/app/core/components/form-dialog/form-dialog.component';
 import { ConfirmationDialog } from '../../../core/components/confirmation-dialog/confirmation-dialog.component';
-import { getColumns, addColumn } from '../../store/column/column-actions';
+import { getColumns, deleteColumn } from '../../store/column/column-actions';
 import {
   CdkDragDrop,
   moveItemInArray,
@@ -34,6 +34,7 @@ export class BoardPageComponent implements OnInit {
   // allColumns$: Observable<ColumnsStateInterface>;
   // boardId = Observable<string | undefined>;
   currentBoardId = '';
+  tasks$: Itask[] = []
 
   constructor(
     private taskService: TaskService,
@@ -53,10 +54,6 @@ export class BoardPageComponent implements OnInit {
     this.getBoards();
     this.currentBoardId = this.route.snapshot.params['id'];
   }
-
-  // ngOnChanges(): void {
-  //   this.getBoards();
-  // }
 
   createColumnForm() {
     const dialogRef = this.dialog.open(FormDialog, {
@@ -104,7 +101,6 @@ export class BoardPageComponent implements OnInit {
   }
 
   getAllColumns() {
-    //przenies do serwisu
     this.boardsService
       .getAllColumns(this.currentBoardId)
       .subscribe((res) => res.map((column) => console.log(`Column: ${column.title}, ${column.order}, ${column._id}, ${column.boardId}`)));
@@ -118,6 +114,10 @@ export class BoardPageComponent implements OnInit {
     console.log('deleting Task');
     // this.store.dispatch(TaskActions.deleteTask(column));
     // this.allColumns$ = this.store.select(ColumnsSelector);
+  }
+
+  deleteColumn(board: { boardId: string; columnId: string }) {
+    this.store.dispatch(deleteColumn(board));
   }
 
   openDialog() {

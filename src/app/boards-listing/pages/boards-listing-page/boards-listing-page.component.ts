@@ -1,7 +1,4 @@
-import {
-  Component,
-  OnInit,
-} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { select, Store } from '@ngrx/store';
 import { Observable, shareReplay } from 'rxjs';
@@ -34,27 +31,21 @@ export class BoardsListingPageComponent implements OnInit {
   allBoards$: Observable<Iboard[]>;
   boardId: Observable<string | undefined>;
   columnId: Observable<string | undefined>;
-  isLoggedIn: false;
   mybreakpoint: number = 1;
 
-  constructor(
-    private store: Store,
-    private BoardsService: BoardsService,
-    private router: Router
-  ) {
+  constructor(private store: Store, private BoardsService: BoardsService) {
     this.isLoading$ = this.store.pipe(select(isLoadingSelector));
     this.isError$ = this.store.pipe(select(ErrorSelector));
     this.allBoards$ = this.store.select(BoardsSelector);
     this.boardId = this.store.select(BoardIdSelector);
     this.columnId = this.store.select(ColumnIdSelector);
-    this.isLoggedIn = JSON.parse(localStorage.getItem('is_loggedin')!) || false;
   }
 
   ngOnInit() {
     this.mybreakpoint = windowInnerWidth();
     this.isLoading$ = this.store.pipe(select(isLoadingSelector));
-    if (!this.isLoggedIn) this.router.navigateByUrl('/home');
-    this.allBoards$ = this.store.select(BoardsSelector) || [];
+    this.allBoards$ = this.store.select(BoardsSelector);
+    //move to effects
     this.BoardsService.getAllBoards().pipe(shareReplay()).subscribe();
     this.store.dispatch(getBoards());
   }
@@ -65,11 +56,6 @@ export class BoardsListingPageComponent implements OnInit {
 
   removeBoard(boardId: string) {
     this.store.dispatch(deleteBoard({ boardId }));
-    this.BoardsService.deleteBoard(boardId);
     this.ngOnInit();
-  }
-
-  deleteColumn(board: { boardId: string; columnId: string }) {
-    this.store.dispatch(deleteColumn(board));
   }
 }

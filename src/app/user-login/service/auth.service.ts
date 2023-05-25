@@ -5,15 +5,13 @@ import { Router } from '@angular/router';
 import { Ilogin, Isignup, Itoken, Iuser } from '../../shared/models/user.model';
 import { Store } from '@ngrx/store';
 import { UsersState } from '../store/users/users-reducers';
-import { isLoggedInSelector } from '../store/users/users-selectors';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  // interceptor - just endpoint
   users: Iuser[] = [];
-  private token = '';
+  token = '';
   isLoggedIn = false;
   loggedUserId = '';
 
@@ -22,6 +20,9 @@ export class AuthService {
     private router: Router,
     private store: Store<UsersState>
   ) {}
+
+  // CanActivate = (): boolean => this.token ? true : false
+
 
   signUp({ name, login, password }: Isignup): Observable<Iuser> {
     return this.httpClient.post<Iuser>('auth/signup', {

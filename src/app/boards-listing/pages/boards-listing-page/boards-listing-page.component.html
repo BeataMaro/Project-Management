@@ -1,7 +1,12 @@
 <!-- <div *ngIf="isError$ | async as error">{{ error }}</div> -->
+<a routerLink="/new-board-form" routerLinkActive="active">
+  <button mat-fab color="primary">
+    <mat-icon>add</mat-icon>
+  </button>
+</a>
 <mat-grid-list
   [cols]="mybreakpoint"
-  rowHeight="2:4"
+  rowHeight="500"
   (window:resize)="handleSize($event)"
 >
   <mat-grid-tile *ngFor="let item of allBoards$ | async as boards">
@@ -11,10 +16,6 @@
       (removeBoard)="removeBoard($event)"
     ></app-board-tile>
   </mat-grid-tile>
-
-  <a routerLink="/new-board-form" routerLinkActive="active">
-    <button mat-fab color="primary">
-      <mat-icon>add</mat-icon>
-    </button>
-  </a>
 </mat-grid-list>
+
+

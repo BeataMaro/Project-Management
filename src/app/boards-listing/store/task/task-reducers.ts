@@ -1,12 +1,13 @@
 import { createReducer, on } from '@ngrx/store';
 import { Itask } from 'src/app/shared/models/task.model';
-import * as TasksActions from './task-actions';
+import { getTasks, getTasksSuccess, getTasksFailure, deleteTask } from './task-actions';
 
 export interface TasksStateInterface {
   isLoading: boolean;
   tasks: Itask[];
   error: string | null;
   boardId?: string,
+  columnsId?: string
 }
 
 const initialState: TasksStateInterface = {
@@ -15,22 +16,23 @@ const initialState: TasksStateInterface = {
   error: null,
 };
 
-export const boardsReducers = createReducer(initialState, on(TasksActions.getTasks, (state) => ({
+export const tasksReducers = createReducer(initialState, on(getTasks, (state) => ({
     ...state,
     isLoading: true
 }) ),
-on(TasksActions.getTasksSuccess, (state, action) => ({
+on(getTasksSuccess, (state, action) => ({
   ...state,
   isLoading: false,
   boardId: action.boardId,
-  columnId: action.columnId
+  columnId: action.columnId,
+  tasks: [...action.tasks]
 }) ),
-on(TasksActions.getTasksFailure, (state, action) => ({
+on(getTasksFailure, (state, action) => ({
   ...state,
   isLoading: false,
   error: action.error
 }) ),
-on(TasksActions.deleteTask, (state, action) => ({
+on(deleteTask, (state, action) => ({
   ...state,
   isLoading: false,
   boardId: action.boardId,

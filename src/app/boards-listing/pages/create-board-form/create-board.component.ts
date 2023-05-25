@@ -35,6 +35,7 @@ export class CreateBoardComponent {
   }
 
   onCreateNewBoard() {
+    //move to effects
     this.boardsService
       .createBoard({
         title: this.createBoardForm.value.title,
@@ -46,6 +47,7 @@ export class CreateBoardComponent {
           localStorage.setItem('board_id', res._id!);
           this.board$ = res;
         },
+        //
         () => this.router.navigateByUrl('/boards'),
         () => this.createBoardForm.setValue({ title: '' })
       );

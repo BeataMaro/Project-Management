@@ -1,5 +1,11 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
+import { NgModule, inject } from '@angular/core';
+import {
+  Route,
+  Router,
+  RouterModule,
+  Routes,
+  UrlSegment,
+} from '@angular/router';
 
 import { WelcomePageComponent } from './welcome/pages/welcome-page/welcome-page.component';
 import { CreateBoardComponent } from './boards-listing/pages/create-board-form/create-board.component';
@@ -10,6 +16,7 @@ import { BoardsListingPageComponent } from './boards-listing/pages/boards-listin
 import { UserLoginPageComponent } from './user-login/pages/user-login-page/user-login-page.component';
 import { UserSignupPageComponent } from './user-login/pages/user-signup-page/user-signup-page.component';
 import { UserEditPageComponent } from './user-login/pages/user-edit-page/user-edit-page.component';
+import { AuthService } from './user-login/service/auth.service';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -21,6 +28,14 @@ const routes: Routes = [
         (m) => m.BoardsListingModule
       ),
     component: BoardsListingPageComponent,
+    canMatch: [
+      (route: Route, segments: UrlSegment[]) => {
+        const router = inject(Router);
+        return inject(AuthService).token.length
+          ? true
+          : router.createUrlTree(['']);
+      },
+    ],
   },
   {
     path: 'boards/:id/columns',
@@ -29,12 +44,27 @@ const routes: Routes = [
         (m) => m.BoardsListingModule
       ),
     component: BoardPageComponent,
+    canMatch: [
+      (route: Route, segments: UrlSegment[]) => {
+        const router = inject(Router);
+        return inject(AuthService).token.length
+          ? true
+          : router.createUrlTree(['']);
+      },
+    ],
   },
   {
     path: 'new-board-form',
     loadChildren: () => import('./core/core.module').then((m) => m.CoreModule),
     component: CreateBoardComponent,
-    canActivate: [UserGuard],
+    canMatch: [
+      (route: Route, segments: UrlSegment[]) => {
+        const router = inject(Router);
+        return inject(AuthService).token.length
+          ? true
+          : router.createUrlTree(['']);
+      },
+    ],
   },
   {
     path: 'login-form',
@@ -47,6 +77,14 @@ const routes: Routes = [
     loadChildren: () =>
       import('./user-login/user-login.module').then((m) => m.UserLoginModule),
     component: UserEditPageComponent,
+    canMatch: [
+      (route: Route, segments: UrlSegment[]) => {
+        const router = inject(Router);
+        return inject(AuthService).token.length
+          ? true
+          : router.createUrlTree(['']);
+      },
+    ],
   },
   {
     path: 'signup-form',
