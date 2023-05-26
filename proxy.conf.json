@@ -1,6 +1,0 @@
-{
-  "/api": {
-    "target": "https://project-management-application-production.up.railway.app",
-    "secure": false
-  }
-}
