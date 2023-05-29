@@ -1,4 +1,12 @@
-
-
 <!-- <app-tasks-list [tasksList]="tasksList" (toggleComplete)="onToggleComplete($event)"></app-tasks-list> -->
 
+<section class="board-column">
+  <mat-card class="mat-typography" *ngIf="column.title.length">
+    <mat-card-header>
+      <h2>{{ column.title }}</h2>
+    </mat-card-header>
+    <mat-card-content>
+          <app-tasks-list (cdkDropListDropped)="drop($event)"></app-tasks-list>
+    </mat-card-content>
+  </mat-card>
+</section>

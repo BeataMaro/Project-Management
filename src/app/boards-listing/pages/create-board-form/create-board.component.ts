@@ -20,6 +20,7 @@ export class CreateBoardComponent {
     title: new FormControl('', [Validators.required]),
   });
   board$: Iboard;
+  // column$: ICol;
 
   constructor(
     private boardsService: BoardsService,
@@ -28,13 +29,19 @@ export class CreateBoardComponent {
     private store: Store<fromReducer.BoardsStateInterface>
   ) {
     this.board$ = { _id: '', title: '', owner: '', users: [] };
+    // this.column$ = { title: '', order: 0}
   }
 
   ngOnInit() {
     this.store.dispatch(BoardsActions.getBoards());
+    // this.store.dispatch(ColumnsActions.getColumns());
   }
 
+  // onCreateNewBoard(service, serviceMethod, formValues) {
   onCreateNewBoard() {
+
+// service.serviceMethod(formValues)
+
     //move to effects
     this.boardsService
       .createBoard({

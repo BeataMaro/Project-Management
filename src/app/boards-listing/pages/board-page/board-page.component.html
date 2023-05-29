@@ -1,54 +1,59 @@
 <!-- <app-create-task-form (addTask)="onAddTask($event)"></app-create-task-form> -->
 <!-- <app-tasks-list [tasksList]="tasks" (toggleComplete)="onToggleComplete($event)"></app-tasks-list> -->
-<a routerLink="/boards" routerLinkActive="active"
-  ><mat-icon>keyboard_backspace</mat-icon> <span>Back to boards list</span></a
->
-<br />
-<button mat-flat-button color="primary" (click)="createColumnForm()">
-  New Column
-</button>
-<button mat-raised-button color="accent" (click)="getAllColumns()">
-  Get all columns
-</button>
 
-<mat-card>
-  <mat-card-header>{{ boardItem?.title }}</mat-card-header>
-  <mat-card-content>
-    <button mat-button color="warn" type="button" (click)="openDialog()">
-      <mat-icon>clear</mat-icon>
+<section>
+  <a routerLink="/boards" routerLinkActive="active"
+    ><mat-icon>keyboard_backspace</mat-icon> <span>Back to boards list</span></a
+  >
+  <br />
+  <!-- <a routerLink="/new-column-form" routerLinkActive="active"> -->
+    <button mat-fab color="primary" (click)="toggleForm()">
+      <mat-icon>add</mat-icon>
     </button>
-    <div class="board-container" class="mat-typography">
-      <h2>Column Title</h2>
-      <div
-        cdkDropList
-        #todoList="cdkDropList"
-        [cdkDropListData]="todo"
-        [cdkDropListConnectedTo]="[doneList]"
-        class="example-list"
-        (cdkDropListDropped)="drop($event)"
-      >
-        <div class="example-box" *ngFor="let item of todo" cdkDrag>
-          {{ item }}
-        </div>
-      </div>
-    </div>
-  </mat-card-content>
-</mat-card>
-<mat-card class="mat-typography">
-  <h2>Done</h2>
+    <span (click)="toggleForm()">Add new column</span>
 
-  <mat-card-content>
-    <div
-      cdkDropList
-      #doneList="cdkDropList"
-      [cdkDropListData]="done"
-      [cdkDropListConnectedTo]="[todoList]"
-      class="example-list"
-      (cdkDropListDropped)="drop($event)"
-    >
-      <div class="example-box" *ngFor="let item of done" cdkDrag>
-        {{ item }}
-      </div>
-    </div>
-  </mat-card-content>
-</mat-card>
+
+  <ng-container *ngIf="openedForm">
+    <form
+    id="create-column-form"
+    name="create-column-form"
+    [formGroup]="createColumnFields"
+    (submit)="addColumn()"
+  >
+    <mat-form-field class="example-full-width">
+      <mat-label>Title</mat-label>
+      <input
+        matInput
+        type="text"
+        class="column-title"
+        name="column-title"
+        placeholder="Title"
+        formControlName="title"
+        maxlength="20"
+      />
+    </mat-form-field>
+    <button mat-flat-button color="primary" type="submit">
+      Add
+    </button>
+  </form>
+  </ng-container>
+
+  <!-- <mat-card>
+    <mat-card-header>{{ boardItem?.title }}</mat-card-header>
+    <mat-card-content>
+      <button mat-button color="warn" type="button" (click)="openDialog()">
+        <mat-icon>clear</mat-icon>
+      </button>
+    </mat-card-content>
+  </mat-card> -->
+
+  <div *ngFor="let column of columns">
+    <app-column key="column.order" [column]="column"></app-column>
+  </div>
+
+
+
+  <button mat-raised-button color="accent" (click)="getAllColumns()">
+    Get all columns
+  </button>
+</section>

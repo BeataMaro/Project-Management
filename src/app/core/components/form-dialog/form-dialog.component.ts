@@ -10,7 +10,7 @@ import { Store } from '@ngrx/store';
 import { ActivatedRoute } from '@angular/router';
 
 import { ColumnsService } from 'src/app/boards-listing/service/columns.service';
-import * as fromReducer from '../../../../app/boards-listing/store/column/column-reducers';
+import * as fromReducer from '../../../../app/boards-listing/store/board/board-reducers';
 import { addColumn } from 'src/app/boards-listing/store/column/column-actions';
 import { ICol, IColumn } from 'src/app/shared/models/column.model';
 
@@ -38,7 +38,7 @@ export class FormDialog {
     @Inject(MAT_DIALOG_DATA) private data: dialogData,
     private dialogRef: MatDialogRef<FormDialog>,
     private ColumnsService: ColumnsService,
-    private store: Store<fromReducer.ColumnsStateInterface>,
+    private store: Store<fromReducer.BoardsStateInterface>,
     private route: ActivatedRoute,
     private fb: FormBuilder
   ) {
@@ -56,8 +56,7 @@ export class FormDialog {
       this.createForm.value.order!,
       this.boardId
     ).subscribe((res) => {
-      console.log(this.boardId);
-      this.store.dispatch(addColumn(res));
+      this.store.dispatch(addColumn({ column: { title: res.title, order: res.order}, boardId: res.boardId }));
       this.onConfirmClick();
     });
   }

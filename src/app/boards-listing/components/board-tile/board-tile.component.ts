@@ -14,12 +14,19 @@ import { Iboard } from 'src/app/shared/models/board.model';
   styleUrls: ['./board-tile.component.scss'],
 })
 export class BoardTileComponent {
+
+isEdit = false;
+
   constructor(
     private dialog: MatDialog,
   ) {}
 
   @Input() board: Iboard = { users: [], owner: '' };
   @Output() removeBoard: EventEmitter<string> = new EventEmitter<string>();
+
+  editBoard(boardId: string) {
+this.isEdit = true
+  }
 
   deleteBoard(board: { boardId: string }) {
     this.removeBoard.emit(board.boardId);

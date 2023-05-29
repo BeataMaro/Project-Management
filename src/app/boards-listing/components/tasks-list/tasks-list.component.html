@@ -1,19 +1,33 @@
-<div class="lists-wrapper">
-    <div class="completed-tasks-list" *ngIf="accomplishedTasks.length > 0">
-      <h3>Completed tasks</h3>
-      <app-task
-        *ngFor="let task of accomplishedTasks"
-        (toggleCompleteTask)="onToggleComplete(task)"
-        [taskItem]="task"
-      ></app-task>
-    </div>
-    <div class="uncompleted-tasks-list mat-typography *ngIf="toBeCompletedTasks.length > 0">
-      <h3>Tasks to do</h3>
-      <app-task
-        *ngFor="let task of toBeCompletedTasks"
-        (toggleCompleteTask)="onToggleComplete(task)"
-        [taskItem]="task"
-      ></app-task>
-    </div>
+<section class="tasks-list-wrapper">
+  <div
+    cdkDropList
+    #todoList="cdkDropList"
+    [cdkDropListData]="toBeCompletedTasks"
+    [cdkDropListConnectedTo]="[doneList]"
+    class="example-list"
+  >
+    <h3 *ngIf="toBeCompletedTasks.length">Tasks to do</h3>
+    <app-task
+      *ngFor="let task of toBeCompletedTasks"
+      (toggleCompleteTask)="onToggleComplete()"
+      [task]="task"
+      cdkDrag
+    ></app-task>
   </div>
-  
+  <div
+    cdkDropList
+    #doneList="cdkDropList"
+    [cdkDropListData]="accomplishedTasks"
+    [cdkDropListConnectedTo]="[todoList]"
+    class="example-list"
+    (cdkDropListDropped)="drop($event)"
+  >
+  <h3 *ngIf="accomplishedTasks.length">Accomplished Tasks</h3>
+    <app-task
+      *ngFor="let task of accomplishedTasks"
+      (toggleCompleteTask)="onToggleComplete()"
+      [task]="task"
+      cdkDrag
+    ></app-task>
+  </div>
+</section>

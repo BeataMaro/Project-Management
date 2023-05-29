@@ -1,11 +1,19 @@
 <nav>
-  <div *ngIf="isLoggedIn; else loginBlock" class="user-panel">
-    <a routerLink="/edit-form" routerLinkActive="active"
-      ><mat-icon>person icon</mat-icon></a
-    >
-    <a routerLink="/boards" routerLinkActive="active"> Your plans </a>
-    <a (click)="logOut()">Log out<mat-icon>exit_to_app </mat-icon></a>
-  </div>
+  <ng-container *ngIf="isLoggedIn; else loginBlock">
+    <ul class="user-panel-list">
+      <li>
+        <a routerLink="/edit-form" routerLinkActive="active"
+          ><mat-icon>person icon</mat-icon></a
+        >
+      </li>
+      <li>
+        <a routerLink="/boards" routerLinkActive="active"> Your plans </a>
+      </li>
+      <li>
+        <a (click)="logOut()">Log out<mat-icon>exit_to_app </mat-icon></a>
+      </li>
+    </ul>
+  </ng-container>
   <ng-template #loginBlock>
     <div class="login-panel">
       <button
@@ -26,14 +34,17 @@
       </button>
     </div>
   </ng-template>
-  <!-- <button mat-button [matMenuTriggerFor]="menu">Menu</button>
-<mat-menu #menu="matMenu">
-  <button mat-menu-item routerLink="/login-form" routerLinkActive="active">
-    Log in
-  </button>
+  <!-- Hamburger menu  -->
+  <ng-template *ngIf="showHamburger">
+    <button mat-button [matMenuTriggerFor]="menu">Menu</button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item routerLink="/login-form" routerLinkActive="active">
+        Log in
+      </button>
 
-  <button routerLink="/signup-form" routerLinkActive="active" mat-menu-item>
-    Sign up
-  </button>
-</mat-menu> -->
+      <button routerLink="/signup-form" routerLinkActive="active" mat-menu-item>
+        Sign up
+      </button>
+    </mat-menu>
+  </ng-template>
 </nav>

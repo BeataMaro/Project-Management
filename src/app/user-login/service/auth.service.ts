@@ -49,7 +49,8 @@ export class AuthService {
     // this.store
     //   .select(isLoggedInSelector)
     //   .subscribe((res) => (this.isLoggedIn = res));
-    console.log(this.isLoggedIn); // this.isLoggedIn = JSON.parse(localStorage.getItem('is_loggedin')!) || false;
+    this.isLoggedIn = JSON.parse(localStorage.getItem('is_loggedin')!) || false;
+    console.log(this.isLoggedIn); 
     return this.isLoggedIn;
   }
 

@@ -12,7 +12,6 @@ import {
   withLatestFrom,
 } from 'rxjs';
 import { Store } from '@ngrx/store';
-import * as fromRoot from './column-reducers';
 import {
   getColumns,
   addColumn,
@@ -22,31 +21,32 @@ import {
 } from './column-actions';
 import { ColumnsService } from '../../service/columns.service';
 import { ColumnsSelector } from './column-selector';
+import { BoardsStateInterface } from '../board/board-reducers';
 
 @Injectable()
 export class ColumnsEffects {
   constructor(
     private actions$: Actions,
-    private store: Store<fromRoot.ColumnsStateInterface>,
+    private store: Store<BoardsStateInterface>,
     private ColumnsService: ColumnsService
   ) {}
 
-  fetchColumns$ = createEffect(() =>
-    this.actions$.pipe(
-      ofType(getColumns),
-      mergeMap(() =>
-        this.ColumnsService.getAllColumns().pipe(
-          map((columns, boardId) =>
-            getColumnsSuccess({
-              columns: columns,
-              boardId: JSON.stringify(boardId),
-            })
-          ),
-          catchError((error) => of(getColumnsFailure({ error: error.message })))
-        )
-      )
-    )
-  );
+  // fetchColumns$ = createEffect(() =>
+  //   this.actions$.pipe(
+  //     ofType(getColumns),
+  //     mergeMap(() =>
+  //       this.ColumnsService.getAllColumns(boardId).pipe(
+  //         map((columns, boardId) =>
+  //           getColumnsSuccess({
+  //             columns: columns,
+  //             boardId: JSON.stringify(boardId),
+  //           })
+  //         ),
+  //         catchError((error) => of(getColumnsFailure({ error: error.message })))
+  //       )
+  //     )
+  //   )
+  // );
   // deleteColumn$ = createEffect(() => this.actions$.pipe(ofType(deleteColumn),
   // mergeMap(() =>
   // this.ColumnsService.deleteColumn()
@@ -59,8 +59,10 @@ export class ColumnsEffects {
         ofType(addColumn),
         withLatestFrom(this.store.select(ColumnsSelector)),
         switchMap(([action]) =>
-          from(this.ColumnsService.createColumn(action.title, action.order, action.boardId))
-        )
+          from(this.ColumnsService.createColumn(action.column.title, action.column.order, action.boardId))
+          ),
+          // switchMap(([action, boards]) => from(this.ColumnsService.getAllColumns(action.boardId)))
+
       ),
     { dispatch: false }
   );

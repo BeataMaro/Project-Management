@@ -1,6 +1,6 @@
 import { createAction, props } from '@ngrx/store';
 import { Iboard } from 'src/app/shared/models/board.model';
-import { IColumn } from 'src/app/shared/models/column.model';
+import { ICol, IColumn } from 'src/app/shared/models/column.model';
 
 export const getBoards = createAction('[Board] Get Boards');
 export const getBoardsSuccess = createAction(
@@ -22,6 +22,11 @@ export const addBoard = createAction(
   props<{ board: Iboard }>()
 );
 
+export const editBoard = createAction(
+  '[Board] Edit Board',
+  props<{ boardId: string; newTitle: string }>()
+);
+
 export const getColumns = createAction(
   '[Board] Get Columns',
   props<{ board: Iboard }>()
@@ -29,7 +34,7 @@ export const getColumns = createAction(
 
 export const getColumnsSuccess = createAction(
   '[Board] Get Columns Success',
-  props<{ columns: IColumn[] }>()
+  props<{ columns: IColumn[]; boardId: string }>()
 );
 export const getColumnsFailure = createAction(
   '[Board] Get Columns Failure',
@@ -37,5 +42,5 @@ export const getColumnsFailure = createAction(
 );
 export const addColumn = createAction(
   '[Board] Add Column',
-  props<{ column: IColumn }>()
+  props<{ column: ICol; boardId: string }>()
 );

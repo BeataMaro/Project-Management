@@ -23,7 +23,7 @@ export class BoardsService {
     return this.httpClient.post<Iboard>('boards', { title, owner, users });
   }
 
-  getBoards(): Observable<Iboard[]> {
+  getBoardsSet(): Observable<Iboard[]> {
     const userId = localStorage.getItem('user_id');
     return this.httpClient.get<Iboard[]>(`boardsSet/${userId}`);
   }

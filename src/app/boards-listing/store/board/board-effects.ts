@@ -23,15 +23,19 @@ import {
   getColumns,
   getColumnsSuccess,
   getColumnsFailure,
+  addColumn,
 } from './board-actions';
 import { BoardIdSelector, BoardsSelector } from './board-selectors';
+import { ColumnsSelector } from '../column/column-selector';
+import { ColumnsService } from '../../service/columns.service';
 
 @Injectable()
 export class BoardsEffects {
   constructor(
     private actions$: Actions,
     private store: Store<fromRoot.BoardsStateInterface>,
-    private boardsService: BoardsService
+    private boardsService: BoardsService,
+    private columnsService: ColumnsService
   ) {}
 
   fetchBoards$ = createEffect(() =>
@@ -95,4 +99,22 @@ export class BoardsEffects {
   //       .pipe(map((board) => getColumns(board)))
   //   )
   // );
+  addColumn$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(addColumn),
+        withLatestFrom(this.store.select(BoardsSelector)),
+        switchMap(([action]) =>
+          from(
+            this.columnsService.createColumn(
+              action.column.title,
+              action.column.order,
+              action.boardId
+            )
+          )
+        )
+        // switchMap(([action, boards]) => from(this.columnsService.getAllColumns(action.boardId)))
+      ),
+    { dispatch: false }
+  );
 }

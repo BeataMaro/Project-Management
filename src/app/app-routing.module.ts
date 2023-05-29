@@ -9,7 +9,6 @@ import {
 
 import { WelcomePageComponent } from './welcome/pages/welcome-page/welcome-page.component';
 import { CreateBoardComponent } from './boards-listing/pages/create-board-form/create-board.component';
-import { UserGuard } from './core/guards/user.guard';
 import { ErrorPageComponent } from './core/pages/error-page/error-page.component';
 import { BoardPageComponent } from './boards-listing/pages/board-page/board-page.component';
 import { BoardsListingPageComponent } from './boards-listing/pages/boards-listing-page/boards-listing-page.component';

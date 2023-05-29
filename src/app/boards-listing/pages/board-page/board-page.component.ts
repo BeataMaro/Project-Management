@@ -8,19 +8,25 @@ import { Itask } from 'src/app/shared/models/task.model';
 import { MatDialog } from '@angular/material/dialog';
 import { FormDialog } from 'src/app/core/components/form-dialog/form-dialog.component';
 import { ConfirmationDialog } from '../../../core/components/confirmation-dialog/confirmation-dialog.component';
-import { getColumns, deleteColumn } from '../../store/column/column-actions';
+import {
+  getColumns,
+  deleteColumn,
+} from '../../store/column/column-actions';
 import {
   CdkDragDrop,
   moveItemInArray,
   transferArrayItem,
 } from '@angular/cdk/drag-drop';
 import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
 
-import * as fromReducer from '../../store/column/column-reducers';
 import { TaskService } from '../../service/task.service';
 import { ColumnsService } from '../../service/columns.service';
 import { ColumnsSelector } from '../../store/column/column-selector';
-import { IColumn } from 'src/app/shared/models/column.model';
+import { ICol, IColumn } from 'src/app/shared/models/column.model';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { BoardsStateInterface } from '../../store/board/board-reducers';
+import { addColumn } from '../../store/board/board-actions';
 
 @Component({
   selector: 'app-board-page',
@@ -29,26 +35,38 @@ import { IColumn } from 'src/app/shared/models/column.model';
 })
 export class BoardPageComponent implements OnInit {
   boards$: Iboard[] = [];
-  columns$: IColumn[] = [];
+  // columns$: IColumn[] = [];
+  columns$: Observable<(IColumn[] | ICol[] | undefined)[]>;
+  columns: IColumn[] | ICol[] = [{ title: '', order: 0 }];
   username = '';
   // allColumns$: Observable<ColumnsStateInterface>;
   // boardId = Observable<string | undefined>;
   currentBoardId = '';
-  tasks$: Itask[] = []
+  tasks$: Itask[] = [];
+
+  createColumnFields = new FormGroup({
+    title: new FormControl('', [Validators.required]),
+    order: new FormControl(0, [Validators.required]),
+  });
+  // column$: IColumn;
 
   constructor(
     private taskService: TaskService,
     private boardsService: BoardsService,
-    private ColumnsService: ColumnsService,
+    private columnsService: ColumnsService,
     public route: ActivatedRoute,
     private dialog: MatDialog,
-    private store: Store<fromReducer.ColumnsStateInterface>
+    private store: Store<BoardsStateInterface>
   ) {
     this.currentBoardId = this.route.snapshot.params['id'];
     localStorage.setItem('boardId', this.currentBoardId);
+    this.columns$ = this.store.select(ColumnsSelector);
   }
 
-  @Input() boardItem: Iboard | null = null; refreshBoard: Iboard = {owner: '', users: []}
+  @Input() boardItem: Iboard | null = null;
+  refreshBoard: Iboard = { owner: '', users: [] };
+
+  openedForm = false;
 
   ngOnInit(): void {
     this.getBoards();
@@ -71,24 +89,39 @@ export class BoardPageComponent implements OnInit {
   }
 
   addColumn() {
-    // this.ColumnsService.createColumn(
-    //   this.createForm.value.title!,
-    //   this.createForm.value.order!,
-    //   this.boardId
-    // ).subscribe((res) => {
-    //   this.store.dispatch(addColumn(res));
-    //   this.onConfirmClick();
-    // });
+    this.columnsService.createColumn(
+      this.createColumnFields.value.title!,
+      this.createColumnFields.value.order!,
+      this.currentBoardId
+    ).subscribe((res) => {
+      this.columns = [...this.columns, res];
+      console.log(res);
+      // {
+      //   title: res.title,
+      //   order: res.order,
+      //   _id: res._id,
+      //   boardId: res.boardId,
+      // },
+
+      this.store.dispatch(
+        // addColumn({
+        //   columns: { title: res.title, order: res.order },
+        //   boardId: res.boardId,
+        // })
+        addColumn({
+          column: { title: res.title, order: res.order },
+          boardId: res.boardId,
+        })
+      );
+    });
+    this.onConfirmClick();
+    () => this.createColumnFields.setValue({ title: '', order: 0 });
   }
 
-  onAddTask(item: Itask) {
-    this.taskService.addTask(item).subscribe(
-      (newItem: Itask) => {
-        this.getAllColumns();
-      },
-      (error: HttpErrorResponse) => console.log(error)
-    );
+  onConfirmClick(): void {
+    this.store.dispatch(getColumns());
   }
+
   onToggleComplete(changedItem: Itask): void {
     this.taskService
       .toggleComplete(changedItem)
@@ -96,17 +129,37 @@ export class BoardPageComponent implements OnInit {
   }
   private getBoards() {
     this.boardsService
-      .getBoards()
+      .getAllBoards()
       .subscribe((boards) => (this.boards$ = boards));
   }
 
   getAllColumns() {
     this.boardsService
       .getAllColumns(this.currentBoardId)
-      .subscribe((res) => res.map((column) => console.log(`Column: ${column.title}, ${column.order}, ${column._id}, ${column.boardId}`)));
+      .subscribe((res) =>
+        res.map((column) =>
+          console.log(
+            `Column: ${column.title}, ${column.order}, ${column._id}, ${column.boardId}`
+          )
+        )
+      );
 
     this.store.dispatch(getColumns());
     this.store.select(ColumnsSelector);
+  }
+
+  toggleForm() {
+    this.openedForm = !this.openedForm;
+  }
+
+  onAddTask(item: Itask) {
+    this.taskService.addTask(item).subscribe(
+      (newItem: Itask) => {
+        // this.getAllColumns();
+        console.log(newItem);
+      },
+      (error: HttpErrorResponse) => console.log(error)
+    );
   }
 
   // deleteTask(taskId: string, boardId: string, columnId: string) {
@@ -133,26 +186,5 @@ export class BoardPageComponent implements OnInit {
         this.deleteTask();
       }
     });
-  }
-
-  todo = ['Get to work', 'Pick up groceries', 'Go home', 'Fall asleep'];
-
-  done = ['Get up', 'Brush teeth', 'Take a shower', 'Check e-mail', 'Walk dog'];
-
-  drop(event: CdkDragDrop<string[]>) {
-    if (event.previousContainer === event.container) {
-      moveItemInArray(
-        event.container.data,
-        event.previousIndex,
-        event.currentIndex
-      );
-    } else {
-      transferArrayItem(
-        event.previousContainer.data,
-        event.container.data,
-        event.previousIndex,
-        event.currentIndex
-      );
-    }
   }
 }

@@ -9,13 +9,12 @@ import { Observable } from 'rxjs';
 export class ColumnsService {
   constructor(private httpClient: HttpClient) {}
 
-  getAllColumns(): Observable<IColumn[]> {
-    const boardId = localStorage.getItem('board_id');
+  getAllColumns(boardId: string): Observable<IColumn[]> {
+    // const boardId = localStorage.getItem('board_id');
     return this.httpClient.get<IColumn[]>(`boards/${boardId}/columns`);
   }
 
   createColumn(title: string, order: number, boardId: string): Observable<IColumn> {
-    // const boardId = localStorage.getItem('board_id');
     return this.httpClient.post<IColumn>(`boards/${boardId}/columns`, {
       title,
       order,

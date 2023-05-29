@@ -1,30 +1,34 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { BoardsStateInterface } from '../board/board-reducers';
-import { ColumnsStateInterface } from './column-reducers';
+// import { ColumnsStateInterface } from './column-reducers';
 import { UsersState } from 'src/app/user-login/store/users/users-reducers';
+import { Iboard } from 'src/app/shared/models/board.model';
 
-export interface AppStateInterface {
-    boards: BoardsStateInterface,
-    columns: ColumnsStateInterface,
-    users: UsersState
-}
+// export interface AppStateInterface {
+//   boards: BoardsStateInterface;
+//   columns: ColumnsStateInterface;
+//   users: UsersState;
+// }
 
-export const selectFeature = createFeatureSelector<ColumnsStateInterface>('columns')
+export const selectFeature =
+  createFeatureSelector<BoardsStateInterface>('columns');
 export const isLoadingSelector = createSelector(
   selectFeature,
-  (state: ColumnsStateInterface) => state.isLoading
+  (state: BoardsStateInterface) => state.isLoading
 );
 
 export const ColumnsSelector = createSelector(
-    selectFeature,
-    (state: ColumnsStateInterface) => state.column
-  );
+  selectFeature,
+  (state: BoardsStateInterface) =>
+    state.boards.map((board: Iboard) => board.columns)
+);
 
-  export const ErrorSelector = createSelector(
-    selectFeature,
-    (state: ColumnsStateInterface) => state.error
-  );
-  export const ColumnIdSelector = createSelector(
-    selectFeature,
-    (state: ColumnsStateInterface) => state.columnId
-  );
+export const ErrorSelector = createSelector(
+  selectFeature,
+  (state: BoardsStateInterface) => state.error
+);
+export const ColumnIdSelector = createSelector(
+  selectFeature,
+  (state: BoardsStateInterface) =>
+    state.boards.map((board: Iboard) => board.columns)
+);
