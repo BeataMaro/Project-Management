@@ -10,14 +10,14 @@ export const loadUsersSuccess = createAction(
   props<{ users: Ilogin[] }>()
 );
 
-export const getUsers = createAction('[App] Get Users');
+export const getUsers = createAction('[Users] Get Users');
 
 export const getUsersSuccess = createAction(
-  '[App] Get Users Success',
+  '[Users] Get Users Success',
   props<{ users: Iuser[] }>()
 );
 export const getUsersFailure = createAction(
-  '[App] Get Users Failure',
+  '[Users] Get Users Failure',
   props<{ error: string }>()
 );
 export const loginUser = createAction(

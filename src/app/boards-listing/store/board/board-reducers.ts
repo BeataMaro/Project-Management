@@ -44,8 +44,10 @@ export const boardsReducers = createReducer(
     isLoading: false,
     boards: [...state.boards, board],
   })),
-  on(BoardsActions.editBoard, (state, { boardId, newTitle }) => ({
+  // on(BoardsActions.editBoard, (state, { boardId, newTitle }) => ({
+  on(BoardsActions.editBoard, (state, { board }) => ({
     ...state,
+    board
     // ...state.boards.filter((board: Iboard) => board._id !== boardId),
     // ...state.boards.find((board: Iboard) => board._id === boardId )?.title = newTitle
   })),

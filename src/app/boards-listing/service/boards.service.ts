@@ -8,11 +8,9 @@ import { Iboard } from '../../shared/models/board.model';
   providedIn: 'root',
 })
 export class BoardsService {
-  constructor(
-    private httpClient: HttpClient,
-    // private router: Router,
-    // private route: ActivatedRoute
-  ) {}
+  constructor(private httpClient: HttpClient) // private router: Router,
+  // private route: ActivatedRoute
+  {}
 
   getAllBoards(): Observable<Iboard[]> {
     return this.httpClient.get<Iboard[]>('boards');
@@ -26,6 +24,15 @@ export class BoardsService {
   getBoardsSet(): Observable<Iboard[]> {
     const userId = localStorage.getItem('user_id');
     return this.httpClient.get<Iboard[]>(`boardsSet/${userId}`);
+  }
+
+  editBoard(title: string, owner: string, users: string[]): Observable<Iboard> {
+    const boardId = localStorage.getItem('boardId');
+    return this.httpClient.put<Iboard>(`boards/${boardId}`, {
+      title,
+      owner,
+      users,
+    });
   }
 
   deleteBoard(boardId: string): Observable<Iboard> {

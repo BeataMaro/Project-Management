@@ -24,6 +24,10 @@ export const usersReducer = createReducer(initialState,
     ...state,
     isLoggedIn: token ? true : false
   })),
+  on(logoutUser, (state) => ({
+    ...state,
+    isLoggedIn: false
+  })),
     on(loadUsersSuccess, (state, { users }) => ({
     ...state,
     isLoggedIn: true,

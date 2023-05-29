@@ -1,8 +1,6 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-// import { Router } from '@angular/router';
 import { AuthService } from 'src/app/user-login/service/auth.service';
-import { isLoggedInSelector } from 'src/app/user-login/store/users/users-selectors';
 import {
   Router,
   Event,
@@ -10,6 +8,12 @@ import {
   NavigationEnd,
   NavigationError,
 } from '@angular/router';
+import { isLoggedInSelector } from 'src/app/user-login/store/users/users-selectors';
+import {
+  windowInnerWidth,
+  handleSize,
+} from 'src/app/shared/helpers/window-size';
+import { logoutUser } from 'src/app/user-login/store/users/users-actions';
 
 @Component({
   selector: 'app-navigation',
@@ -19,9 +23,10 @@ import {
 export class NavigationComponent implements OnInit {
   title = 'detect-route-change';
   currentRoute: string;
-  // isLoggedIn = this.store.select(isLoggedInSelector);
-  isLoggedIn = JSON.parse(localStorage.getItem('is_loggedin')!);
+  isLoggedIn = this.store.select(isLoggedInSelector);
+  // isLoggedIn = JSON.parse(localStorage.getItem('is_loggedin')!);
   showHamburger = true;
+  myBreakpoint = 1;
 
   constructor(
     private authService: AuthService,
@@ -31,34 +36,36 @@ export class NavigationComponent implements OnInit {
     this.currentRoute = '';
     this.router.events.subscribe((event: Event) => {
       if (event instanceof NavigationStart) {
-        // Show progress spinner or progress bar
         console.log('Route change detected');
       }
 
       if (event instanceof NavigationEnd) {
-        // Hide progress spinner or progress bar
         this.currentRoute = event.url;
         this.ngOnInit();
         console.log(event);
       }
 
       if (event instanceof NavigationError) {
-        // Hide progress spinner or progress bar
-
-        // Present error to user
         console.log(event.error);
       }
     });
   }
 
   ngOnInit() {
-    // this.isLoggedIn = this.store.select(isLoggedInSelector);
+    this.myBreakpoint = windowInnerWidth();
+
+    // this.store.select(isLoggedInSelector).subscribe((res) => console.log(`res: ${res}`));
+    // console.log(this.isLoggedIn);
     this.isLoggedIn = JSON.parse(localStorage.getItem('is_loggedin')!);
-    console.log(`ngOnInit isLoggedIn: ${this.isLoggedIn}`);
+  }
+
+  handleSize(event: Event) {
+    this.myBreakpoint = handleSize(event);
   }
 
   logOut() {
     this.authService.logOut();
+    this.store.dispatch(logoutUser());
     this.ngOnInit();
   }
 }

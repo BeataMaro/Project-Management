@@ -13,6 +13,7 @@ import {
   deleteUser,
   getUsersFailure,
   loginUser,
+  logoutUser,
 } from './users-actions';
 import * as fromRoot from './users-reducers';
 
@@ -63,27 +64,24 @@ export class UsersEffects {
   loginUser$ = createEffect(() =>
     this.actions$.pipe(
       ofType(loginUser),
-      switchMap(
-        ({login}) =>
-          this.authService
-            .logIn(login!)
-            .pipe(map(({ token }) => loginUser({ token })))
-        //   this.authService.logIn({ login, password}).pipe(
-        //   map(({ token }) =>  token ? loginUser({ isLoggedIn: true}) : loginUser({ isLoggedIn: false}) ))
-        // )
+      switchMap(({ login }) =>
+        this.authService
+          .logIn(login! || '')
+          .pipe(map(({ token }) => loginUser({ token })))
       )
     )
   );
 
+  // logoutUser$ = createEffect(() =>
+  //   this.actions$.pipe(
+  //     ofType(logoutUser),
+  //     switchMap(() => this.authService.logOut())
+  //   )
+  // );
+
   updateUser$ = createEffect(() =>
     this.actions$.pipe(
       ofType(updateUser),
-      // switchMap(({ userId, name, login, password }) =>
-      //   this.authService.updateUser( userId, {'name': name, 'login': login, 'password': password }).pipe(
-      //     map(({ userId, name, login, password }) => UsersActions.updateUser({ 'userId' : userId, 'name': name, 'login': login, 'password': password })),
-      //     catchError(() => of(UsersActions.loadUsersFailed()))
-      //   )
-      // )
       switchMap(({ user }) =>
         this.authService.updateUser(user).pipe(
           map(({ login, name, password }) =>

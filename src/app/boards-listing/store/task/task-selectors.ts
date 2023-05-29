@@ -3,10 +3,10 @@ import { TasksStateInterface } from './task-reducers';
 
 
 export const selectFeature = createFeatureSelector<TasksStateInterface>('tasks')
-export const isLoadingSelector = createSelector(
-  selectFeature,
-  (state: TasksStateInterface) => state.isLoading
-);
+// export const isLoadingSelector = createSelector(
+//   selectFeature,
+//   (state: TasksStateInterface) => state.isLoading
+// );
 
 export const TasksSelector = createSelector(
     selectFeature,

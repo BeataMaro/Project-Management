@@ -18,6 +18,7 @@ import {
   getBoards,
   deleteBoard,
   addBoard,
+  editBoard,
   getBoardsFailure,
   getBoardsSuccess,
   getColumns,
@@ -80,6 +81,36 @@ export class BoardsEffects {
       ),
     { dispatch: false }
   );
+
+  // updateUser$ = createEffect(() =>
+  //   this.actions$.pipe(
+  //     ofType(updateUser),
+  //     switchMap(({ user }) =>
+  //       this.authService.updateUser(user).pipe(
+  //         map(({ login, name, password }) =>
+  //           updateUser({
+  //             user: { name, login, password },
+  //           })
+  //         )
+  //       )
+  //     )
+  //   )
+  // );
+
+  // editBoard$ = createEffect(() =>
+  //   this.actions$.pipe(
+  //     ofType(editBoard),
+  //     switchMap(({ board }) =>
+  //       this.authService.editBoard(board).pipe(
+  //         map(({ title, order, owner, users }) =>
+  //           editBoard({
+  //             board: { title, order, owner, users },
+  //           })
+  //         )
+  //       )
+  //     )
+  //   )
+  // );
 
   deleteBoard$ = createEffect(
     () =>

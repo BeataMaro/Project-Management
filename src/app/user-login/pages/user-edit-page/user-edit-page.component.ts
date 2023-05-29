@@ -20,12 +20,21 @@ export class UserEditPageComponent implements OnInit {
   passwordVisible = false;
   isLoggedin = false;
   loggedUser: Iuser = { _id: '', name: '', login: '', password: '' };
-
+  invalid = false;
 
   editProfileForm = new FormGroup({
-    name: new FormControl(this.loggedUser.name, [Validators.required]),
-    login: new FormControl(this.loggedUser.login, [Validators.required]),
-    password: new FormControl('', [Validators.required]),
+    name: new FormControl(this.loggedUser.name, [
+      Validators.required,
+      Validators.minLength(3),
+    ]),
+    login: new FormControl(this.loggedUser.login, [
+      Validators.required,
+      Validators.minLength(3),
+    ]),
+    password: new FormControl('', [
+      Validators.required,
+      Validators.minLength(3),
+    ]),
   });
 
   constructor(
@@ -36,7 +45,10 @@ export class UserEditPageComponent implements OnInit {
     private dialog: MatDialog
   ) {
     this.isLoggedin = JSON.parse(localStorage.getItem('is_loggedin')!) || false;
-    this.authService.getUser().subscribe((user) => (this.loggedUser = user));
+    this.authService.getUser().subscribe((user) => {
+      this.loggedUser = user;
+      console.log(this.loggedUser);
+    });
   }
 
   ngOnInit() {
@@ -44,13 +56,12 @@ export class UserEditPageComponent implements OnInit {
   }
 
   updateUser() {
-    console.log(this.editProfileForm.value);
-    // this.store.dispatch(
-    //   UsersActions.updateUser({ user: this.editProfileForm.value })
-    // );
-    this.authService
-      .updateUser(this.editProfileForm.value)
-      .subscribe((res) => console.log(res));
+    console.log('Update user')
+    this.store.dispatch(
+      UsersActions.updateUser({ user: this.editProfileForm.value })
+    );
+    // clear edit form
+    this.editProfileForm.setValue({ name: '', login: '', password: '' });
   }
   deleteUser() {
     this.store.dispatch(
@@ -59,6 +70,30 @@ export class UserEditPageComponent implements OnInit {
     localStorage.clear();
     localStorage.setItem('is_loggedin', 'false');
     this.router.navigateByUrl('home');
+  }
+
+  submitDialog() {
+    if (
+      !this.editProfileForm.value.name ||
+      !this.editProfileForm.value.login ||
+      !this.editProfileForm.value.password
+    ) {
+      this.invalid = true;
+    }
+      const dialogRef = this.dialog.open(ConfirmationDialog, {
+        data: {
+          message: !this.invalid
+            ? 'Your account was successfully updated!'
+            : 'Please fill in all the fields of the form',
+          confirmButtonText: 'OK'
+        },
+      });
+
+      dialogRef.afterClosed().subscribe((confirmed: boolean) => {
+        if (confirmed && !this.invalid) {
+          this.updateUser();
+        }
+      });
   }
 
   openDialog() {

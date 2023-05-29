@@ -6,3 +6,7 @@ export const isLoggedInSelector = createSelector(
   selectFeature,
   (state: UsersState) => state.isLoggedIn
 );
+export const usersSelector = createSelector(
+  selectFeature,
+  (state: UsersState) => state.users
+);

@@ -12,15 +12,14 @@ import { Iboard } from 'src/app/shared/models/board.model';
 
 export const selectFeature =
   createFeatureSelector<BoardsStateInterface>('columns');
-export const isLoadingSelector = createSelector(
-  selectFeature,
-  (state: BoardsStateInterface) => state.isLoading
-);
+// export const isLoadingSelector = createSelector(
+//   selectFeature,
+//   (state: BoardsStateInterface) => state.isLoading
+// );
 
 export const ColumnsSelector = createSelector(
   selectFeature,
-  (state: BoardsStateInterface) =>
-    state.boards.map((board: Iboard) => board.columns)
+  (state: BoardsStateInterface) => state.boards
 );
 
 export const ErrorSelector = createSelector(

@@ -24,7 +24,8 @@ export const addBoard = createAction(
 
 export const editBoard = createAction(
   '[Board] Edit Board',
-  props<{ boardId: string; newTitle: string }>()
+  // props<{ boardId: string; newTitle: string }>()
+  props<{ board: Iboard }>()
 );
 
 export const getColumns = createAction(

@@ -29,7 +29,7 @@ export const columnsReducers = createReducer(
   initialState,
   on(getColumns, (state) => ({
     ...state,
-    isLoading: true,
+    isLoading: false,
   })),
   on(getColumnsSuccess, (state, action) => ({
     ...state,

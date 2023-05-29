@@ -36,7 +36,7 @@ import { addColumn } from '../../store/board/board-actions';
 export class BoardPageComponent implements OnInit {
   boards$: Iboard[] = [];
   // columns$: IColumn[] = [];
-  columns$: Observable<(IColumn[] | ICol[] | undefined)[]>;
+  // columns$: Observable<(IColumn[] | ICol[] | undefined)[]>;
   columns: IColumn[] | ICol[] = [{ title: '', order: 0 }];
   username = '';
   // allColumns$: Observable<ColumnsStateInterface>;
@@ -60,7 +60,7 @@ export class BoardPageComponent implements OnInit {
   ) {
     this.currentBoardId = this.route.snapshot.params['id'];
     localStorage.setItem('boardId', this.currentBoardId);
-    this.columns$ = this.store.select(ColumnsSelector);
+    // this.columns$ = this.store.select(ColumnsSelector);
   }
 
   @Input() boardItem: Iboard | null = null;
