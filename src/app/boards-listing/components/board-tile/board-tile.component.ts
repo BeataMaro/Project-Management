@@ -1,9 +1,4 @@
-import {
-  Component,
-  Input,
-  EventEmitter,
-  Output
-} from '@angular/core';
+import { Component, Input, EventEmitter, Output } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { ConfirmationDialog } from 'src/app/core/components/confirmation-dialog/confirmation-dialog.component';
 import { Iboard } from 'src/app/shared/models/board.model';
@@ -14,18 +9,15 @@ import { Iboard } from 'src/app/shared/models/board.model';
   styleUrls: ['./board-tile.component.scss'],
 })
 export class BoardTileComponent {
+  isEdit = false;
 
-isEdit = false;
-
-  constructor(
-    private dialog: MatDialog,
-  ) {}
+  constructor(private dialog: MatDialog) {}
 
   @Input() board: Iboard = { users: [], owner: '' };
   @Output() removeBoard: EventEmitter<string> = new EventEmitter<string>();
 
   editBoard(boardId: string) {
-this.isEdit = true
+    this.isEdit = true;
   }
 
   deleteBoard(board: { boardId: string }) {

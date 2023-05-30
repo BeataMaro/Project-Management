@@ -1,50 +1,47 @@
 <nav>
-  <ng-container *ngIf="isLoggedIn; else loginBlock">
-    <ul class="user-panel-list">
-      <li>
-        <a routerLink="/edit-form" routerLinkActive="active"
-          ><mat-icon>person icon</mat-icon></a
+  <ng-container *ngIf="!showHamburger">
+    <ng-container *ngIf="isLoggedIn; else loginBlock">
+      <ul class="user-panel-list">
+        <li>
+          <a routerLink="/edit-form" routerLinkActive="active"
+            ><mat-icon>person icon</mat-icon></a
+          >
+        </li>
+        <li>
+          <a routerLink="/boards" routerLinkActive="active"> Your plans </a>
+        </li>
+        <li>
+          <a (click)="logOut()">Log out<mat-icon>exit_to_app </mat-icon></a>
+        </li>
+      </ul>
+    </ng-container>
+    <ng-template #loginBlock>
+      <div class="login-panel">
+        <button
+          mat-stroked-button
+          color="primary"
+          routerLink="/login-form"
+          routerLinkActive="active"
         >
-      </li>
-      <li>
-        <a routerLink="/boards" routerLinkActive="active"> Your plans </a>
-      </li>
-      <li>
-        <a (click)="logOut()">Log out<mat-icon>exit_to_app </mat-icon></a>
-      </li>
-    </ul>
+          Log in
+        </button>
+        <button
+          mat-stroked-button
+          color="primary"
+          routerLink="/signup-form"
+          routerLinkActive="active"
+        >
+          Sign up
+        </button>
+      </div>
+    </ng-template>
   </ng-container>
-  <ng-template #loginBlock>
-    <div class="login-panel">
-      <button
-        mat-stroked-button
-        color="primary"
-        routerLink="/login-form"
-        routerLinkActive="active"
-      >
-        Log in
-      </button>
-      <button
-        mat-stroked-button
-        color="primary"
-        routerLink="/signup-form"
-        routerLinkActive="active"
-      >
-        Sign up
-      </button>
-    </div>
-  </ng-template>
   <!-- Hamburger menu  -->
-  <ng-template *ngIf="showHamburger">
-    <button mat-button [matMenuTriggerFor]="menu">Menu</button>
-    <mat-menu #menu="matMenu">
-      <button mat-menu-item routerLink="/login-form" routerLinkActive="active">
-        Log in
-      </button>
 
-      <button routerLink="/signup-form" routerLinkActive="active" mat-menu-item>
-        Sign up
-      </button>
-    </mat-menu>
-  </ng-template>
+  <ng-container *ngIf="showHamburger">
+    <app-hamburger-menu
+      [isLoggedIn]="isLoggedIn"
+      (logOutUser)="logOut()"
+    ></app-hamburger-menu>
+  </ng-container>
 </nav>

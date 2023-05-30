@@ -13,6 +13,7 @@ import { ConfirmationDialog } from './components/confirmation-dialog/confirmatio
 import { FormDialog } from './components/form-dialog/form-dialog.component';
 import { ApiInterceptor } from './interceptors/api.interceptor';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
+import { HamburgerMenuComponent } from './components/hamburger-menu/hamburger-menu.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { AuthInterceptor } from './interceptors/auth.interceptor';
     NavigationComponent,
     ConfirmationDialog,
     FormDialog,
+    HamburgerMenuComponent,
   ],
   exports: [
     HeaderComponent,

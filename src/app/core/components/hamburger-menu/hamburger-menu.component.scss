@@ -1,0 +1,15 @@
+.hamburger-menu-icon {
+  transform: scale(2);
+}
+
+.user-panel-list {
+  padding: 2rem;
+  list-style: none;
+  li {
+    margin-bottom: 1.6rem;
+    a {
+      display: flex;
+      align-items: center;
+    }
+  }
+}

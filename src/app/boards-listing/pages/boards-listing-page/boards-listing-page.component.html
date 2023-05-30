@@ -8,7 +8,7 @@
 <mat-grid-list
   [cols]="mybreakpoint"
   rowHeight="500"
-  (window:resize)="handleSize($event)"
+  (window:resize)="handleReSize($event)"
 >
   <mat-grid-tile *ngFor="let item of allBoards$ | async as boards">
     <app-board-tile

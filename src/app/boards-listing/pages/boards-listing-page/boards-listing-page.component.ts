@@ -1,5 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, EventEmitter, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
@@ -52,7 +51,7 @@ export class BoardsListingPageComponent implements OnInit {
     this.store.dispatch(getBoards());
   }
 
-  handleSize(event: Event) {
+  handleReSize(event: Event) {
     this.mybreakpoint = handleSize(event);
   }
 

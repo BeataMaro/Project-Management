@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AuthService } from 'src/app/user/service/auth.service';
 import {
@@ -23,10 +23,10 @@ import { logoutUser } from 'src/app/user/store/users/users-actions';
 export class NavigationComponent implements OnInit {
   title = 'detect-route-change';
   currentRoute: string;
-  isLoggedIn = this.store.select(isLoggedInSelector);
-  // isLoggedIn = JSON.parse(localStorage.getItem('is_loggedin')!);
-  showHamburger = true;
+  // isLoggedIn = this.store.select(isLoggedInSelector);
+  isLoggedIn = false;
   myBreakpoint = 1;
+  showHamburger = false;
 
   constructor(
     private authService: AuthService,
@@ -52,16 +52,16 @@ export class NavigationComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.myBreakpoint = windowInnerWidth();
-
+     this.myBreakpoint = windowInnerWidth();
+     this.showHamburger = this.myBreakpoint > 2 ? false : true;
     // this.store.select(isLoggedInSelector).subscribe((res) => console.log(`res: ${res}`));
     // console.log(this.isLoggedIn);
     this.isLoggedIn = JSON.parse(localStorage.getItem('is_loggedin')!);
   }
 
-  handleSize(event: Event) {
-    this.myBreakpoint = handleSize(event);
-  }
+  // handleReSize($event: Event) {
+  //   this.myBreakpoint = handleSize($event);
+  // }
 
   logOut() {
     this.authService.logOut();
