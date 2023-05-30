@@ -15,6 +15,7 @@ import { UserEditPageComponent } from './pages/user-edit-page/user-edit-page.com
 import { usersReducer } from './store/users/users-reducers';
 import { UsersEffects } from './store/users/users-effects';
 import { CoreModule } from '../core/core.module';
+import { UserInfoComponent } from './components/user-info/user-info.component';
 // const routes: Routes = [
 //   { path: '/login-form', component: UserLoginPageComponent },
 //   { path: '/signup-form', component: UserSignupPageComponent },
@@ -25,6 +26,7 @@ import { CoreModule } from '../core/core.module';
     UserLoginPageComponent,
     UserSignupPageComponent,
     UserEditPageComponent,
+    UserInfoComponent,
   ],
   imports: [
     // RouterModule.forChild(routes),

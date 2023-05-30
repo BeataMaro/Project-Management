@@ -12,10 +12,10 @@ import { CreateBoardComponent } from './boards-listing/pages/create-board-form/c
 import { ErrorPageComponent } from './core/pages/error-page/error-page.component';
 import { BoardPageComponent } from './boards-listing/pages/board-page/board-page.component';
 import { BoardsListingPageComponent } from './boards-listing/pages/boards-listing-page/boards-listing-page.component';
-import { UserLoginPageComponent } from './user-login/pages/user-login-page/user-login-page.component';
-import { UserSignupPageComponent } from './user-login/pages/user-signup-page/user-signup-page.component';
-import { UserEditPageComponent } from './user-login/pages/user-edit-page/user-edit-page.component';
-import { AuthService } from './user-login/service/auth.service';
+import { UserLoginPageComponent } from './user/pages/user-login-page/user-login-page.component';
+import { UserSignupPageComponent } from './user/pages/user-signup-page/user-signup-page.component';
+import { UserEditPageComponent } from './user/pages/user-edit-page/user-edit-page.component';
+import { AuthService } from './user/service/auth.service';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -68,13 +68,13 @@ const routes: Routes = [
   {
     path: 'login-form',
     loadChildren: () =>
-      import('./user-login/user-login.module').then((m) => m.UserLoginModule),
+      import('./user/user-login.module').then((m) => m.UserLoginModule),
     component: UserLoginPageComponent,
   },
   {
     path: 'edit-form',
     loadChildren: () =>
-      import('./user-login/user-login.module').then((m) => m.UserLoginModule),
+      import('./user/user-login.module').then((m) => m.UserLoginModule),
     component: UserEditPageComponent,
     canMatch: [
       (route: Route, segments: UrlSegment[]) => {
@@ -88,7 +88,7 @@ const routes: Routes = [
   {
     path: 'signup-form',
     loadChildren: () =>
-      import('./user-login/user-login.module').then((m) => m.UserLoginModule),
+      import('./user/user-login.module').then((m) => m.UserLoginModule),
     component: UserSignupPageComponent,
   },
 

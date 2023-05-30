@@ -1,5 +1,6 @@
 header {
-  background-color: #ccc0ff;
+  background-color: #391fa7;
+  color: #d1d3cf;
   padding: 1rem;
   .header-wrapper {
     width: min(185ch, 100% - 4rem);
@@ -26,7 +27,7 @@ header {
   }
 
   a:hover {
-    color: initial;
+    color: #9718ff;
   }
   @media (max-width: 599px) {
     padding: 0;

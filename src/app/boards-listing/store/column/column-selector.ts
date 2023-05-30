@@ -1,7 +1,7 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { BoardsStateInterface } from '../board/board-reducers';
 // import { ColumnsStateInterface } from './column-reducers';
-import { UsersState } from 'src/app/user-login/store/users/users-reducers';
+import { UsersState } from 'src/app/user/store/users/users-reducers';
 import { Iboard } from 'src/app/shared/models/board.model';
 
 // export interface AppStateInterface {

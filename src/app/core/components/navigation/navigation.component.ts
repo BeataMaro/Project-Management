@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { AuthService } from 'src/app/user-login/service/auth.service';
+import { AuthService } from 'src/app/user/service/auth.service';
 import {
   Router,
   Event,
@@ -8,12 +8,12 @@ import {
   NavigationEnd,
   NavigationError,
 } from '@angular/router';
-import { isLoggedInSelector } from 'src/app/user-login/store/users/users-selectors';
+import { isLoggedInSelector } from 'src/app/user/store/users/users-selectors';
 import {
   windowInnerWidth,
   handleSize,
 } from 'src/app/shared/helpers/window-size';
-import { logoutUser } from 'src/app/user-login/store/users/users-actions';
+import { logoutUser } from 'src/app/user/store/users/users-actions';
 
 @Component({
   selector: 'app-navigation',

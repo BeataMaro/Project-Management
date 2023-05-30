@@ -40,20 +40,16 @@
       </button>
     </mat-form-field>
 
-    <button mat-flat-button color="primary" type="submit" >
-      Log in
-    </button>
+    <button mat-flat-button color="primary" type="submit">Log in</button>
   </form>
 
-  <p *ngIf="error">
-    The login or password you entered is not correct. Try again.
-  </p>
+  <ng-container *ngIf="error">
+    <p class="error-message">
+      Login or password you entered is not correct. Please, try again.
+    </p>
+  </ng-container>
   <p>
     Do not have an account?
     <a routerLink="/signup-form" routerLinkActive="active">Register here.</a>
   </p>
-
-  <!-- <button mat-stroked-button color="accent" type="button" (click)="getUserId()">
-    Get logged user
-  </button> -->
 </section>

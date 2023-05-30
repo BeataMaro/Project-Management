@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { AuthService } from 'src/app/user-login/service/auth.service';
+import { AuthService } from 'src/app/user/service/auth.service';
 
 @Component({
   selector: 'app-user-signup-page',

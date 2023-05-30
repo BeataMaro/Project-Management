@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { AuthService } from 'src/app/user-login/service/auth.service';
+import { AuthService } from 'src/app/user/service/auth.service';
 import {
   windowInnerWidth,
   handleSize,

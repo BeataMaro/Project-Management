@@ -2,7 +2,7 @@ import { Component, OnChanges, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { AuthService } from 'src/app/user-login/service/auth.service';
+import { AuthService } from 'src/app/user/service/auth.service';
 import { Iuser } from 'src/app/shared/models/user.model';
 
 import { loginUser } from '../../store/users/users-actions';

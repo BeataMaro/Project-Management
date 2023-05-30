@@ -1,0 +1,83 @@
+<section class="login-form-wrapper">
+  <app-user-info [user]="loggedUser"></app-user-info>
+
+  <mat-card class="my-editcard">
+    <mat-card-header class="my-editcard-header">
+      <h3>Edit profile</h3>
+    </mat-card-header>
+    <mat-card-content>
+      <form
+        id="edit-profile-form"
+        name="edit-profile-form"
+        [formGroup]="editProfileForm"
+        (submit)="submitDialog()"
+      >
+        <mat-form-field class="example-full-width">
+          <input
+            matInput
+            type="text"
+            class="login"
+            name="newName"
+            placeholder="New name"
+            formControlName="name"
+          />
+        </mat-form-field>
+        <mat-form-field class="example-full-width">
+          <input
+            matInput
+            type="text"
+            class="login"
+            name="newlogin"
+            placeholder="New login"
+            formControlName="login"
+          />
+        </mat-form-field>
+        <mat-form-field>
+          <input
+            matInput
+            class="password"
+            name="password"
+            placeholder="New password"
+            [type]="passwordVisible ? 'text' : 'password'"
+            formControlName="password"
+          />
+          <button
+            mat-icon-button
+            matSuffix
+            (click)="passwordVisible = !passwordVisible"
+            aria-label="'Hide password'"
+            aria-pressed="!passwordVisible"
+          >
+            <mat-icon>{{
+              passwordVisible ? "visibility" : "visibility_off"
+            }}</mat-icon>
+          </button>
+        </mat-form-field>
+
+        <button mat-flat-button color="primary" type="submit">Update</button>
+      </form>
+    </mat-card-content>
+    <mat-card-actions class="my-editcard-actions">
+      <button
+        mat-mini-fab
+        color="warn"
+        aria-label="Button with trash bin icon"
+        type="button"
+        (click)="deleteDialog()"
+      >
+        <mat-icon>delete</mat-icon>
+      </button>
+      <p>Delete your account</p>
+    </mat-card-actions>
+    <mat-card-footer
+      ><button
+        mat-flat-button
+        color="warn"
+        type="button"
+        (click)="getAllUsers()"
+      >
+        Get users
+      </button></mat-card-footer
+    >
+  </mat-card>
+</section>
