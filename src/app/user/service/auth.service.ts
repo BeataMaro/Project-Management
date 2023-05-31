@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { Ilogin, Isignup, Itoken, Iuser } from '../../shared/models/user.model';
 import { Store } from '@ngrx/store';
-import { UsersState } from '../store/users/users-reducers';
+import { UsersState } from '../../store/reducers/users.reducers';
 
 @Injectable({
   providedIn: 'root',

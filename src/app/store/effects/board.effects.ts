@@ -12,8 +12,8 @@ import {
   withLatestFrom,
 } from 'rxjs';
 import { Store } from '@ngrx/store';
-import * as fromRoot from './board-reducers';
-import { BoardsService } from '../../service/boards.service';
+import * as fromRoot from '../reducers/board.reducers';
+import { BoardsService } from '../../boards-listing/service/boards.service';
 import {
   getBoards,
   deleteBoard,
@@ -25,10 +25,10 @@ import {
   getColumnsSuccess,
   getColumnsFailure,
   addColumn,
-} from './board-actions';
-import { BoardIdSelector, BoardsSelector } from './board-selectors';
-import { ColumnsSelector } from '../column/column-selector';
-import { ColumnsService } from '../../service/columns.service';
+} from '../actions/board.actions';
+import { BoardIdSelector, BoardsSelector } from '../selectors/board.selectors';
+import { ColumnsSelector } from '../selectors/column.selector';
+import { ColumnsService } from '../../boards-listing/service/columns.service';
 
 @Injectable()
 export class BoardsEffects {

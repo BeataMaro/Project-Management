@@ -18,10 +18,10 @@ import {
   deleteColumn,
   getColumnsSuccess,
   getColumnsFailure,
-} from './column-actions';
-import { ColumnsService } from '../../service/columns.service';
-import { ColumnsSelector } from './column-selector';
-import { BoardsStateInterface } from '../board/board-reducers';
+} from '../actions/column.actions';
+import { ColumnsService } from '../../boards-listing/service/columns.service';
+import { ColumnsSelector } from '../selectors/column.selector';
+import { BoardsStateInterface } from '../reducers/board.reducers';
 
 @Injectable()
 export class ColumnsEffects {

@@ -1,5 +1,5 @@
 import { createFeatureSelector, createReducer, createSelector, on } from '@ngrx/store';
-import { loginUser, logoutUser, loadUsersSuccess, loadUsersFailed, updateUser, deleteUser} from './users-actions';
+import { loginUser, logoutUser, loadUsersSuccess, loadUsersFailed, updateUser, deleteUser} from '../actions/users.actions';
 import { Ilogin } from 'src/app/shared/models/user.model';
 
 export interface UsersState {

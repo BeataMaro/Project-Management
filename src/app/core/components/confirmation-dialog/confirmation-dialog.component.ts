@@ -1,7 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Store } from '@ngrx/store';
-import { getBoards } from 'src/app/boards-listing/store/board/board-actions';
+import { getBoards } from 'src/app/store/actions/board.actions';
 
 interface dialogData {
   question: string | boolean;

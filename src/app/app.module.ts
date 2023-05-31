@@ -9,6 +9,8 @@ import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { boardsReducers } from './store/reducers/board.reducers';
+import { reducers, metaReducers } from './store';
 // import { columnsReducers } from './boards-listing/store/column/column-reducers';
 
 @NgModule({
@@ -19,9 +21,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
     CoreModule,
     BrowserAnimationsModule,
     WelcomeModule,
-
-    // StoreModule.forRoot({'columns': columnsReducers}),
-    StoreModule.forRoot(),
+    StoreModule.forRoot(reducers, { metaReducers }),
     EffectsModule.forRoot(),
     StoreRouterConnectingModule.forRoot(),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),

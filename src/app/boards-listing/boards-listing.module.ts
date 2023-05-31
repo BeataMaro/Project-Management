@@ -5,9 +5,9 @@ import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 
 import { StoreModule } from '@ngrx/store';
-import { boardsReducers } from './store/board/board-reducers';
+import { boardsReducers } from '../store/reducers/board.reducers';
 import { EffectsModule } from '@ngrx/effects';
-import { BoardsEffects } from './store/board/board-effects';
+import { BoardsEffects } from '../store/effects/board.effects';
 
 import { BoardsListingPageComponent } from './pages/boards-listing-page/boards-listing-page.component';
 import { BoardPageComponent } from './pages/board-page/board-page.component';

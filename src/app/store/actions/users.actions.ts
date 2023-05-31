@@ -23,6 +23,15 @@ export const getUsersFailure = createAction(
 export const loginUser = createAction(
   '[Users] Login User',
   props<{ login?: Ilogin, token?: string }>()
+  // props<{ login?: Ilogin }>()
+);
+export const loginUserSuccess = createAction(
+  '[Users] Login User Success',
+  props<{ token: string }>()
+);
+export const loginUserFailure = createAction(
+  '[Users] Login User Failure',
+  props<{ error: string }>()
 );
 export const logoutUser = createAction(
   '[Users] Logout User',

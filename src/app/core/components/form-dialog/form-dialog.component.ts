@@ -10,8 +10,8 @@ import { Store } from '@ngrx/store';
 import { ActivatedRoute } from '@angular/router';
 
 import { ColumnsService } from 'src/app/boards-listing/service/columns.service';
-import * as fromReducer from '../../../../app/boards-listing/store/board/board-reducers';
-import { addColumn } from 'src/app/boards-listing/store/column/column-actions';
+import * as fromReducer from '../../../store/reducers/board.reducers';
+import { addColumn } from 'src/app/store/actions/column.actions';
 import { ICol, IColumn } from 'src/app/shared/models/column.model';
 
 interface dialogData {

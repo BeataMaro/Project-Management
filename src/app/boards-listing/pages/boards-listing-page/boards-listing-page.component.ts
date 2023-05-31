@@ -3,15 +3,15 @@ import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
 import { Iboard } from '../../../shared/models/board.model';
-import { deleteBoard, getBoards } from '../../store/board/board-actions';
+import { deleteBoard, getBoards } from '../../../store/actions/board.actions';
 import {
   BoardIdSelector,
   BoardsSelector,
   ErrorSelector,
   isLoadingSelector,
-} from '../../store/board/board-selectors';
+} from '../../../store/selectors/board.selectors';
 
-import { ColumnIdSelector } from '../../store/column/column-selector';
+import { ColumnIdSelector } from '../../../store/selectors/column.selector';
 import { BoardsService } from '../../service/boards.service';
 import {
   windowInnerWidth,

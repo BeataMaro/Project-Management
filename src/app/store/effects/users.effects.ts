@@ -14,8 +14,8 @@ import {
   getUsersFailure,
   loginUser,
   logoutUser,
-} from './users-actions';
-import * as fromRoot from './users-reducers';
+} from '../actions/users.actions';
+import * as fromRoot from '../reducers/users.reducers';
 
 @Injectable()
 export class UsersEffects {

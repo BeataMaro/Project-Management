@@ -4,11 +4,11 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
-import * as fromReducer from '../../store/board/board-reducers';
+import * as fromReducer from '../../../store/reducers/board.reducers';
 import { ConfirmationDialog } from 'src/app/core/components/confirmation-dialog/confirmation-dialog.component';
 import { Iboard } from 'src/app/shared/models/board.model';
 import { Store } from '@ngrx/store';
-import * as BoardsActions from '../../store/board/board-actions';
+import * as BoardsActions from '../../../store/actions/board.actions';
 
 @Component({
   selector: 'app-create-board',

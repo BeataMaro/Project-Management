@@ -8,12 +8,12 @@ import {
   NavigationEnd,
   NavigationError,
 } from '@angular/router';
-import { isLoggedInSelector } from 'src/app/user/store/users/users-selectors';
+import { isLoggedInSelector } from 'src/app/store/selectors/users.selectors';
 import {
   windowInnerWidth,
   handleSize,
 } from 'src/app/shared/helpers/window-size';
-import { logoutUser } from 'src/app/user/store/users/users-actions';
+import { logoutUser } from 'src/app/store/actions/users.actions';
 
 @Component({
   selector: 'app-navigation',

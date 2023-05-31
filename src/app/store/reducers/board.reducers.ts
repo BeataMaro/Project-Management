@@ -1,6 +1,6 @@
 import { createReducer, on } from '@ngrx/store';
 import { Iboard } from 'src/app/shared/models/board.model';
-import * as BoardsActions from './board-actions';
+import * as BoardsActions from '../actions/board.actions';
 import { ICol, IColumn } from 'src/app/shared/models/column.model';
 // import { ColumnsStateInterface } from '../column/column-reducers';
 

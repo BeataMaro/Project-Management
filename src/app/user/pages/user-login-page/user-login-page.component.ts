@@ -5,9 +5,9 @@ import { Store } from '@ngrx/store';
 import { AuthService } from 'src/app/user/service/auth.service';
 import { Iuser } from 'src/app/shared/models/user.model';
 
-import { loginUser } from '../../store/users/users-actions';
+import { loginUser } from '../../../store/actions/users.actions';
 
-import * as fromUsers from '../../store/users/users-reducers';
+import * as fromUsers from '../../../store/reducers/users.reducers';
 
 @Component({
   selector: 'app-user-login',

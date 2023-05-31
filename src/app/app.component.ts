@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-// import { Store, select } from '@ngrx/store';
-// import { Observable, mergeMap } from 'rxjs';
-// import { isLoadingSelector } from './boards-listing/store/column/column-selector';
+import { Component } from '@angular/core';
+import { AppStateInterface } from './shared/models/app.model';
+import { Store, select } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { isLoadingSelector } from './store/selectors/board.selectors';
 
 
 @Component({
@@ -12,10 +13,10 @@ import { Component, OnInit } from '@angular/core';
 export class AppComponent {
   // isLoading$: Observable<boolean>;
 
-  // constructor(private store: Store) {
+  constructor(private store: Store<AppStateInterface>) {
     // this.isLoading$ = this.store.pipe(select(isLoadingSelector));
-    // console.log(`App component isLoading: ${this.isLoading$}`);
-  // }
+    // console.log(`App component isLoading: ${this.isLoading$.subscribe((res) => res)}`);
+  }
 
   // ngOnInit(): void {
     // this.isLoading$ = this.store.pipe(select(isLoadingSelector));

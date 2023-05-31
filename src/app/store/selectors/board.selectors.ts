@@ -1,5 +1,5 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
-import { BoardsStateInterface } from './board-reducers';
+import { BoardsStateInterface } from '../reducers/board.reducers';
 
 export const selectFeature = createFeatureSelector<BoardsStateInterface>('boards')
 export const isLoadingSelector = createSelector(
