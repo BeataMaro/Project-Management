@@ -32,10 +32,7 @@ export class BoardsListingPageComponent implements OnInit {
   // columnId: Observable<(IColumn[] | ICol[] | undefined)[]>;
   mybreakpoint = 1;
 
-  constructor(
-    private store: Store,
-    private BoardsService: BoardsService
-  ) {
+  constructor(private store: Store, private BoardsService: BoardsService) {
     this.isLoading$ = this.store.pipe(select(isLoadingSelector));
     this.isError$ = this.store.pipe(select(ErrorSelector));
     this.allBoards$ = this.store.select(BoardsSelector);
@@ -56,6 +53,7 @@ export class BoardsListingPageComponent implements OnInit {
   }
 
   removeBoard(boardId: string) {
+    this.BoardsService.deleteBoard(boardId);
     this.store.dispatch(deleteBoard({ boardId }));
     this.ngOnInit();
   }

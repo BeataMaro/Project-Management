@@ -1,5 +1,5 @@
 .my-thumble-card {
-  min-height: 19rem;
+  min-height: 20rem;
   background-color: #544c5463;
   color: white;
   box-shadow: 1px 1px 20px rgba(0, 0, 0, 0.3);
@@ -8,6 +8,9 @@
 
   &:hover {
     background-color: #716d7163;
+  }
+  .my-card-title {
+    min-height: 3rem;
   }
 }
 .board-actions {

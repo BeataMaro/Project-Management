@@ -39,10 +39,7 @@ export class CreateBoardComponent {
 
   // onCreateNewBoard(service, serviceMethod, formValues) {
   onCreateNewBoard() {
-
-// service.serviceMethod(formValues)
-
-    //move to effects
+    // service.serviceMethod(formValues)
     this.boardsService
       .createBoard({
         title: this.createBoardForm.value.title,
@@ -54,7 +51,7 @@ export class CreateBoardComponent {
           localStorage.setItem('board_id', res._id!);
           this.board$ = res;
         },
-        //
+
         () => this.router.navigateByUrl('/boards'),
         () => this.createBoardForm.setValue({ title: '' })
       );
@@ -66,15 +63,19 @@ export class CreateBoardComponent {
     const dialogRef = this.dialog.open(ConfirmationDialog, {
       panelClass: 'my-outlined-dialog',
       data: {
-        question: 'Success!',
-        message: 'Your board has been created!',
+        question: this.createBoardForm.valid ? 'Success!' : '',
+        message: this.createBoardForm.valid
+          ? 'Your board has been created!'
+          : 'Please, fill in your plan title.',
         confirmButtonText: 'ok',
       },
     });
 
     dialogRef.afterClosed().subscribe(() => {
-      this.onCreateNewBoard();
-      this.router.navigateByUrl('/boards');
+      if (this.createBoardForm.valid) {
+        this.router.navigateByUrl('/boards');
+        this.onCreateNewBoard();
+      }
     });
   }
 }

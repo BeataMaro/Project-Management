@@ -1,4 +1,4 @@
-<mat-card class="my-thumble-card">
+<mat-card class="my-thumble-card" *ngIf="board.title">
   <a [routerLink]="['/boards', board._id, 'columns']" routerLinkActive="active">
     <mat-card-header>
       <img
@@ -7,7 +7,7 @@
         alt="Scrabble blocks arranged in the inscription make plan"
       />
     </mat-card-header>
-    <mat-card-content
+    <mat-card-content class="my-card-title"
       ><h3>{{ board.title }}</h3></mat-card-content
     >
   </a>
