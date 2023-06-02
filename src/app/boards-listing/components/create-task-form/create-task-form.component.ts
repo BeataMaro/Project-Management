@@ -3,9 +3,9 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { Itask } from '../../../shared/models/task.model';
-import { BoardsStateInterface } from '../../store/board/board-reducers';
+import { BoardsStateInterface } from '../../store/board/board.reducer';
 
-import { TasksSelector } from '../../store/task/task-selectors';
+import { TasksSelector } from '../../store/task/task.selectors';
 
 @Component({
   selector: 'app-create-task-form',

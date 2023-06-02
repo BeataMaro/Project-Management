@@ -14,14 +14,14 @@ import {
   getUsersFailure,
   loginUser,
   logoutUser,
-} from './users-actions';
-import * as fromRoot from './users-reducers';
+} from './users.actions';
+import { UsersStateInterface } from './users.reducer';
 
 @Injectable()
 export class UsersEffects {
   constructor(
     private actions$: Actions,
-    private store: Store<fromRoot.UsersState>,
+    private store: Store<UsersStateInterface>,
     private authService: AuthService
   ) {}
 

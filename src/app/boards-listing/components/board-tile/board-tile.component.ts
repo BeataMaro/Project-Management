@@ -13,7 +13,7 @@ export class BoardTileComponent {
 
   constructor(private dialog: MatDialog) {}
 
-  @Input() board: Iboard = { users: [], owner: '' };
+  @Input() board: Iboard = { title: '', users: [], owner: '' };
   @Output() removeBoard: EventEmitter<string> = new EventEmitter<string>();
 
   editBoard(boardId: string) {

@@ -1,5 +1,5 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
-import { TasksStateInterface } from './task-reducers';
+import { TasksStateInterface } from './task.reducer';
 
 
 export const selectFeature = createFeatureSelector<TasksStateInterface>('tasks')

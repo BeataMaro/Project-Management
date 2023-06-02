@@ -10,7 +10,7 @@
   rowHeight="500"
   (window:resize)="handleReSize($event)"
 >
-  <mat-grid-tile *ngFor="let item of allBoards$ | async as boards">
+  <mat-grid-tile *ngFor="let item of allBoards$ | async">
     <app-board-tile
       [board]="item"
       key="{item._id}"

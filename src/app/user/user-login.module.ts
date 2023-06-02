@@ -12,8 +12,8 @@ import { UserSignupPageComponent } from './pages/user-signup-page/user-signup-pa
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { UserEditPageComponent } from './pages/user-edit-page/user-edit-page.component';
-import { usersReducer } from './store/users/users-reducers';
-import { UsersEffects } from './store/users/users-effects';
+import { usersReducer } from './store/users/users.reducer';
+import { UsersEffects } from './store/users/users.effects';
 import { CoreModule } from '../core/core.module';
 import { UserInfoComponent } from './components/user-info/user-info.component';
 // const routes: Routes = [

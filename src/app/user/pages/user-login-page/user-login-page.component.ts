@@ -5,9 +5,9 @@ import { Store } from '@ngrx/store';
 import { AuthService } from 'src/app/user/service/auth.service';
 import { Iuser } from 'src/app/shared/models/user.model';
 
-import { loginUser } from '../../store/users/users-actions';
+import { loginUser } from '../../store/users/users.actions';
 
-import * as fromUsers from '../../store/users/users-reducers';
+import { UsersStateInterface } from '../../store/users/users.reducer';
 
 @Component({
   selector: 'app-user-login',
@@ -25,7 +25,7 @@ export class UserLoginPageComponent implements OnChanges, OnInit {
   constructor(
     private authService: AuthService,
     private router: Router,
-    private store: Store<fromUsers.UsersState>
+    private store: Store<UsersStateInterface>
   ) {}
 
   ngOnInit(): void {

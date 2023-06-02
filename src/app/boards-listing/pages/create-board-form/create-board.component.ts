@@ -4,11 +4,11 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material/dialog';
-import * as fromReducer from '../../store/board/board-reducers';
+import { BoardsStateInterface } from '../../store/board/board.reducer';
 import { ConfirmationDialog } from 'src/app/core/components/confirmation-dialog/confirmation-dialog.component';
 import { Iboard } from 'src/app/shared/models/board.model';
 import { Store } from '@ngrx/store';
-import * as BoardsActions from '../../store/board/board-actions';
+import { getBoards, addBoard } from '../../store/board/board.actions';
 
 @Component({
   selector: 'app-create-board',
@@ -26,14 +26,14 @@ export class CreateBoardComponent {
     private boardsService: BoardsService,
     private router: Router,
     public dialog: MatDialog,
-    private store: Store<fromReducer.BoardsStateInterface>
+    private store: Store<BoardsStateInterface>
   ) {
     this.board$ = { _id: '', title: '', owner: '', users: [] };
     // this.column$ = { title: '', order: 0}
   }
 
   ngOnInit() {
-    this.store.dispatch(BoardsActions.getBoards());
+    this.store.dispatch(getBoards());
     // this.store.dispatch(ColumnsActions.getColumns());
   }
 
@@ -55,7 +55,7 @@ export class CreateBoardComponent {
         () => this.router.navigateByUrl('/boards'),
         () => this.createBoardForm.setValue({ title: ' ' })
       );
-    this.store.dispatch(BoardsActions.addBoard({ board: this.board$ }));
+    this.store.dispatch(addBoard({ board: this.board$ }));
     this.ngOnInit();
   }
 

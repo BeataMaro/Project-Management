@@ -12,7 +12,7 @@ import {
   withLatestFrom,
 } from 'rxjs';
 import { Store } from '@ngrx/store';
-import * as fromRoot from './board-reducers';
+import { BoardsStateInterface }from './board.reducer';
 import { BoardsService } from '../../service/boards.service';
 import {
   getBoards,
@@ -25,16 +25,16 @@ import {
   getColumnsSuccess,
   getColumnsFailure,
   addColumn,
-} from './board-actions';
-import { BoardIdSelector, BoardsSelector } from './board-selectors';
-import { ColumnsSelector } from '../column/column-selector';
+} from './board.actions';
+import { BoardIdSelector, BoardsSelector } from './board.selectors';
+import { ColumnsSelector } from '../column/column.selector';
 import { ColumnsService } from '../../service/columns.service';
 
 @Injectable()
 export class BoardsEffects {
   constructor(
     private actions$: Actions,
-    private store: Store<fromRoot.BoardsStateInterface>,
+    private store: Store<BoardsStateInterface>,
     private boardsService: BoardsService,
     private columnsService: ColumnsService
   ) {}
@@ -44,7 +44,10 @@ export class BoardsEffects {
       ofType(getBoards),
       switchMap(() =>
         from(this.boardsService.getAllBoards()).pipe(
-          map((boards) => getBoardsSuccess({ boards: boards })),
+          map((boards) => { 
+            console.log(boards);
+           return getBoardsSuccess({ boards: boards })
+          }),
           catchError((error) => of(getBoardsFailure({ error })))
         )
       )

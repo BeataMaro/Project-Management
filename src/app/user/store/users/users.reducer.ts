@@ -1,25 +1,25 @@
 import { createFeatureSelector, createReducer, createSelector, on } from '@ngrx/store';
-import { loginUser, logoutUser, loadUsersSuccess, loadUsersFailed, updateUser, deleteUser} from './users-actions';
+import { loginUser, logoutUser, loadUsersSuccess, loadUsersFailed, updateUser, deleteUser} from './users.actions';
 import { Ilogin } from 'src/app/shared/models/user.model';
 
-export interface UsersState {
+export interface UsersStateInterface {
   users?: Ilogin[];
   isLoggedIn: boolean;
 }
 
-export const initialState: UsersState = {
+export const initialUsersState: UsersStateInterface = {
     users: [],
     isLoggedIn: false
   }
 
-export const getUsersState = createFeatureSelector<UsersState>('users');
+export const getUsersState = createFeatureSelector<UsersStateInterface>('users');
 export const getUsers = createSelector(
   getUsersState,
-  (state: UsersState) => state.users
+  (state: UsersStateInterface) => state.users
 );
 
 
-export const usersReducer = createReducer(initialState,
+export const usersReducer = createReducer(initialUsersState,
   on(loginUser, (state, { token }) => ({
     ...state,
     isLoggedIn: token ? true : false

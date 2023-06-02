@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { Ilogin, Isignup, Itoken, Iuser } from '../../shared/models/user.model';
 import { Store } from '@ngrx/store';
-import { UsersState } from '../store/users/users-reducers';
+import { UsersStateInterface } from '../store/users/users.reducer';
 
 @Injectable({
   providedIn: 'root',
@@ -18,7 +18,7 @@ export class AuthService {
   constructor(
     private httpClient: HttpClient,
     private router: Router,
-    private store: Store<UsersState>
+    private store: Store<UsersStateInterface>
   ) {}
 
   // CanActivate = (): boolean => this.token ? true : false

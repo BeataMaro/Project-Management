@@ -1,14 +1,14 @@
 import { createReducer, on } from '@ngrx/store';
-import { BoardsStateInterface } from '../board/board-reducers';
-import { initialState } from '../board/board-reducers';
-import { ICol, IColumn } from '../../../../app/shared/models/column.model';
+import { BoardsStateInterface } from '../board/board.reducer';
+import { initialState } from '../board/board.reducer';
+import { ICol, IColumn } from '../../../shared/models/column.model';
 import {
   getColumnsSuccess,
   getColumnsFailure,
   getColumns,
   addColumn,
   deleteColumn,
-} from './column-actions';
+} from './column.actions';
 
 // export interface ColumnsStateInterface {
 //   isLoading: boolean;
@@ -25,7 +25,7 @@ import {
 //   boardId: '',
 // };
 
-export const columnsReducers = createReducer(
+export const columnsReducer = createReducer(
   initialState,
   on(getColumns, (state) => ({
     ...state,

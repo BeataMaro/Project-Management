@@ -1,6 +1,6 @@
 import { createReducer, on } from '@ngrx/store';
 import { Itask } from 'src/app/shared/models/task.model';
-import { getTasks, getTasksSuccess, getTasksFailure, deleteTask } from './task-actions';
+import { getTasks, getTasksSuccess, getTasksFailure, deleteTask } from './task.actions';
 
 export interface TasksStateInterface {
   isLoading: boolean;

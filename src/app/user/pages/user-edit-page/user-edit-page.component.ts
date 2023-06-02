@@ -6,8 +6,8 @@ import { MatDialog } from '@angular/material/dialog';
 
 import { AuthService } from '../../service/auth.service';
 import { ConfirmationDialog } from '../../../core/components/confirmation-dialog/confirmation-dialog.component';
-import { BoardsStateInterface } from '../../../boards-listing/store/board/board-reducers';
-import { updateUser, deleteUser } from '../../store/users/users-actions';
+import { BoardsStateInterface } from '../../../boards-listing/store/board/board.reducer';
+import { updateUser, deleteUser } from '../../store/users/users.actions';
 import { Iuser } from 'src/app/shared/models/user.model';
 
 @Component({

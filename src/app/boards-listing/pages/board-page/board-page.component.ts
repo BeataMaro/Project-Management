@@ -11,7 +11,7 @@ import { ConfirmationDialog } from '../../../core/components/confirmation-dialog
 import {
   getColumns,
   deleteColumn,
-} from '../../store/column/column-actions';
+} from '../../store/column/column.actions';
 import {
   CdkDragDrop,
   moveItemInArray,
@@ -22,11 +22,11 @@ import { Observable } from 'rxjs';
 
 import { TaskService } from '../../service/task.service';
 import { ColumnsService } from '../../service/columns.service';
-import { ColumnsSelector } from '../../store/column/column-selector';
+import { ColumnsSelector } from '../../store/column/column.selector';
 import { ICol, IColumn } from 'src/app/shared/models/column.model';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { BoardsStateInterface } from '../../store/board/board-reducers';
-import { addColumn } from '../../store/board/board-actions';
+import { BoardsStateInterface } from '../../store/board/board.reducer';
+import { addColumn } from '../../store/board/board.actions';
 
 @Component({
   selector: 'app-board-page',
