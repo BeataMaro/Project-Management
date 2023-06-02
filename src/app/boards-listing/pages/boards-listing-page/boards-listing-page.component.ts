@@ -3,13 +3,13 @@ import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
 import { Iboard } from '../../../shared/models/board.model';
-import { deleteBoard, getBoards } from '../../store/board/board.actions';
+import { deleteBoard, getBoards } from 'src/app/store/board/board.actions';
 import {
   BoardIdSelector,
   BoardsSelector,
   ErrorSelector,
   isLoadingSelector,
-} from '../../store/board/board.selectors';
+} from 'src/app/store/board/board.selectors';
 
 // import { ColumnIdSelector } from '../../store/column/column.selector';
 import { BoardsService } from '../../service/boards.service';
@@ -17,7 +17,7 @@ import {
   windowInnerWidth,
   handleSize,
 } from 'src/app/shared/helpers/window-size';
-import { initialBoardsState } from '../../store/board/board.reducer';
+import { initialBoardsState } from 'src/app/store/board/board.reducer';
 
 @Component({
   selector: 'app-board',

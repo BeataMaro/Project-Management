@@ -7,10 +7,8 @@ import { Iboard } from 'src/app/shared/models/board.model';
 import { Itask } from 'src/app/shared/models/task.model';
 import { MatDialog } from '@angular/material/dialog';
 import { FormDialog } from 'src/app/core/components/form-dialog/form-dialog.component';
-import { ConfirmationDialog } from '../../../core/components/confirmation-dialog/confirmation-dialog.component';
-import {
-  deleteColumn,
-} from '../../store/column/column.actions';
+import { ConfirmationDialog } from 'src/app/core/components/confirmation-dialog/confirmation-dialog.component';
+import { deleteColumn } from 'src/app/store/column/column.actions';
 import {
   CdkDragDrop,
   moveItemInArray,
@@ -21,8 +19,8 @@ import { TaskService } from '../../service/task.service';
 import { ColumnsService } from '../../service/columns.service';
 import { ICol, IColumn } from 'src/app/shared/models/column.model';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { BoardsStateInterface } from '../../store/board/board.reducer';
-import { addColumn } from '../../store/column/column.actions';
+import { BoardsStateInterface } from 'src/app/store/board/board.reducer';
+import { addColumn } from 'src/app/store/column/column.actions';
 
 @Component({
   selector: 'app-board-page',
@@ -84,31 +82,33 @@ export class BoardPageComponent implements OnInit {
   }
 
   addColumn() {
-    this.columnsService.createColumn(
-      this.createColumnFields.value.title!,
-      this.createColumnFields.value.order!,
-      this.currentBoardId
-    ).subscribe((res) => {
-      this.columns = [...this.columns, res];
-      console.log(res);
-      // {
-      //   title: res.title,
-      //   order: res.order,
-      //   _id: res._id,
-      //   boardId: res.boardId,
-      // },
-
-      this.store.dispatch(
-        // addColumn({
-        //   columns: { title: res.title, order: res.order },
+    this.columnsService
+      .createColumn(
+        this.createColumnFields.value.title!,
+        this.createColumnFields.value.order!,
+        this.currentBoardId
+      )
+      .subscribe((res) => {
+        this.columns = [...this.columns, res];
+        console.log(res);
+        // {
+        //   title: res.title,
+        //   order: res.order,
+        //   _id: res._id,
         //   boardId: res.boardId,
-        // })
-        addColumn({
-          column: { title: res.title, order: res.order },
-          boardId: res.boardId,
-        })
-      );
-    });
+        // },
+
+        this.store.dispatch(
+          // addColumn({
+          //   columns: { title: res.title, order: res.order },
+          //   boardId: res.boardId,
+          // })
+          addColumn({
+            column: { title: res.title, order: res.order },
+            boardId: res.boardId,
+          })
+        );
+      });
     this.onConfirmClick();
     () => this.createColumnFields.setValue({ title: '', order: 0 });
   }

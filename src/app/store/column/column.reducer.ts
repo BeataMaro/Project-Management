@@ -1,5 +1,5 @@
 import { createReducer, on } from '@ngrx/store';
-import { IColumn } from '../../../shared/models/column.model';
+import { IColumn } from 'src/app/shared/models/column.model';
 import {
   getColumnsSuccess,
   getColumnsFailure,

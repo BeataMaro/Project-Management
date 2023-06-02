@@ -3,7 +3,7 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, from, map, of, switchMap, withLatestFrom } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { BoardsStateInterface } from './board.reducer';
-import { BoardsService } from '../../service/boards.service';
+import { BoardsService } from 'src/app/boards-listing/service/boards.service';
 import {
   getBoards,
   deleteBoard,

@@ -1,13 +1,10 @@
 import {
   BoardsStateInterface,
   initialBoardsState,
-} from '../boards-listing/store/board/board.reducer';
-import { initialColState } from '../boards-listing/store/column/column.reducer';
-import { ColumnsStateInterface } from '../boards-listing/store/column/column.reducer';
-import {
-  TasksStateInterface,
-  initialTasksState,
-} from '../boards-listing/store/task/task.reducer';
+} from './board/board.reducer';
+import { initialColState } from './column/column.reducer';
+import { ColumnsStateInterface } from './column/column.reducer';
+import { TasksStateInterface, initialTasksState } from './task/task.reducer';
 import {
   UsersStateInterface,
   initialUsersState,

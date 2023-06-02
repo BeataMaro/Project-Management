@@ -1,8 +1,7 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
-  FormGroup,
   Validators,
 } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
@@ -10,9 +9,8 @@ import { Store } from '@ngrx/store';
 import { ActivatedRoute } from '@angular/router';
 
 import { ColumnsService } from 'src/app/boards-listing/service/columns.service';
-import { BoardsStateInterface } from '../../../boards-listing/store/board/board.reducer';
-import { addColumn } from 'src/app/boards-listing/store/column/column.actions';
-import { ICol, IColumn } from 'src/app/shared/models/column.model';
+import { BoardsStateInterface } from 'src/app/store/board/board.reducer';
+import { addColumn } from 'src/app/store/column/column.actions';
 
 interface dialogData {
   question: string | boolean;

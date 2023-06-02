@@ -16,7 +16,7 @@ export const initialTasksState: TasksStateInterface = {
   error: null,
 };
 
-export const tasksReducers = createReducer(initialTasksState, on(getTasks, (state) => ({
+export const tasksReducer = createReducer(initialTasksState, on(getTasks, (state) => ({
     ...state,
     isLoading: true
 }) ),
