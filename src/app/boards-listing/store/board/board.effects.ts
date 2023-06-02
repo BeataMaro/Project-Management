@@ -1,18 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import {
-  catchError,
-  finalize,
-  from,
-  map,
-  mergeMap,
-  of,
-  switchMap,
-  tap,
-  withLatestFrom,
-} from 'rxjs';
+import { catchError, from, map, of, switchMap, withLatestFrom } from 'rxjs';
 import { Store } from '@ngrx/store';
-import { BoardsStateInterface }from './board.reducer';
+import { BoardsStateInterface } from './board.reducer';
 import { BoardsService } from '../../service/boards.service';
 import {
   getBoards,
@@ -21,22 +11,15 @@ import {
   editBoard,
   getBoardsFailure,
   getBoardsSuccess,
-  getColumns,
-  getColumnsSuccess,
-  getColumnsFailure,
-  addColumn,
 } from './board.actions';
 import { BoardIdSelector, BoardsSelector } from './board.selectors';
-import { ColumnsSelector } from '../column/column.selector';
-import { ColumnsService } from '../../service/columns.service';
 
 @Injectable()
 export class BoardsEffects {
   constructor(
     private actions$: Actions,
     private store: Store<BoardsStateInterface>,
-    private boardsService: BoardsService,
-    private columnsService: ColumnsService
+    private boardsService: BoardsService
   ) {}
 
   fetchBoards$ = createEffect(() =>
@@ -44,9 +27,9 @@ export class BoardsEffects {
       ofType(getBoards),
       switchMap(() =>
         from(this.boardsService.getAllBoards()).pipe(
-          map((boards) => { 
+          map((boards) => {
             console.log(boards);
-           return getBoardsSuccess({ boards: boards })
+            return getBoardsSuccess({ boards: boards });
           }),
           catchError((error) => of(getBoardsFailure({ error })))
         )
@@ -123,31 +106,6 @@ export class BoardsEffects {
         switchMap(([action, boards]) =>
           from(this.boardsService.deleteBoard(action.boardId))
         )
-      ),
-    { dispatch: false }
-  );
-  // fetchColumns$ = createEffect(() =>
-  //   mergeMap(() =>
-  //     this.boardsService
-  //       .getAllBoards()
-  //       .pipe(map((board) => getColumns(board)))
-  //   )
-  // );
-  addColumn$ = createEffect(
-    () =>
-      this.actions$.pipe(
-        ofType(addColumn),
-        withLatestFrom(this.store.select(BoardsSelector)),
-        switchMap(([action]) =>
-          from(
-            this.columnsService.createColumn(
-              action.column.title,
-              action.column.order,
-              action.boardId
-            )
-          )
-        )
-        // switchMap(([action, boards]) => from(this.columnsService.getAllColumns(action.boardId)))
       ),
     { dispatch: false }
   );

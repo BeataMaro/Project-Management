@@ -1,6 +1,6 @@
-import { Component, EventEmitter, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
-import { Observable, from } from 'rxjs';
+import { Observable } from 'rxjs';
 
 import { Iboard } from '../../../shared/models/board.model';
 import { deleteBoard, getBoards } from '../../store/board/board.actions';
@@ -11,14 +11,13 @@ import {
   isLoadingSelector,
 } from '../../store/board/board.selectors';
 
-import { ColumnIdSelector } from '../../store/column/column.selector';
+// import { ColumnIdSelector } from '../../store/column/column.selector';
 import { BoardsService } from '../../service/boards.service';
 import {
   windowInnerWidth,
   handleSize,
 } from 'src/app/shared/helpers/window-size';
-import { ICol, IColumn } from 'src/app/shared/models/column.model';
-import { BoardsStateInterface, initialBoardsState } from '../../store/board/board.reducer';
+import { initialBoardsState } from '../../store/board/board.reducer';
 
 @Component({
   selector: 'app-board',
@@ -44,10 +43,10 @@ export class BoardsListingPageComponent implements OnInit {
   ngOnInit() {
     this.mybreakpoint = windowInnerWidth();
     this.isLoading$ = this.store.pipe(select(isLoadingSelector));
-    // this.BoardsService.getAllBoards().subscribe(boards => boards.map((board) => console.log(board.title)));
     this.BoardsService.getAllBoards().subscribe();
-    // console.log(this.allBoards$.subscribe((res) => res?.map((b) => b.title)));
     this.store.dispatch(getBoards());
+    // this.BoardsService.getAllBoards().subscribe(boards => boards.map((board) => console.log(board.title)));
+    // console.log(this.allBoards$.subscribe((res) => res?.map((b) => b.title)));
   }
 
   handleReSize(event: Event) {
@@ -55,7 +54,6 @@ export class BoardsListingPageComponent implements OnInit {
   }
 
   removeBoard(boardId: string) {
-    // this.BoardsService.deleteBoard(boardId);
     this.store.dispatch(deleteBoard({ boardId }));
     this.ngOnInit();
   }

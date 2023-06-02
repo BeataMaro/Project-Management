@@ -1,5 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, Input, OnChanges, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { BoardsService } from 'src/app/boards-listing/service/boards.service';
 
@@ -9,7 +9,6 @@ import { MatDialog } from '@angular/material/dialog';
 import { FormDialog } from 'src/app/core/components/form-dialog/form-dialog.component';
 import { ConfirmationDialog } from '../../../core/components/confirmation-dialog/confirmation-dialog.component';
 import {
-  getColumns,
   deleteColumn,
 } from '../../store/column/column.actions';
 import {
@@ -18,15 +17,12 @@ import {
   transferArrayItem,
 } from '@angular/cdk/drag-drop';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
-
 import { TaskService } from '../../service/task.service';
 import { ColumnsService } from '../../service/columns.service';
-import { ColumnsSelector } from '../../store/column/column.selector';
 import { ICol, IColumn } from 'src/app/shared/models/column.model';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { BoardsStateInterface } from '../../store/board/board.reducer';
-import { addColumn } from '../../store/board/board.actions';
+import { addColumn } from '../../store/column/column.actions';
 
 @Component({
   selector: 'app-board-page',
@@ -48,7 +44,6 @@ export class BoardPageComponent implements OnInit {
     title: new FormControl('', [Validators.required]),
     order: new FormControl(0, [Validators.required]),
   });
-  // column$: IColumn;
 
   constructor(
     private taskService: TaskService,
@@ -119,7 +114,7 @@ export class BoardPageComponent implements OnInit {
   }
 
   onConfirmClick(): void {
-    this.store.dispatch(getColumns());
+    // this.store.dispatch(getColumns());
   }
 
   onToggleComplete(changedItem: Itask): void {
@@ -144,8 +139,8 @@ export class BoardPageComponent implements OnInit {
         )
       );
 
-    this.store.dispatch(getColumns());
-    this.store.select(ColumnsSelector);
+    // this.store.dispatch(getColumns());
+    // this.store.select(ColumnsSelector);
   }
 
   toggleForm() {

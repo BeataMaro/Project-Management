@@ -2,13 +2,11 @@ import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import {
   catchError,
-  finalize,
   from,
   map,
   mergeMap,
   of,
   switchMap,
-  tap,
   withLatestFrom,
 } from 'rxjs';
 import { Store } from '@ngrx/store';
@@ -20,8 +18,8 @@ import {
   getColumnsFailure,
 } from './column.actions';
 import { ColumnsService } from '../../service/columns.service';
-import { ColumnsSelector } from './column.selector';
 import { BoardsStateInterface } from '../board/board.reducer';
+import { ColumnsSelector } from './column.selector';
 
 @Injectable()
 export class ColumnsEffects {
@@ -52,6 +50,14 @@ export class ColumnsEffects {
   // this.ColumnsService.deleteColumn()
   // )
   // ))
+
+  // fetchColumns$ = createEffect(() =>
+  //   mergeMap(() =>
+  //     this.boardsService
+  //       .getAllBoards()
+  //       .pipe(map((board) => getColumns(board)))
+  //   )
+  // );
 
   addColumn$ = createEffect(
     () =>

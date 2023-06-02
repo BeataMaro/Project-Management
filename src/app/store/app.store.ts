@@ -2,32 +2,39 @@ import {
   BoardsStateInterface,
   initialBoardsState,
 } from '../boards-listing/store/board/board.reducer';
-import { IColumn } from '../shared/models/column.model';
-import { Itask } from '../shared/models/task.model';
+import { initialColState } from '../boards-listing/store/column/column.reducer';
+import { ColumnsStateInterface } from '../boards-listing/store/column/column.reducer';
+import {
+  TasksStateInterface,
+  initialTasksState,
+} from '../boards-listing/store/task/task.reducer';
 import {
   UsersStateInterface,
   initialUsersState,
 } from '../user/store/users/users.reducer';
 
 export interface IApp {
-  boards: BoardsStateInterface;
-  users: UsersStateInterface;
-  columns?: IColumn[];
-  tasks?: Itask[];
   isLoading?: boolean;
-  isLogged: boolean;
-  error?: string | null
-  boardId?: string
+  isLogged?: boolean;
+  error?: string | null;
 }
 
 export interface AppStateInterface {
-  AppState: IApp;
+  appState: IApp;
+  users: UsersStateInterface;
+  boards: BoardsStateInterface;
+  columns: ColumnsStateInterface;
+  tasks: TasksStateInterface;
 }
 
-export const initialAppState: IApp = {
-  boards: initialBoardsState,
+export const initialAppState: AppStateInterface = {
+  appState: {
+    isLoading: true,
+    isLogged: false,
+    error: null,
+  },
   users: initialUsersState,
-  isLoading: true,
-  isLogged: false,
-
+  boards: initialBoardsState,
+  columns: initialColState,
+  tasks: initialTasksState,
 };

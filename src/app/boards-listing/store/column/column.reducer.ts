@@ -1,7 +1,5 @@
 import { createReducer, on } from '@ngrx/store';
-import { BoardsStateInterface } from '../board/board.reducer';
-import { initialState } from '../board/board.reducer';
-import { ICol, IColumn } from '../../../shared/models/column.model';
+import { IColumn } from '../../../shared/models/column.model';
 import {
   getColumnsSuccess,
   getColumnsFailure,
@@ -10,23 +8,20 @@ import {
   deleteColumn,
 } from './column.actions';
 
-// export interface ColumnsStateInterface {
-//   isLoading: boolean;
-//   column: ICol;
-//   error: string | null;
-//   columnId?: string;
-//   boardId: string;
-// }
+export interface ColumnsStateInterface {
+  isLoading: boolean;
+  columns: IColumn[];
+  error: string | null;
+}
 
-// export const colInitialState: ColumnsStateInterface = {
-//   isLoading: false,
-//   column: { title: '', order: 0 },
-//   error: null,
-//   boardId: '',
-// };
+export const initialColState: ColumnsStateInterface = {
+  isLoading: true,
+  columns: [],
+  error: null,
+};
 
 export const columnsReducer = createReducer(
-  initialState,
+  initialColState,
   on(getColumns, (state) => ({
     ...state,
     isLoading: false,
@@ -37,24 +32,47 @@ export const columnsReducer = createReducer(
     columns: action.columns,
     boardId: action.boardId,
   })),
-  on(getColumnsFailure, (state, action) => ({
+  on(getColumnsFailure, (state, { error }) => ({
     ...state,
     isLoading: false,
-    error: action.error,
+    error,
+  })),
+  on(addColumn, (state, { boardId, column }) => ({
+    ...state,
+    column,
+    boardId,
+
+    // ...state.boards.find((board) => board._id === action.boardId)?.columns?.push(action.column),
+    // ...state.boards.columns
   })),
   on(deleteColumn, (state, action) => ({
     ...state,
     isLoading: false,
     columnId: action.columnId,
     boardId: action.boardId,
-  })),
-  on(addColumn, (state, action) => ({
-    ...state,
-     column: action.column,
-
-    // ...state.boards.find((board) => board._id === action.boardId)?.columns?.push(action.column),
-    // ...state.boards.columns
-
-    boardId: action.boardId,
   }))
 );
+
+// on(getColumnsSuccess, (state, { columns, boardId }) => ({
+//   ...state,
+//   isLoading: false,
+
+//     boards: [
+//       ...state.boards,
+//       const board = state.boards.find((board) => {
+//         board._id === boardId).columns
+//       }
+//       = [ ...board.columns, ...columns}]
+//     ],
+// )),
+
+// on(addColumn, (state, { column, boardId }) => {
+//   // let currentBoard = state.boards.find((board) => board._id === boardId);
+//   // currentBoard!.columns = [...currentBoard!.columns!, column];
+//   // let filteredBoards = state.boards.filter((board) => board._id !== boardId);
+//   return {
+//     ...state,
+//     isLoading: false,
+//     // columns: [...state.columns!, ]
+//   };
+// });

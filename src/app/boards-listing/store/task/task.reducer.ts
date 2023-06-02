@@ -10,13 +10,13 @@ export interface TasksStateInterface {
   columnsId?: string
 }
 
-const initialState: TasksStateInterface = {
+export const initialTasksState: TasksStateInterface = {
   isLoading: false,
   tasks: [],
   error: null,
 };
 
-export const tasksReducers = createReducer(initialState, on(getTasks, (state) => ({
+export const tasksReducers = createReducer(initialTasksState, on(getTasks, (state) => ({
     ...state,
     isLoading: true
 }) ),

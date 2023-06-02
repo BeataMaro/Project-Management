@@ -1,13 +1,19 @@
-import { createReducer, on, Action } from "@ngrx/store";
-import { IApp, initialAppState } from "./app.store";
-import { loginUser } from "../user/store/users/users.actions";
+import { createReducer, on, Action } from '@ngrx/store';
+import { AppStateInterface, IApp, initialAppState } from './app.store';
+import { loginUser } from '../user/store/users/users.actions';
 
-export const AppReducer = createReducer(initialAppState as IApp, on(loginUser, (state) => ({
+export const AppReducer = createReducer(
+  initialAppState as IApp,
+  on(loginUser, (state) => ({
     ...state,
     isLoading: false,
-    isLogged: true
-})));
+    isLogged: true,
+  }))
+);
 
-export function reducer(state: IApp | undefined, action: Action): IApp {
-    return AppReducer(state as IApp, action as Action);
-  }
+export function reducer(
+  state: IApp | undefined,
+  action: Action
+): IApp {
+  return AppReducer(state as IApp | undefined, action as Action);
+}

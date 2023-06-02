@@ -17,6 +17,7 @@ import { CreateTaskFormComponent } from './components/create-task-form/create-ta
 import { ColumnComponent } from './components/column/column.component';
 import { TaskComponent } from './components/task/task.component';
 import { BoardTileComponent } from './components/board-tile/board-tile.component';
+import { columnsReducer } from './store/column/column.reducer';
 
 @NgModule({
   declarations: [
