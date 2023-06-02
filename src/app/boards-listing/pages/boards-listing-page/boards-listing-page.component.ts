@@ -43,8 +43,7 @@ export class BoardsListingPageComponent implements OnInit {
   ngOnInit() {
     this.mybreakpoint = windowInnerWidth();
     this.isLoading$ = this.store.pipe(select(isLoadingSelector));
-    this.allBoards$ = this.store.select(BoardsSelector);
-    this.BoardsService.getAllBoards();
+    this.BoardsService.getAllBoards().subscribe();
     this.store.dispatch(getBoards());
   }
 
@@ -53,7 +52,7 @@ export class BoardsListingPageComponent implements OnInit {
   }
 
   removeBoard(boardId: string) {
-    this.BoardsService.deleteBoard(boardId);
+    // this.BoardsService.deleteBoard(boardId);
     this.store.dispatch(deleteBoard({ boardId }));
     this.ngOnInit();
   }

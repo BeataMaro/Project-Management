@@ -17,7 +17,7 @@ import * as BoardsActions from '../../store/board/board-actions';
 })
 export class CreateBoardComponent {
   createBoardForm = new FormGroup({
-    title: new FormControl('', [Validators.required]),
+    title: new FormControl(' ', [Validators.required]),
   });
   board$: Iboard;
   // column$: ICol;
@@ -43,7 +43,7 @@ export class CreateBoardComponent {
     this.boardsService
       .createBoard({
         title: this.createBoardForm.value.title,
-        owner: localStorage.getItem('user_id')! || '',
+        owner: localStorage.getItem('user_id')! || ' ',
         users: [],
       })
       .subscribe(
@@ -53,7 +53,7 @@ export class CreateBoardComponent {
         },
 
         () => this.router.navigateByUrl('/boards'),
-        () => this.createBoardForm.setValue({ title: '' })
+        () => this.createBoardForm.setValue({ title: ' ' })
       );
     this.store.dispatch(BoardsActions.addBoard({ board: this.board$ }));
     this.ngOnInit();
