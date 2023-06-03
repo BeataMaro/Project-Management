@@ -17,7 +17,7 @@ import {
   getColumnsSuccess,
   getColumnsFailure,
 } from './column.actions';
-import { ColumnsService } from '../../service/columns.service';
+import { ColumnsService } from 'src/app/boards-listing/service/columns.service';
 import { BoardsStateInterface } from '../board/board.reducer';
 import { ColumnsSelector } from './column.selector';
 

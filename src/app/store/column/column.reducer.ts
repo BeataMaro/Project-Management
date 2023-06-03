@@ -26,11 +26,11 @@ export const columnsReducer = createReducer(
     ...state,
     isLoading: false,
   })),
-  on(getColumnsSuccess, (state, action) => ({
+  on(getColumnsSuccess, (state, { columns, boardId }) => ({
     ...state,
     isLoading: false,
-    columns: action.columns,
-    boardId: action.boardId,
+    boardId: boardId,
+    columns: columns,
   })),
   on(getColumnsFailure, (state, { error }) => ({
     ...state,
@@ -39,17 +39,17 @@ export const columnsReducer = createReducer(
   })),
   on(addColumn, (state, { boardId, column }) => ({
     ...state,
-    column,
     boardId,
+    column,
 
     // ...state.boards.find((board) => board._id === action.boardId)?.columns?.push(action.column),
     // ...state.boards.columns
   })),
-  on(deleteColumn, (state, action) => ({
+  on(deleteColumn, (state, { boardId, columnId }) => ({
     ...state,
     isLoading: false,
-    columnId: action.columnId,
-    boardId: action.boardId,
+    boardId,
+    columnId,
   }))
 );
 

@@ -12,7 +12,7 @@ import {
   getBoardsFailure,
   getBoardsSuccess,
 } from './board.actions';
-import { BoardIdSelector, BoardsSelector } from './board.selectors';
+import { BoardsSelector } from './board.selectors';
 
 @Injectable()
 export class BoardsEffects {
@@ -102,8 +102,7 @@ export class BoardsEffects {
     () =>
       this.actions$.pipe(
         ofType(deleteBoard),
-        withLatestFrom(this.store.select(BoardIdSelector)),
-        switchMap(([action, boards]) =>
+        switchMap((action) =>
           from(this.boardsService.deleteBoard(action.boardId))
         )
       ),

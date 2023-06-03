@@ -1,5 +1,4 @@
 import { createAction, props } from '@ngrx/store';
-// import { Iboard } from 'src/app/shared/models/board.model';
 import { Ilogin, Isignup, Iuser } from 'src/app/shared/models/user.model';
 
 export const loadUsers = createAction('[Users] Load Users Success');
@@ -22,11 +21,9 @@ export const getUsersFailure = createAction(
 );
 export const loginUser = createAction(
   '[Users] Login User',
-  props<{ login?: Ilogin, token?: string }>()
+  props<{ login?: Ilogin; token?: string }>()
 );
-export const logoutUser = createAction(
-  '[Users] Logout User',
-);
+export const logoutUser = createAction('[Users] Logout User');
 
 export const addUserSuccess = createAction(
   '[Users] Add user Success',
@@ -39,12 +36,10 @@ export const addUserFailure = createAction(
 
 export const updateUser = createAction(
   '[Users] Update user',
-  // props<{ userId: string, name: string, login: string, password: string}>()
   props<{ user: Isignup }>()
 );
 
 export const deleteUser = createAction(
   '[Users] Delete user',
-  // props<{ userId: string, name: string, login: string, password: string}>()
   props<{ userId: string }>()
 );

@@ -8,15 +8,11 @@ import {
   editBoard,
   deleteBoard,
 } from './board.actions';
-import { ICol, IColumn } from 'src/app/shared/models/column.model';
-// import { ColumnsStateInterface } from '../column/column-reducers';
 
 export interface BoardsStateInterface {
   isLoading?: boolean;
   boards?: Iboard[];
   error?: string | null;
-  // columns?: ICol[];
-  boardId?: string;
 }
 export const initialBoardsState: BoardsStateInterface = {
   isLoading: false,
@@ -33,7 +29,7 @@ export const boardsReducer = createReducer(
   on(getBoardsSuccess, (state, { boards }) => ({
     ...state,
     isLoading: false,
-    boards,
+    boards: [...boards ],
   })),
   on(getBoardsFailure, (state, { error }) => ({
     ...state,
@@ -41,14 +37,17 @@ export const boardsReducer = createReducer(
     error,
   })),
   on(deleteBoard, (state, { boardId }) => ({
+    // ...state,
+    // isLoading: false,
+    // boardId,
     ...state,
     isLoading: false,
-    boardId,
+    boardId
   })),
   on(addBoard, (state, { board }) => ({
     ...state,
     isLoading: false,
-    boards: [...state.boards!, board],
+    board,
   })),
   // on(editBoard, (state, { boardId, newTitle }) => ({
   on(editBoard, (state, { board }) => ({

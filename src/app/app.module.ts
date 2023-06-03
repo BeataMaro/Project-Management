@@ -19,7 +19,7 @@ import { reducers, metaReducers } from './store';
     CoreModule,
     BrowserAnimationsModule,
     WelcomeModule,
-    StoreModule.forRoot(reducers, {metaReducers}),
+    StoreModule.forRoot(reducers, { metaReducers }),
     EffectsModule.forRoot(),
     StoreRouterConnectingModule.forRoot(),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),

@@ -5,13 +5,11 @@ import { Observable } from 'rxjs';
 import { Iboard } from '../../../shared/models/board.model';
 import { deleteBoard, getBoards } from 'src/app/store/board/board.actions';
 import {
-  BoardIdSelector,
   BoardsSelector,
   ErrorSelector,
   isLoadingSelector,
 } from 'src/app/store/board/board.selectors';
 
-// import { ColumnIdSelector } from '../../store/column/column.selector';
 import { BoardsService } from '../../service/boards.service';
 import {
   windowInnerWidth,
@@ -28,7 +26,7 @@ export class BoardsListingPageComponent implements OnInit {
   isLoading$: Observable<boolean | undefined>;
   isError$: Observable<string | null | undefined>;
   allBoards$: Observable<Iboard[] | undefined>;
-  boardId: Observable<string | undefined>;
+  // boardId: Observable<string | undefined>;
   // columnId: Observable<(IColumn[] | ICol[] | undefined)[]>;
   mybreakpoint = 1;
 
@@ -36,8 +34,6 @@ export class BoardsListingPageComponent implements OnInit {
     this.isLoading$ = this.store.pipe(select(isLoadingSelector));
     this.isError$ = this.store.pipe(select(ErrorSelector));
     this.allBoards$ = this.store.select(BoardsSelector) || initialBoardsState;
-    this.boardId = this.store.select(BoardIdSelector);
-    // this.columnId = this.store.select(ColumnIdSelector);
   }
 
   ngOnInit() {
@@ -45,8 +41,6 @@ export class BoardsListingPageComponent implements OnInit {
     this.isLoading$ = this.store.pipe(select(isLoadingSelector));
     this.BoardsService.getAllBoards().subscribe();
     this.store.dispatch(getBoards());
-    // this.BoardsService.getAllBoards().subscribe(boards => boards.map((board) => console.log(board.title)));
-    // console.log(this.allBoards$.subscribe((res) => res?.map((b) => b.title)));
   }
 
   handleReSize(event: Event) {

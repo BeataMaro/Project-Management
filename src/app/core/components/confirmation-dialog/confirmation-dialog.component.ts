@@ -27,10 +27,6 @@ export class ConfirmationDialog {
       this.question = data.question || this.question;
       this.confirmButtonText = data.confirmButtonText || this.confirmButtonText;
       this.cancelButtonText = data.cancelButtonText || this.cancelButtonText;
-      //   if (data.buttonText) {
-      //     this.confirmButtonText = data.buttonText.ok || this.confirmButtonText;
-      //     this.cancelButtonText = data.buttonText.cancel || this.cancelButtonText;
-      //   }
     }
   }
 
